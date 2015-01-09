@@ -7,10 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.facebook.widget.LoginButton;
+import csu.bryanreilly.partypush.Network.Facebook.FacebookFragment;
 import csu.bryanreilly.partypush.Network.Facebook.FacebookFragmentManager;
 import csu.bryanreilly.partypush.R;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends FacebookFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
