@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="csu.bryanreilly.partypush" >
+
+    //Permissions
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/app_icon"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        //Main Activity Definition
+        <activity
+            android:name=".UI.Main.Main"
+            android:label="@string/app_name" >
+        </activity>
+
+        //Login Activity Definition
+        <activity
+                android:name=".UI.Login.LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        //Settings Activity Definition
+        <activity
+                android:name=".UI.Settings.SettingsActivity"
+                android:label="@string/app_name" >
+        </activity>
+
+        //Facebook Login Activity Definition
+        <activity
+                android:name="com.facebook.LoginActivity"
+                android:label="@string/app_name" >
+        </activity>
+
+        //General Meta-Data(Key-Value Pairs)
+        //Facebook Meta-Data
+        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+
+    </application>
+
+</manifest>

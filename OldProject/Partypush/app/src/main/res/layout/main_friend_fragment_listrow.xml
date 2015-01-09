@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:src="@color/LightGrey" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:id="@+id/textViewUsername"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentStart="false"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignTop="@+id/imageView"
+        android:textSize="@dimen/listrow_text"
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/listrow_horizontal_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Popularity"
+        android:id="@+id/textViewPopularity"
+        android:layout_alignBottom="@+id/imageView"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/listrow_horizontal_margin"
+        android:layout_alignRight="@+id/imageView"
+        android:layout_alignTop="@+id/imageView"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/listrow_text" />
+
+</RelativeLayout>

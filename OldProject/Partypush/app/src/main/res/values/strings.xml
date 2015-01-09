@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Partypush</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_add">Add</string>
+    <string name="party_tab">Parties</string>
+    <string name="map_tab">Map</string>
+    <string name="friends_tab">Friends</string>
+
+    <!--Facebook-->
+    <string name="app_id">271447893047326</string>
+
+</resources>
