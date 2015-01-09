@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import com.facebook.AppEventsLogger;
 import csu.bryanreilly.partypush.R;
-import csu.bryanreilly.partypush.UI.Main.Main;
+import csu.bryanreilly.partypush.UI.Main.MainActivity;
 import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
 
 public class LoginActivity extends FragmentActivity {
@@ -41,7 +41,7 @@ public class LoginActivity extends FragmentActivity {
 
     //For Testing, to be removed
     public void mainButtonClicked(View view){
-        Intent startMainActivity = new Intent(this, Main.class);
+        Intent startMainActivity = new Intent(this, MainActivity.class);
         startActivity(startMainActivity);
     }
 }
