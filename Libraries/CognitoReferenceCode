@@ -1,0 +1,20 @@
+Initialize Cognito Client:
+CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
+    myActivity.getContext(), // get the context for the current activity
+    "944513736710",
+    "us-east-1:bb025c43-3e0a-443c-8af0-b4304394a441",
+    "YOUR UNAUTHENTICATED ARN HERE",
+    "arn:aws:iam::944513736710:role/Cognito_PartypushAuth_DefaultRole",
+    Regions.US_EAST_1
+);
+
+Store and Syncronize Data:
+CognitoSyncManager syncClient = new CognitoSyncManager(
+   myActivity.getContext(), 
+   "us-east-1:bb025c43-3e0a-443c-8af0-b4304394a441", 
+   Regions.US_EAST_1,
+   cognitoProvider);
+   
+Dataset dataset = syncClient.openOrCreateDataset('myDataset');
+dataset.put("myKey", "myValue");
+dataset.synchronize(this, syncCallback);

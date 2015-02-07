@@ -2,6 +2,7 @@ package csu.bryanreilly.partypush.UI.Main;
 
 import java.util.Locale;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,11 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 import csu.bryanreilly.partypush.R;
+import csu.bryanreilly.partypush.UI.Main.Friends.FriendPickerActivity;
+import csu.bryanreilly.partypush.UI.Main.Friends.MainFriendsFragment;
+import csu.bryanreilly.partypush.UI.Main.Parties.MainPartiesFragment;
+import csu.bryanreilly.partypush.UI.Main.Parties.PartyCreateActivity;
+import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
@@ -76,7 +82,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.actionbar_activity_main, menu);
         return true;
     }
 
@@ -87,8 +93,25 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
+        //Handle button clicks
+        if (id == R.id.action_new) {
+            //Checks to see if we are on the correct fragment
+            if(mViewPager.getCurrentItem() == 0) {
+                Intent startPartyCreateActivity = new Intent(this, PartyCreateActivity.class);
+                startActivity(startPartyCreateActivity);
+            }
+
+            //Checks to see if we are on the correct fragment
+            else if(mViewPager.getCurrentItem() == 2) {
+                Intent startFriendPickerActivity = new Intent(this, FriendPickerActivity.class);
+                startActivity(startFriendPickerActivity);
+            }
+
+            return true;
+        }
         if (id == R.id.action_settings) {
+            Intent startSettingsActivity = new Intent(this, SettingsActivity.class);
+            startActivity(startSettingsActivity);
             return true;
         }
 
@@ -123,13 +146,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
-            switch (position){
+            switch (position) {
                 case 0:
-                    return new PartiesFragment();
+                    return new MainPartiesFragment();
                 case 1:
-                    return new MapFragment();
+                    return new MainMapFragment();
                 case 2:
-                    return new FriendsFragment();
+                    return new MainFriendsFragment();
             }
             return null;
         }

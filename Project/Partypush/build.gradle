@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.14.2'
+        classpath 'com.android.tools.build:gradle:1.0.0'
     }
 }
 apply plugin: 'com.android.application'
@@ -32,8 +32,12 @@ android {
 }
 
 dependencies {
+    //Include .jar files in libs folder when building
     compile fileTree(dir: 'libs', include: ['*.jar'])
+    //Adds support libraries
     compile 'com.android.support:appcompat-v7:21.0.3'
     //Adds the Facebook SDK to the project
     compile 'com.facebook.android:facebook-android-sdk:+'
+    //Adds Google Play Libraries
+    compile 'com.google.android.gms:play-services:6.5.87'
 }

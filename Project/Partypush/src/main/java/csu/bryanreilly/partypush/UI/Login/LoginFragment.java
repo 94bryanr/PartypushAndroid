@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.facebook.widget.LoginButton;
-import csu.bryanreilly.partypush.Network.Facebook.FacebookFragment;
+import csu.bryanreilly.partypush.Network.NetworkFragment;
 import csu.bryanreilly.partypush.R;
 
-public class LoginFragment extends FacebookFragment {
+import java.util.Arrays;
+
+public class LoginFragment extends NetworkFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -17,6 +19,7 @@ public class LoginFragment extends FacebookFragment {
         //Allows the fragment, instead of the activity, to handle facebook state changes.
         LoginButton authButton = (LoginButton) rootView.findViewById(R.id.authButton);
         authButton.setFragment(this);
+        authButton.setReadPermissions(Arrays.asList("user_friends"));
         return rootView;
     }
 
