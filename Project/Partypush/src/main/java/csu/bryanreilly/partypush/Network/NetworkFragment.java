@@ -68,6 +68,7 @@ public abstract class NetworkFragment extends Fragment{
     private void facebookSignIn(){
         Log.i("Facebook", getActivity() + ": Logged In, " + UserAccount.getName());
         initializeCognito();
+        UserAccount.login();
         returnToMain();
     }
 
