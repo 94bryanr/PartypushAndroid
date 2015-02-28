@@ -2,7 +2,6 @@ package csu.bryanreilly.partypush.UserData;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import com.amazonaws.services.dynamodbv2.model.GetItemResult;
 import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Network.AmazonDDB.PutDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;

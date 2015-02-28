@@ -15,7 +15,6 @@ import java.util.GregorianCalendar;
 //MUST USE .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getId()); because this task calls other AsyncTasks
 
 public class UpdateUserInfo extends AsyncTask<Void, Void, Void>{
-    private int DATABASE_TIMEOUT_SECONDS = 10;
 
     @Override
     protected Void doInBackground(Void... params) {
@@ -23,13 +22,13 @@ public class UpdateUserInfo extends AsyncTask<Void, Void, Void>{
         loginInfo.startTransaction();
 
         //Wait for result to return from the database
-        int timeoutSeconds = DATABASE_TIMEOUT_SECONDS;
+        int databaseTimeoutSeconds = 10;
         while(!loginInfo.isComplete()){
             //Times out after specified time
-            if(timeoutSeconds > 0) {
+            if(databaseTimeoutSeconds > 0) {
                 try {
                     Thread.sleep(1000);
-                    timeoutSeconds--;
+                    databaseTimeoutSeconds--;
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                     Log.e("Error", "UpdateUserInfo timeout handler interrupted");

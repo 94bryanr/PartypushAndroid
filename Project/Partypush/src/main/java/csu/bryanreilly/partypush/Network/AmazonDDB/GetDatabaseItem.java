@@ -14,7 +14,7 @@ public class GetDatabaseItem implements DatabaseTransaction {
     private AmazonDynamoDBClient client;
     private String tableName;
     private boolean isComplete = false;
-    Map<String, AttributeValue> key = new HashMap<String, AttributeValue>();
+    Map<String, AttributeValue> key = new HashMap<>();
     GetItemResult result;
 
     public GetDatabaseItem(String id, String tableName){

@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.facebook.widget.FriendPickerFragment;
 import csu.bryanreilly.partypush.Network.NetworkFragment;
 import csu.bryanreilly.partypush.R;
 

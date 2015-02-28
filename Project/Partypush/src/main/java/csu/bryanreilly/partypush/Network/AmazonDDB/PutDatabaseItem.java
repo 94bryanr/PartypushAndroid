@@ -29,8 +29,8 @@ public class PutDatabaseItem implements DatabaseTransaction {
     public PutDatabaseItem(String tableName, putType type){
         this.client = (AmazonDynamoDBClient)NetworkFragment.getAmazonDatabaseClient();
         this.tableName = tableName;
-        item = new HashMap<String, AttributeValue>();
-        update = new HashMap<String, AttributeValueUpdate>();
+        item = new HashMap<>();
+        update = new HashMap<>();
         this.type = type;
     }
 
@@ -44,7 +44,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
     }
 
     public void clearFields(){
-        item = new HashMap<String, AttributeValue>();
+        item = new HashMap<>();
     }
 
     public void addField(String field, String value){
@@ -64,7 +64,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
                 client.putItem(putItemRequest);
                 break;
             case UPDATE:
-                Map<String, AttributeValue> key = new HashMap<String, AttributeValue>();
+                Map<String, AttributeValue> key = new HashMap<>();
                 key.put(Constants.USER_DATABASE_ID, new AttributeValue().withS(UserAccount.getId()));
                 UpdateItemRequest updateItemRequest = new UpdateItemRequest()
                         .withKey(key)

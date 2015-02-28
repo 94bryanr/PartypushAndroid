@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class NetworkFragment extends Fragment{
-    private CognitoCachingCredentialsProvider cognitoProvider;
     private static AmazonDynamoDB amazonDatabaseClient;
     private static boolean facebookLoggedIn = false;
     private UiLifecycleHelper status;
@@ -34,13 +33,13 @@ public abstract class NetworkFragment extends Fragment{
     public void onSessionStateChange(Session session, SessionState state, Exception exception) {
         Log.i("Facebook", "onSessionStateChange called");
         if (state.isOpened()) {
-            if(facebookLoggedIn == false){
+            if(!facebookLoggedIn){
                 //Facebook state changed from previous state.
                 facebookLoggedIn = true;
                 getFacebookUserInfo(session);
             }
         } else if (state.isClosed()) {
-            if(facebookLoggedIn == true){
+            if(facebookLoggedIn){
                 //Facebook state changed from previous state.
                 facebookLoggedIn = false;
                 facebookSignOut();
@@ -78,7 +77,7 @@ public abstract class NetworkFragment extends Fragment{
     }
 
     private void initializeCognito(){
-        cognitoProvider = new CognitoCachingCredentialsProvider(
+        CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
                 this.getActivity(), // get the context for the current activity
                 "944513736710",
                 "us-east-1:bb025c43-3e0a-443c-8af0-b4304394a441",
@@ -89,7 +88,7 @@ public abstract class NetworkFragment extends Fragment{
                 Regions.US_EAST_1
         );
 
-        Map<String, String> logins = new HashMap<String, String>();
+        Map<String, String> logins = new HashMap<>();
         logins.put("graph.facebook.com", Session.getActiveSession().getAccessToken());
         cognitoProvider.withLogins(logins);
 
@@ -155,9 +154,6 @@ public abstract class NetworkFragment extends Fragment{
     }
 
     public static boolean isLoggedIn(){
-        if(facebookLoggedIn){
-            return true;
-        }
-        return false;
+        return facebookLoggedIn;
     }
 }
