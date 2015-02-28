@@ -1,5 +1,9 @@
 package csu.bryanreilly.partypush.UserData;
 
+import android.os.AsyncTask;
+import android.util.Log;
+import com.amazonaws.services.dynamodbv2.model.GetItemResult;
+import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Network.AmazonDDB.PutDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
 
@@ -25,8 +29,8 @@ public class UserAccount {
 
     public static void addFriend(String id){
         //Add a friend to list
-        //friends.add(id)
         //Update Friends field on amazon db
+        //Refresh friends list
     }
 
     public static void setFirstName(String firstName) {
@@ -62,13 +66,15 @@ public class UserAccount {
     }
 
     public static void login(){
-        Calendar calendar = new GregorianCalendar();
-        PutDatabaseItem putNameDate = new PutDatabaseItem(Constants.USER_DATABASE);
-        putNameDate.addField(Constants.USER_DATABASE_ID, getId());
-        putNameDate.addField(Constants.USER_DATABASE_NAME, getName());
-        String date =  Integer.toString(calendar.get(Calendar.MONTH)) + "-" +
-                Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)) + "-" + Integer.toString(calendar.get(Calendar.YEAR));
-        putNameDate.addField(Constants.USER_DATABASE_DATE, date);
-        putNameDate.sendItem();
+        //Update/Create user information in database.
+        Log.i("Running Login", "UserAccount");
+
+        //Must user executeOnExecutor because this task calls other AsyncTasks
+        new UpdateUserInfo().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+    }
+
+    public static void logout(){
+        //TODO: Implement this, refactor login to do the reverse
+        Log.i("UserAccount", "Logout");
     }
 }

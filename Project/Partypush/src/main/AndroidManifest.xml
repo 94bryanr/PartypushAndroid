@@ -27,7 +27,7 @@
 
         //Login Activity Definition
         <activity
-                android:name=".UI.Login.LoginActivity">
+            android:name=".UI.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

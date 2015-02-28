@@ -13,6 +13,7 @@ import java.util.Map;
 public class GetDatabaseItem implements DatabaseTransaction {
     private AmazonDynamoDBClient client;
     private String tableName;
+    private boolean isComplete = false;
     Map<String, AttributeValue> key = new HashMap<String, AttributeValue>();
     GetItemResult result;
 
@@ -22,13 +23,14 @@ public class GetDatabaseItem implements DatabaseTransaction {
         key.put("UserID", new AttributeValue().withS(id));
     }
 
-    public void getItem(){
+    public GetItemResult startTransaction(){
         if(NetworkFragment.isLoggedIn()){
             new DatabaseThread().execute(this);
         }
         else{
             Log.i("Network", "Must be logged in to access database");
         }
+        return result;
     }
 
     @Override
@@ -41,7 +43,21 @@ public class GetDatabaseItem implements DatabaseTransaction {
     }
 
     @Override
-    public String completionMessage() {
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    @Override
+    public void setComplete() {
+        isComplete = true;
+    }
+
+    @Override
+    public String onComplete() {
         return "Get item successful";
+    }
+
+    public GetItemResult getResult(){
+        return result;
     }
 }

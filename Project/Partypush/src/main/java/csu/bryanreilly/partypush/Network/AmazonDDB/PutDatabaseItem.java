@@ -3,21 +3,35 @@ package csu.bryanreilly.partypush.Network.AmazonDDB;
 import android.util.Log;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
+import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
+import com.amazonaws.services.dynamodbv2.model.UpdateItemRequest;
 import csu.bryanreilly.partypush.Network.NetworkFragment;
+import csu.bryanreilly.partypush.Program.Constants;
+import csu.bryanreilly.partypush.UserData.UserAccount;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class PutDatabaseItem implements DatabaseTransaction {
     private AmazonDynamoDBClient client;
-    private Map<String, AttributeValue> item;
+    private boolean isComplete = false;
+    private Map<String, AttributeValue> item; //For creating new items
+    private Map<String, AttributeValueUpdate> update; // For updating existing items
     private String tableName;
 
-    public PutDatabaseItem(String tableName){
+    public static enum putType{
+        CREATE,
+        UPDATE
+    }
+    private putType type;
+
+    public PutDatabaseItem(String tableName, putType type){
         this.client = (AmazonDynamoDBClient)NetworkFragment.getAmazonDatabaseClient();
         this.tableName = tableName;
         item = new HashMap<String, AttributeValue>();
+        update = new HashMap<String, AttributeValueUpdate>();
+        this.type = type;
     }
 
     public void sendItem(){
@@ -36,17 +50,43 @@ public class PutDatabaseItem implements DatabaseTransaction {
     public void addField(String field, String value){
         if(!value.isEmpty()) {
             item.put(field, new AttributeValue().withS(value));
+            update.put(field, new AttributeValueUpdate().withValue(new AttributeValue().withS(value)));
         }
     }
 
-    //Method executed by the AsyncTask in a seperate thread. Do not call from outside AsyncTask
+    //Method executed by the AsyncTask in a separate thread. Do not call from outside AsyncTask
     public void execute(){
-        PutItemRequest itemRequest = new PutItemRequest().withTableName(tableName).withItem(item);
-        client.putItem(itemRequest);
+        switch(type){
+            case CREATE:
+                PutItemRequest putItemRequest = new PutItemRequest()
+                        .withTableName(tableName)
+                        .withItem(item);
+                client.putItem(putItemRequest);
+                break;
+            case UPDATE:
+                Map<String, AttributeValue> key = new HashMap<String, AttributeValue>();
+                key.put(Constants.USER_DATABASE_ID, new AttributeValue().withS(UserAccount.getId()));
+                UpdateItemRequest updateItemRequest = new UpdateItemRequest()
+                        .withKey(key)
+                        .withTableName(tableName)
+                        .withAttributeUpdates(update);
+                client.updateItem(updateItemRequest);
+                break;
+        }
     }
 
     @Override
-    public String completionMessage() {
+    public boolean isComplete() {
+        return isComplete;
+    }
+
+    @Override
+    public void setComplete(){
+        isComplete = true;
+    }
+
+    @Override
+    public String onComplete() {
         return "Put item successful";
     }
 }

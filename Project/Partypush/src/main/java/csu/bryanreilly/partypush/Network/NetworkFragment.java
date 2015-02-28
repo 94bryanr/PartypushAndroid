@@ -66,16 +66,15 @@ public abstract class NetworkFragment extends Fragment{
     }
 
     private void facebookSignIn(){
+        returnToMain();
         Log.i("Facebook", getActivity() + ": Logged In, " + UserAccount.getName());
         initializeCognito();
         UserAccount.login();
-        returnToMain();
     }
 
     private void facebookSignOut(){
-        Log.i("Facebook", getActivity() + ": Logged Out");
-        //If logged out, return to login screen
         returnToLogin();
+        Log.i("Facebook", getActivity() + ": Logged Out");
     }
 
     private void initializeCognito(){

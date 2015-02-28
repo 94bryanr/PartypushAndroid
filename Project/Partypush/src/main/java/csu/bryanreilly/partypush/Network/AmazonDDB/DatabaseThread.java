@@ -30,16 +30,19 @@ public class DatabaseThread extends AsyncTask<DatabaseTransaction, Void, Void>{
     // Run with new WhateverTask().execute(param1, param2, param3);
 
     private String completionMessage;
+    private DatabaseTransaction currentTransaction;
 
     @Override
     protected Void doInBackground(DatabaseTransaction... params) {
-        completionMessage = params[0].completionMessage();
+        currentTransaction = params[0];
+        completionMessage = currentTransaction.onComplete();
         try {
-            params[0].execute();
+            currentTransaction.execute();
         }
         catch (NullPointerException e){
             Log.i("Exception", "Database Value Does Not Exist");
             completionMessage = "UNSUCCESSFUL";
+            currentTransaction.setComplete();
         }
         return null;
     }
@@ -48,5 +51,6 @@ public class DatabaseThread extends AsyncTask<DatabaseTransaction, Void, Void>{
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
         Log.i("Database Transaction", completionMessage);
+        currentTransaction.setComplete();
     }
 }
