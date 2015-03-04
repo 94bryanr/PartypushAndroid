@@ -3,13 +3,13 @@ Android version of Partypush
 
 **Project Sub-Modules and Libraries:**
 
-- Assets: Custom images.
+- _Assets:_ Custom images.
   
-- OldProject: Old verson of the app that might contain useful code snippets. Not in development. Will be removed soon.
+- _OldProject:_ Old verson of the app that might contain useful code snippets. Not in development. Will be removed soon.
   
-- Plan: Documents showing the high level structure of the program.
+- _Plan:_ Documents showing the high level structure of the program.
   
-- Project: Source code, this is what ships.
+- _Project:_ Source code, this is what ships.
   
 
 **INSTALL:**
