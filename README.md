@@ -19,6 +19,9 @@ Android version of Partypush
 - Bryan Reilly
   - 970-492-5292
   - 94bryanr@gmail.com
+- Jeremy Aldrich
+  - 970-227-1969
+  - omenzz@gmail.com
 
 **GROUP:**
 - Wunderlist:
