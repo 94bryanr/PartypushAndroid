@@ -1,15 +1,29 @@
 # PartypushAndroid
 Android version of Partypush
 
-name of the projects and all sub-modules and libraries (sometimes they are named different and very confusing to new users)
-descriptions of all the project, and all sub-modules and libraries
-5-line code snippet on how its used (if it's a library)
-copyright and licensing information (or "Read LICENSE")
-instruction to grab the documentation
+Project Sub-Modules and Libraries:
+  Assets: Custom images.
+  OldProject: Old verson of the app that might contain useful code snippets. Not in development. Will be removed soon.
+  Plan: Documents showing the high level structure of the program.
+  Project: Source code, this is what ships.
+  
+
+INSTALL:
 instructions to install, configure, and to run the programs
 instruction to grab the latest code and detailed instructions to build it (or quick overview and "Read INSTALL")
-list of authors or "Read AUTHORS"
-instructions to submit bugs, feature requests, submit patches, join mailing list, get announcements, or join the user or dev community in other forms
-other contact info (email address, website, company name, address, etc)
-a brief history if it's a replacement or a fork of something else
-legal notices (crypto stuff)
+Join contact circle, see GROUP
+
+AUTHORS:
+Bryan Reilly
+970-492-5292
+94bryanr@gmail.com
+
+GROUP:
+Wunderlist:
+Text Bryan Reilly at 970-492-5292 for list invite.
+GroupMe:
+Text Bryan Reilly at 970-492-5292 for group invite.
+
+INFO:
+Project started in 2015.
+Read LICENSE for copyright and licensing information.
