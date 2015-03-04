@@ -13,23 +13,23 @@ Android version of Partypush
   
 
 **INSTALL:**
-instructions to install, configure, and to run the programs
+- instructions to install, configure, and to run the programs
 
-instruction to grab the latest code and detailed instructions to build it (or quick overview and "Read INSTALL")
+- instruction to grab the latest code and detailed instructions to build it (or quick overview and "Read INSTALL")
 
-Join contact circle, see GROUP
+- Join contact circle, see GROUP
 
 **AUTHORS:**
 - Bryan Reilly
-- 970-492-5292
-- 94bryanr@gmail.com
+  - 970-492-5292
+  - 94bryanr@gmail.com
 
 **GROUP:**
-Wunderlist:
-Text Bryan Reilly at 970-492-5292 for list invite.
-GroupMe:
-Text Bryan Reilly at 970-492-5292 for group invite.
+- Wunderlist:
+  - Text Bryan Reilly at 970-492-5292 for list invite.
+- GroupMe:
+  - Text Bryan Reilly at 970-492-5292 for group invite.
 
 **INFO:**
-Project started in 2015.
-Read LICENSE for copyright and licensing information.
+- Project started in 2015.
+- Read LICENSE for copyright and licensing information.
