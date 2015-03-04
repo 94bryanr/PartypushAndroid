@@ -1,4 +1,4 @@
-package csu.bryanreilly.partypush.UserData;
+package csu.bryanreilly.partypush.Network.Transactions;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -6,6 +6,7 @@ import com.amazonaws.services.dynamodbv2.model.GetItemResult;
 import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Network.AmazonDDB.PutDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
+import csu.bryanreilly.partypush.UserData.UserAccount;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;

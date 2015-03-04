@@ -2,12 +2,7 @@ package csu.bryanreilly.partypush.UserData;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
-import csu.bryanreilly.partypush.Network.AmazonDDB.PutDatabaseItem;
-import csu.bryanreilly.partypush.Program.Constants;
-
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import csu.bryanreilly.partypush.Network.Transactions.UpdateUserInfo;
 
 public class UserAccount {
     private static String firstName;
