@@ -13,11 +13,7 @@ Android version of Partypush
   
 
 **INSTALL:**
-- instructions to install, configure, and to run the programs
-
-- instruction to grab the latest code and detailed instructions to build it (or quick overview and "Read INSTALL")
-
-- Join contact circle, see GROUP
+- TODO: instructions to install, configure, build, and run the program
 
 **AUTHORS:**
 - Bryan Reilly
