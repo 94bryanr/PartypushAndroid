@@ -29,9 +29,26 @@ Android version of Partypush
 - GroupMe:
   - Text Bryan Reilly at 970-492-5292 for group invite.
 
+**ANDROID BASICS:**
+- _Best Reference:_ http://developer.android.com/training/index.html
+
+Activity
+- Contains Fragments
+- Can think of as a single screen.
+- http://developer.android.com/guide/components/activities.html
+
+Fragment
+- Contains Views
+- Can think of as a portion of the user iterface.
+- http://developer.android.com/guide/components/fragments.html
+
+View
+- A single UI element.
+- Textbox, image, button, etc.
+
 **USING GIT:**
-- Basics: http://www.git-tower.com/learn/ebook/command-line/basics/getting-ready#start
-- Branching: http://www.git-tower.com/learn/ebook/command-line/branching-merging/branching-can-change-your-life#start
+- _Basics:_ http://www.git-tower.com/learn/ebook/command-line/basics/getting-ready#start
+- _Branching:_ http://www.git-tower.com/learn/ebook/command-line/branching-merging/branching-can-change-your-life#start
 
 Do not get a GUI application, do it out of a terminal.
 
@@ -47,6 +64,7 @@ Must understand these commands:
 - git remote add [URL]
 - git status
 - git add [FILE]
+- git add -A
 - git rm [FILE]
 - git commit -m 'COMMIT MESSAGE'
 - git branch
@@ -65,7 +83,7 @@ Recap:
   - git branch coolNewFeature
   - git checkout coolNewFeature
 - Commiting a change to your current branch
-  - git add -A       <--Adds all new and modified files to staging area
+  - git add -A
   - git commit -m 'added chululu sounds'
   - git push project coolNewFeature
 - Merging your branch (once it is finished!!)
