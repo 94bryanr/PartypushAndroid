@@ -72,8 +72,8 @@ public class AccountManager {
                 AccountManager.setName(user.getName());
                 AccountManager.setId(user.getId());
                 AccountManager.setUsername(user.getUsername());
-                //Must happen here
-                NetworkManager.startTransaction("UpdateUserInfo", callingActivity);
+                //TODO: Must happen here
+                //NetworkManager.startTransaction("UpdateUserInfo", callingActivity);
             }
         });
     }
