@@ -1,11 +1,12 @@
 package csu.bryanreilly.partypush.Network.Transactions;
 
-import csu.bryanreilly.partypush.Network.NetworkManager;
+import android.app.Activity;
+import android.os.AsyncTask;
 
 //Communicates with databaseManager, handles all transactions
 public class TransactionManager {
-    public void updateUserInfo(){
+    public void updateUserInfo(Activity callingActivity){
         //Updates users info in DynamoDB
-        NetworkManager.startTransaction("UpdateUserInfo");
+        new UpdateUserInfo().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, callingActivity);
     }
 }

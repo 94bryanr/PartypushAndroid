@@ -1,12 +1,13 @@
 package csu.bryanreilly.partypush.Network.Transactions;
 
+import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 import com.amazonaws.services.dynamodbv2.model.GetItemResult;
 import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Network.AmazonDDB.PutDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
-import csu.bryanreilly.partypush.UserData.UserAccount;
+import csu.bryanreilly.partypush.UserData.AccountManager;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -15,15 +16,14 @@ import java.util.GregorianCalendar;
 //Updates the users information in the database.
 //MUST USE .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getId()); because this task calls other AsyncTasks
 
-public class UpdateUserInfo extends AsyncTask<Void, Void, Void>{
-
+public class UpdateUserInfo extends AsyncTask<Activity, Void, Void>{
     @Override
-    protected Void doInBackground(Void... params) {
-        GetDatabaseItem loginInfo = new GetDatabaseItem(UserAccount.getId(), Constants.USER_DATABASE);
+    protected Void doInBackground(Activity... params) {
+        GetDatabaseItem loginInfo = new GetDatabaseItem(AccountManager.getId(), Constants.USER_DATABASE);
         loginInfo.startTransaction();
 
         //Wait for result to return from the database
-        int databaseTimeoutSeconds = 10;
+        int databaseTimeoutSeconds = 15;
         while(!loginInfo.isComplete()){
             //Times out after specified time
             if(databaseTimeoutSeconds > 0) {
@@ -38,7 +38,7 @@ public class UpdateUserInfo extends AsyncTask<Void, Void, Void>{
             else{
                 //Database Timed Out, log user out
                 Log.i("UpdateUserInfo", "Database Timeout");
-                UserAccount.logout();
+                AccountManager.logout(params[0]);
                 //Break out of task
                 return null;
             }
@@ -52,14 +52,14 @@ public class UpdateUserInfo extends AsyncTask<Void, Void, Void>{
             //stringResult is null, no user exists
             Log.i("New Login", "Creating Account in Database");
             PutDatabaseItem addUser = new PutDatabaseItem(Constants.USER_DATABASE, PutDatabaseItem.putType.CREATE);
-            addUser.addField(Constants.USER_DATABASE_ID, UserAccount.getId());
+            addUser.addField(Constants.USER_DATABASE_ID, AccountManager.getId());
             addUser.sendItem();
         }
 
         //Update User Info
         Calendar calendar = new GregorianCalendar();
         PutDatabaseItem updateUser = new PutDatabaseItem(Constants.USER_DATABASE, PutDatabaseItem.putType.UPDATE);
-        updateUser.addField(Constants.USER_DATABASE_NAME, UserAccount.getName());
+        updateUser.addField(Constants.USER_DATABASE_NAME, AccountManager.getName());
         String date =
                 Integer.toString(calendar.get(Calendar.MONTH) + 1) + "-" +
                         Integer.toString(calendar.get(Calendar.DAY_OF_MONTH)) + "-" +

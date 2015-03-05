@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.EditText;
 import csu.bryanreilly.partypush.R;
-import csu.bryanreilly.partypush.UserData.UserAccount;
+import csu.bryanreilly.partypush.UserData.AccountManager;
 
 public class FriendPickerActivity extends FragmentActivity {
     @Override
@@ -18,6 +18,6 @@ public class FriendPickerActivity extends FragmentActivity {
         //Add a friend by calling UserAccounts add method
         EditText textBox = (EditText)findViewById(R.id.IDTextBox);
         String ID = textBox.getText().toString();
-        UserAccount.addFriend(ID);
+        AccountManager.addFriend(ID);
     }
 }

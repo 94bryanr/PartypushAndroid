@@ -5,12 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.facebook.widget.LoginButton;
-import csu.bryanreilly.partypush.Network.NetworkFragment;
 import csu.bryanreilly.partypush.R;
+import csu.bryanreilly.partypush.UI.FacebookFragment;
 
 import java.util.Arrays;
 
-public class LoginFragment extends NetworkFragment {
+public class LoginFragment extends FacebookFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -21,11 +21,5 @@ public class LoginFragment extends NetworkFragment {
         authButton.setFragment(this);
         authButton.setReadPermissions(Arrays.asList("user_friends"));
         return rootView;
-    }
-
-    @Override
-    protected void returnToLogin(){
-        //Do nothing, this avoids the case where the login fragment tries to
-        //return to itself when logged out.
     }
 }

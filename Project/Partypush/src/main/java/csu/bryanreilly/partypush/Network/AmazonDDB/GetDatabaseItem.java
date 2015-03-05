@@ -5,6 +5,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
 import com.amazonaws.services.dynamodbv2.model.GetItemResult;
+import csu.bryanreilly.partypush.UserData.AccountManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,18 +18,13 @@ public class GetDatabaseItem implements DatabaseTransaction {
     GetItemResult result;
 
     public GetDatabaseItem(String id, String tableName){
-        this.client = (AmazonDynamoDBClient)NetworkFragment.getAmazonDatabaseClient();
+        this.client = (AmazonDynamoDBClient) AccountManager.getCognitoProvider();
         this.tableName = tableName;
         key.put("UserID", new AttributeValue().withS(id));
     }
 
     public GetItemResult startTransaction(){
-        if(NetworkFragment.isLoggedIn()){
-            new DatabaseThread().execute(this);
-        }
-        else{
-            Log.i("Network", "Must be logged in to access database");
-        }
+        new DatabaseThread().execute(this);
         return result;
     }
 

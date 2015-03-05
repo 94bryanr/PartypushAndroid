@@ -6,10 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import csu.bryanreilly.partypush.Network.NetworkFragment;
 import csu.bryanreilly.partypush.R;
+import csu.bryanreilly.partypush.UI.FacebookFragment;
 
-public class MainPartiesFragment extends NetworkFragment {
+public class MainPartiesFragment extends FacebookFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //super.onCreateView(inflater, container, savedInstanceState);

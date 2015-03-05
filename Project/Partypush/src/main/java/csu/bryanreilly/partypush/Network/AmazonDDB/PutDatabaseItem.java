@@ -1,13 +1,12 @@
 package csu.bryanreilly.partypush.Network.AmazonDDB;
 
-import android.util.Log;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
 import com.amazonaws.services.dynamodbv2.model.UpdateItemRequest;
 import csu.bryanreilly.partypush.Program.Constants;
-import csu.bryanreilly.partypush.UserData.UserAccount;
+import csu.bryanreilly.partypush.UserData.AccountManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,7 +25,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
     private putType type;
 
     public PutDatabaseItem(String tableName, putType type){
-        this.client = (AmazonDynamoDBClient)NetworkFragment.getAmazonDatabaseClient();
+        this.client = (AmazonDynamoDBClient)AccountManager.getCognitoProvider();
         this.tableName = tableName;
         item = new HashMap<>();
         update = new HashMap<>();
@@ -34,12 +33,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
     }
 
     public void sendItem(){
-        if(NetworkFragment.isLoggedIn()){
-            new DatabaseThread().execute(this);
-        }
-        else{
-            Log.i("Network", "Must be logged in to access database");
-        }
+        new DatabaseThread().execute(this);
     }
 
     public void clearFields(){
@@ -64,7 +58,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
                 break;
             case UPDATE:
                 Map<String, AttributeValue> key = new HashMap<>();
-                key.put(Constants.USER_DATABASE_ID, new AttributeValue().withS(UserAccount.getId()));
+                key.put(Constants.USER_DATABASE_ID, new AttributeValue().withS(AccountManager.getId()));
                 UpdateItemRequest updateItemRequest = new UpdateItemRequest()
                         .withKey(key)
                         .withTableName(tableName)
