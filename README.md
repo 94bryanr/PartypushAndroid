@@ -22,7 +22,7 @@ Android version of Partypush
 - Navigate to the (DIR) in a terminal.
 - Type: 'git clone https://github.com/94bryanr/PartypushAndroid' (without quotes)
 - Open the IDE you installed
-- File->open
+- File->Import Project
   - Navigate to the Project subfolder in (DIR) and open the project file.
 
 **AUTHORS:**
