@@ -59,7 +59,11 @@ View
 **USING GIT:**
 - _Basics:_ http://www.git-tower.com/learn/ebook/command-line/basics/getting-ready#start
 - _Branching:_ http://www.git-tower.com/learn/ebook/command-line/branching-merging/branching-can-change-your-life#start
-- _If you don't like reading:_ https://pcottle.github.io/learnGitBranching/
+- _Pro Git:_ http://git-scm.com/book/en/v2
+- _If you don't like reading:_ 
+  - https://pcottle.github.io/learnGitBranching/
+  - https://try.github.io/levels/1/challenges/1
+  - https://rogerdudler.github.io/git-guide/
 
 Do not get a GUI application, do it out of a terminal.
 
