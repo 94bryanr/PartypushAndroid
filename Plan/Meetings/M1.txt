@@ -1,0 +1,62 @@
+Partypush Meeting Goals:
+
+Get GitHub Accounts
+Get Wunderlist Accounts
+Get GroupMe Accounts
+
+Next Steps:
+Me:
+	Refactor Network Classes
+	Make sure all packages (Facebook, AmazonDB) are included in GitHub repo
+	Finish readme INSTALL
+	Add you guys to the GitHub repository
+	Add you guys to the Wunderlist list
+	Add you guys to GroupMe
+	I will have all of the above done by FRIDAY
+	I will text you guys when everything is working
+
+You:
+	Look at the GitHub Repository
+	Add your names to the read-me under AUTHORS
+	Check off the Wunderlist items I have set up in our list
+	Get the app running on your phones or on an emulator
+
+Have you guys looked into Android?
+
+Are you familiar with GitHub?
+	Do you understand pushing and pulling?
+	Do you understand branching?
+
+Would you want me to prepare an android basics document to read?
+	Do you understand what an Activity is?
+	Do you understand what a Fragment it?
+	Do you understand what a View is?
+
+Do you guys want to bring one more person on? (with Android experience)
+
+What do you guys want to do at the next meeting?
+	Go over Android basics
+	Go over source code
+	Go over requirements
+	Figure out who will do what(weekly tasks)
+
+Does meeting on Wednesday next week sound good? Or is there a better time we can find?
+	How long should our meetings be? Short?
+
+We will release in 3 months, ready or not. 11 Weeks.
+
+What you guys need to do:
+	Give me your GitHub accounts/email addresses
+	Make/Give me your Wunderlist accounts
+	Make/Give me your GroupMe accounts
+	Add names to readme authors
+	Check off Wunderlist items
+
+App will stick with the Partypush name for now.
+
+What is our company going to be called? Short and Sweet.
+
+Worst-Case: Great resume booster. Should be fun.
+Best-Case: We build up a large userbase.
+
+Partypush will allow users to meet with friends and find nearby social events with ease.
