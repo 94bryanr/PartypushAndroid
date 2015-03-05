@@ -59,6 +59,7 @@ View
 **USING GIT:**
 - _Basics:_ http://www.git-tower.com/learn/ebook/command-line/basics/getting-ready#start
 - _Branching:_ http://www.git-tower.com/learn/ebook/command-line/branching-merging/branching-can-change-your-life#start
+- _If you don't like reading:_ https://pcottle.github.io/learnGitBranching/
 
 Do not get a GUI application, do it out of a terminal.
 
@@ -80,7 +81,8 @@ Must understand these commands:
 - git branch
 - git branch [NEW BRANCH]
 - git checkout [BRANCH]
-- get merge [BRANCH]
+- git merge [BRANCH]
+- git pull [REMOTE] [BRANCH]
 
 We will use branches for EVERYTHING.
 
