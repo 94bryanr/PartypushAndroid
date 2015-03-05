@@ -13,7 +13,17 @@ Android version of Partypush
   
 
 **INSTALL:**
-- TODO: instructions to install, configure, build, and run the program
+- Download and install Android Studio or Intellij IDEA 14 (I recommend 14, since that is what I am using)
+  - Android Studio: http://developer.android.com/sdk/index.html
+  - Intellij 14: https://www.jetbrains.com/idea/whatsnew/
+- If you used Intellij 14, download and install the Android SDK
+  - Bottom of the page: http://developer.android.com/sdk/index.html
+- Make an empty directory (DIR) where you want to keep the app project.
+- Navigate to the (DIR) in a terminal.
+- Type: 'git clone https://github.com/94bryanr/PartypushAndroid' (without quotes)
+- Open the IDE you installed
+- File->open
+  - Navigate to the Project subfolder in (DIR) and open the project file.
 
 **AUTHORS:**
 - Bryan Reilly
