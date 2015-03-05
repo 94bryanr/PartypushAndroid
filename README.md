@@ -29,7 +29,7 @@ Android version of Partypush
 - GroupMe:
   - Text Bryan Reilly at 970-492-5292 for group invite.
 
-**USING GIT**
+**USING GIT:**
 - Basics: http://www.git-tower.com/learn/ebook/command-line/basics/getting-ready#start
 - Branching: http://www.git-tower.com/learn/ebook/command-line/branching-merging/branching-can-change-your-life#start
 
@@ -43,6 +43,8 @@ Must understand these terms:
 
 Must understand these commands:
 - git clone [URL]
+- git remote
+- git remote add [URL]
 - git status
 - git add [FILE]
 - git rm [FILE]
@@ -57,6 +59,8 @@ We will use branches for EVERYTHING.
 Recap:
 - Getting the repository
   - git clone https://github.com/94bryanr/PartypushAndroid
+- Adding repository to remotes list
+  - git remote add project https://github.com/94bryanr/PartypushAndroid
 - Starting a branch and moving to it
   - git branch coolNewFeature
   - git checkout coolNewFeature
