@@ -5,7 +5,7 @@ Android version of Partypush
 
 - _Assets:_ Custom images.
   
-- _OldProject:_ Old verson of the app that might contain useful code snippets. Not in development. Will be removed soon.
+- _LegacyCode:_ Old verson of the app that might contain useful code snippets. Not in development.
   
 - _Plan:_ Documents showing the high level structure of the program.
   
