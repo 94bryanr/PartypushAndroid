@@ -2,8 +2,12 @@ package csu.bryanreilly.partypush.Network.Transactions;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import com.amazonaws.services.dynamodbv2.model.GetItemResult;
+import com.facebook.Session;
+import com.facebook.SessionState;
 import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Network.AmazonDDB.PutDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
@@ -16,14 +20,15 @@ import java.util.GregorianCalendar;
 //Updates the users information in the database.
 //MUST USE .executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, getId()); because this task calls other AsyncTasks
 
-public class UpdateUserInfo extends AsyncTask<Activity, Void, Void>{
+public class UpdateUserInfo extends AsyncTask<Activity, Void, Activity>{
+    private boolean timeout = false;
     @Override
-    protected Void doInBackground(Activity... params) {
+    protected Activity doInBackground(Activity... params) {
         GetDatabaseItem loginInfo = new GetDatabaseItem(AccountManager.getId(), Constants.USER_DATABASE);
         loginInfo.startTransaction();
 
         //Wait for result to return from the database
-        int databaseTimeoutSeconds = 15;
+        int databaseTimeoutSeconds = Constants.DATABASE_TIMEOUT_SECONDS;
         while(!loginInfo.isComplete()){
             //Times out after specified time
             if(databaseTimeoutSeconds > 0) {
@@ -38,9 +43,9 @@ public class UpdateUserInfo extends AsyncTask<Activity, Void, Void>{
             else{
                 //Database Timed Out, log user out
                 Log.i("UpdateUserInfo", "Database Timeout");
-                AccountManager.logout(params[0]);
+                timeout = true;
                 //Break out of task
-                return null;
+                return params[0];
             }
         }
         GetItemResult result = loginInfo.getResult();
@@ -68,6 +73,14 @@ public class UpdateUserInfo extends AsyncTask<Activity, Void, Void>{
                         Integer.toString(calendar.get(Calendar.MINUTE)) + ")";
         updateUser.addField(Constants.USER_DATABASE_DATE, date);
         updateUser.sendItem();
-        return null;
+        return params[0];
+    }
+
+    protected void onPostExecute(Activity param){
+        //Log the user out
+        if (timeout) {
+            Session session = Session.getActiveSession();
+            session.closeAndClearTokenInformation();
+        }
     }
 }

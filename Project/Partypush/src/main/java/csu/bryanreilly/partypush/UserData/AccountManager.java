@@ -31,8 +31,8 @@ public class AccountManager {
             return;
         Log.i("AccountManager", "Logging In");
         initializeCognito(callingActivity);
-        getFacebookUserInfo(callingSession, callingActivity);
         UIManager.returnToMain(callingActivity);
+        getFacebookUserInfo(callingSession, callingActivity);
         loggedInFacebook = true;
     }
 
@@ -61,7 +61,7 @@ public class AccountManager {
         amazonDatabaseClient = new AmazonDynamoDBClient(cognitoProvider);
     }
 
-    private static void getFacebookUserInfo(Session session, Activity callingActivity){
+    private static void getFacebookUserInfo(final Session session, final Activity callingActivity){
         Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
             @Override
             public void onCompleted(GraphUser user, Response response) {
@@ -72,8 +72,7 @@ public class AccountManager {
                 AccountManager.setName(user.getName());
                 AccountManager.setId(user.getId());
                 AccountManager.setUsername(user.getUsername());
-                //TODO: Must happen here
-                //NetworkManager.startTransaction("UpdateUserInfo", callingActivity);
+                NetworkManager.startTransaction("UpdateUserInfo", callingActivity);
             }
         });
     }
