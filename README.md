@@ -65,15 +65,17 @@ View
   - https://try.github.io/levels/1/challenges/1
   - https://rogerdudler.github.io/git-guide/
 
-Do not get a GUI application, do it out of a terminal.
+Try to use Git out of a terminal, it makes everything easier.
 
-Must understand these terms:
+Should understand these terms:
 - Commit
 - Repository
 - Branch
 - Merge
+- Merge Conflict
+- Pull
 
-Must understand these commands:
+Should understand these commands:
 - git clone [URL]
 - git remote
 - git remote add [URL]
