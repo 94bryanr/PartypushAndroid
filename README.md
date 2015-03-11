@@ -32,7 +32,9 @@ Android version of Partypush
 - Jeremy Aldrich
   - 970-227-1969
   - omenzz@gmail.com
-
+-Garrett Phoonswadi
+ -303-842-2876
+ -garrett.phoonswadi@gmail.com
 **GROUP:**
 - Wunderlist:
   - Text Bryan Reilly at 970-492-5292 for list invite.
@@ -59,16 +61,23 @@ View
 **USING GIT:**
 - _Basics:_ http://www.git-tower.com/learn/ebook/command-line/basics/getting-ready#start
 - _Branching:_ http://www.git-tower.com/learn/ebook/command-line/branching-merging/branching-can-change-your-life#start
+- _Pro Git:_ http://git-scm.com/book/en/v2
+- _If you don't like reading:_ 
+  - https://pcottle.github.io/learnGitBranching/
+  - https://try.github.io/levels/1/challenges/1
+  - https://rogerdudler.github.io/git-guide/
 
-Do not get a GUI application, do it out of a terminal.
+Try to use Git out of a terminal, it makes everything easier.
 
-Must understand these terms:
+Should understand these terms:
 - Commit
 - Repository
 - Branch
 - Merge
+- Merge Conflict
+- Pull
 
-Must understand these commands:
+Should understand these commands:
 - git clone [URL]
 - git remote
 - git remote add [URL]
@@ -80,7 +89,8 @@ Must understand these commands:
 - git branch
 - git branch [NEW BRANCH]
 - git checkout [BRANCH]
-- get merge [BRANCH]
+- git merge [BRANCH]
+- git pull [REMOTE] [BRANCH]
 
 We will use branches for EVERYTHING.
 
