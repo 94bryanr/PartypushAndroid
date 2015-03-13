@@ -32,9 +32,10 @@ Android version of Partypush
 - Jeremy Aldrich
   - 970-227-1969
   - omenzz@gmail.com
--Garrett Phoonswadi
- -303-842-2876
- -garrett.phoonswadi@gmail.com
+- Garrett Phoonswadi
+ - 303-842-2876
+ - garrett.phoonswadi@gmail.com
+
 **GROUP:**
 - Wunderlist:
   - Text Bryan Reilly at 970-492-5292 for list invite.
