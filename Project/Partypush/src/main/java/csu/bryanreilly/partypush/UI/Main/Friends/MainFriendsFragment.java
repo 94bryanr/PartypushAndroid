@@ -8,6 +8,7 @@ import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.FacebookFragment;
 
 public class MainFriendsFragment extends FacebookFragment {
+    //TODO: Get friends list working
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //super.onCreateView(inflater, container, savedInstanceState);
