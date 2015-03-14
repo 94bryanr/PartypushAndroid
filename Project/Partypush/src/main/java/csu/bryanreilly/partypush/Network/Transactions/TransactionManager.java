@@ -9,4 +9,8 @@ public class TransactionManager {
         //Updates users info in DynamoDB
         new UpdateUserInfo().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, callingActivity);
     }
+
+    public void getFriendsWithApp(){
+        GetFriendsWithApp.makeCall();
+    }
 }

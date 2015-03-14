@@ -13,6 +13,7 @@ import com.facebook.model.GraphUser;
 import csu.bryanreilly.partypush.Network.NetworkManager;
 import csu.bryanreilly.partypush.UI.UIManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,6 +24,7 @@ public class AccountManager {
     private static String id;
     private static String username;
     private static String birthday;
+    private static ArrayList<Friend> friendsWithApp;
     private static AmazonDynamoDB amazonDatabaseClient;
     private static boolean loggedInFacebook = false;
 
@@ -72,7 +74,8 @@ public class AccountManager {
                 AccountManager.setName(user.getName());
                 AccountManager.setId(user.getId());
                 AccountManager.setUsername(user.getUsername());
-                NetworkManager.startTransaction("UpdateUserInfo", callingActivity);
+                NetworkManager.startTransaction(NetworkManager.TRANSACTIONS.UpdateUserInfo, callingActivity);
+                NetworkManager.startTransaction(NetworkManager.TRANSACTIONS.GetFriendsWithApp, callingActivity);
             }
         });
     }
@@ -81,10 +84,12 @@ public class AccountManager {
         return amazonDatabaseClient;
     }
 
-    public static void addFriend(String id){
-        //Add a friend to list
-        //Update Friends field on amazon db
-        //Refresh friends list
+    public static void setFriendsWithApp(ArrayList<Friend> friends){
+        friendsWithApp = friends;
+    }
+
+    public static ArrayList<Friend> getFriendsWithApp(){
+        return friendsWithApp;
     }
 
     public static void setFirstName(String firstName) {

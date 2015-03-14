@@ -22,6 +22,7 @@ import java.util.Map;
 
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UserData.AccountManager;
+import csu.bryanreilly.partypush.UserData.Friend;
 
 public class FriendPickerActivity extends FragmentActivity {
     @Override
@@ -29,36 +30,16 @@ public class FriendPickerActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_picker);
         final TextView text = (TextView)findViewById(R.id.textViewFriends);
-        final Map map;
-        final ArrayList<String> names = new ArrayList<String>();
-
-        //TODO: Make this data visible
-        /* make the API call */
-        new Request(
-                Session.getActiveSession(),
-                "/me/friends",
-                null,
-                HttpMethod.GET,
-                new Request.Callback() {
-                    public void onCompleted(Response response) {
-                        //Get friend data
-                        try {
-                            JSONArray friendArray = response.getGraphObject().getInnerJSONObject().getJSONArray("data");
-                            for (int friendIndex = 0; friendIndex < friendArray.length(); friendIndex++){
-                                Log.i("Friend", friendArray.getJSONObject(friendIndex).getString("name"));
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        ).executeAsync();
+        String display = "";
+        for(Friend friend : AccountManager.getFriendsWithApp()){
+            display += friend.getName() + " ";
+        }
+        text.setText(display);
     }
 
     public void addButtonClick(View view) {
         //Add a friend by calling UserAccounts add method
         EditText textBox = (EditText)findViewById(R.id.IDTextBox);
         String ID = textBox.getText().toString();
-        AccountManager.addFriend(ID);
     }
 }
