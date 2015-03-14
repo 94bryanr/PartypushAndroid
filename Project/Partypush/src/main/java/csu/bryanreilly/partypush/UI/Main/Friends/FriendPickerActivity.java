@@ -37,10 +37,4 @@ public class FriendPickerActivity extends FragmentActivity {
         }
         textBox.setText(display);
     }
-
-    public void addButtonClick(View view) {
-        //Add a friend by calling UserAccounts add method
-        EditText textBox = (EditText)findViewById(R.id.IDTextBox);
-        String ID = textBox.getText().toString();
-    }
 }
