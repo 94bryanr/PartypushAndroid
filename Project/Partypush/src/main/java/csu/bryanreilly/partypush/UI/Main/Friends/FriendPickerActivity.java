@@ -29,12 +29,13 @@ public class FriendPickerActivity extends FragmentActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_friend_picker);
-        final TextView text = (TextView)findViewById(R.id.textViewFriends);
+
+        TextView textBox = (TextView)findViewById(R.id.textViewFriends);
         String display = "";
         for(Friend friend : AccountManager.getFriendsWithApp()){
             display += friend.getName() + " ";
         }
-        text.setText(display);
+        textBox.setText(display);
     }
 
     public void addButtonClick(View view) {

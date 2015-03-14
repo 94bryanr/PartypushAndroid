@@ -10,26 +10,16 @@
         android:text="Friend Picker Activity"
         android:id="@+id/textView4"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/IDTextBox"
-        android:hint="UserID"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="addButtonClick"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="No Friends"
         android:id="@+id/textViewFriends"
+        android:layout_gravity="center_horizontal" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
