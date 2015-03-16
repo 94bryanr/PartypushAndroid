@@ -65,6 +65,10 @@
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyC9croUo67abo7lOP7-MnKDpgALxvESC4Q"/>
 
+        <uses-feature
+            android:glEsVersion="0x00020000"
+            android:required="true"/>
+
     </application>
 
 </manifest>

@@ -11,6 +11,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.view.Menu;
 import android.view.MenuItem;
 import csu.bryanreilly.partypush.R;
@@ -47,6 +49,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
+        // Sets the app "Header" to the font stated below,
+        // if the font is changed add the new font file into the /src/main/assets/fonts
+        SpannableString s = new SpannableString("Party Push");
+        s.setSpan(new TypefaceSpan(this, "graph-black.otf"), 0, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        // Update the action bar title with the TypefaceSpan instance
+        //android.app.ActionBar action = getActionBar();
+        actionBar.setTitle(s);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -82,7 +95,13 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
+
+
+
+
         getMenuInflater().inflate(R.menu.actionbar_activity_main, menu);
+
+
         return true;
     }
 
