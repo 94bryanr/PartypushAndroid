@@ -11,7 +11,9 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
 
+import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Network.TransactionManager;
+import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UI.UIManager;
 
 import java.util.ArrayList;
@@ -26,16 +28,21 @@ public class AccountManager {
     private static String username;
     private static String birthday;
     private static ArrayList<Friend> friendsWithApp;
+    private static ArrayList<Friend> addedFriends;
     private static AmazonDynamoDB amazonDatabaseClient;
     private static boolean loggedInFacebook = false;
 
     public static void login(Activity callingActivity, Session callingSession){
         if(loggedInFacebook)
             return;
+
+        friendsWithApp = new ArrayList<Friend>();
+        addedFriends = new ArrayList<Friend>();
         Log.i("AccountManager", "Logging In");
         initializeCognito(callingActivity);
         UIManager.returnToMain(callingActivity);
         getFacebookUserInfo(callingSession, callingActivity);
+        TransactionManager.updateFriends();
         loggedInFacebook = true;
     }
 
@@ -85,8 +92,16 @@ public class AccountManager {
         return amazonDatabaseClient;
     }
 
+    public static ArrayList<Friend> getAddedFriends(){
+        return addedFriends;
+    }
+
     public static void setFriendsWithApp(ArrayList<Friend> friends){
         friendsWithApp = friends;
+    }
+
+    public static void setAddedFriends(ArrayList<Friend> addedFriends) {
+        AccountManager.addedFriends = addedFriends;
     }
 
     public static ArrayList<Friend> getFriendsWithApp(){

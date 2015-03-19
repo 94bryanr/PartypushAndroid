@@ -22,4 +22,8 @@ public class TransactionManager {
     public static void addFriends(ArrayList<Friend> friends){
         AddFriends.run(friends);
     }
+
+    public static void updateFriends(){
+        //Todo: Get this to work
+    }
 }

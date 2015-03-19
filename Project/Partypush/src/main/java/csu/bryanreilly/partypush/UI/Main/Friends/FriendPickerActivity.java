@@ -60,15 +60,14 @@ public class FriendPickerActivity extends FragmentActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView==null)
-            {
+            if (convertView == null) {
                 LayoutInflater inflater = (LayoutInflater) FriendPickerActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 convertView = inflater.inflate(R.layout.list_row_friend_picker, parent, false);
             }
 
             Friend friend = friends.get(position);
 
-            TextView friendName = (TextView)convertView.findViewById(R.id.friendName);
+            TextView friendName = (TextView) convertView.findViewById(R.id.friendName);
             friendName.setText(friend.getName());
 
             return convertView;

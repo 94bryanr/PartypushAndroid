@@ -1,15 +1,7 @@
 package csu.bryanreilly.partypush.Network.AmazonDDB;
 
 import android.util.Log;
-
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
-import com.amazonaws.services.dynamodbv2.model.AttributeValue;
-import com.amazonaws.services.dynamodbv2.model.GetItemRequest;
-import com.amazonaws.services.dynamodbv2.model.GetItemResult;
-
-import java.util.HashMap;
-import java.util.Map;
-
 import csu.bryanreilly.partypush.UserData.AccountManager;
 
 public class AppendDatabaseItem implements DatabaseTransaction {
@@ -74,7 +66,7 @@ public class AppendDatabaseItem implements DatabaseTransaction {
     }
 
     private String appendWithoutDuplicate(String preAppend, String toAppend){
-        //Check to see if toAppend exists in preAppend
+        //Check to see if the value to add is already contained in the list
         if(preAppend.contains(toAppend)){
             return preAppend;
         }
