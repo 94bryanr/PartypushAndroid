@@ -51,6 +51,5 @@ public class UpdateFriends {
         }
 
         AccountManager.setAddedFriends(friendsList);
-        UIManager.refreshFriendsListScreen();
     }
 }
