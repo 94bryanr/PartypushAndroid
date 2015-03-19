@@ -14,9 +14,14 @@ public class UIManager {
     }
 
     public static void returnToMain(Activity callingActivity){
+        returnToMain(callingActivity, 0);
+    }
+
+    public static void returnToMain(Activity callingActivity, int tab){
         Intent startMainActivity = new Intent(callingActivity, MainActivity.class);
         //Clears the backstack
         startMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startMainActivity.putExtra("Tab", tab);
         callingActivity.startActivity(startMainActivity);
     }
 }

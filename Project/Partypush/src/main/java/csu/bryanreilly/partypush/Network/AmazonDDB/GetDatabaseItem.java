@@ -17,10 +17,10 @@ public class GetDatabaseItem implements DatabaseTransaction {
     Map<String, AttributeValue> key = new HashMap<>();
     GetItemResult result;
 
-    public GetDatabaseItem(String id, String tableName){
+    public GetDatabaseItem(String ID, String tableName){
         this.client = (AmazonDynamoDBClient) AccountManager.getCognitoProvider();
         this.tableName = tableName;
-        key.put("UserID", new AttributeValue().withS(id));
+        key.put("UserID", new AttributeValue().withS(ID));
     }
 
     public GetItemResult startTransaction(){
@@ -34,7 +34,8 @@ public class GetDatabaseItem implements DatabaseTransaction {
                 .withTableName(tableName)
                 .withKey(key);
         result = client.getItem(getItemRequest);
-        Log.i("Item", result.getItem().toString());
+        Log.i("GetDBItem Retrieved", result.getItem().toString());
+        setComplete();
     }
 
     @Override

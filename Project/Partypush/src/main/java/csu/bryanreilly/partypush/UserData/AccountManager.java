@@ -10,7 +10,8 @@ import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
-import csu.bryanreilly.partypush.Network.NetworkManager;
+
+import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.UI.UIManager;
 
 import java.util.ArrayList;
@@ -74,8 +75,8 @@ public class AccountManager {
                 AccountManager.setName(user.getName());
                 AccountManager.setId(user.getId());
                 AccountManager.setUsername(user.getUsername());
-                NetworkManager.startTransaction(NetworkManager.TRANSACTIONS.UpdateUserInfo, callingActivity);
-                NetworkManager.startTransaction(NetworkManager.TRANSACTIONS.GetFriendsWithApp, callingActivity);
+                TransactionManager.updateUserInfo(callingActivity);
+                TransactionManager.getFriendsWithApp();
             }
         });
     }

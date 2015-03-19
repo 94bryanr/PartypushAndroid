@@ -23,5 +23,8 @@
         android:id="@+id/button"
         android:layout_gravity="center_horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:onClick="addClicked"/>
+
 </RelativeLayout>

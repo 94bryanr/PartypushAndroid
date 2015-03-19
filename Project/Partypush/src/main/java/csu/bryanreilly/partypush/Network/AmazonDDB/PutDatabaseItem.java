@@ -17,12 +17,12 @@ public class PutDatabaseItem implements DatabaseTransaction {
     private Map<String, AttributeValue> item; //For creating new items
     private Map<String, AttributeValueUpdate> update; // For updating existing items
     private String tableName;
+    private putType type;
 
     public static enum putType{
         CREATE,
         UPDATE
     }
-    private putType type;
 
     public PutDatabaseItem(String tableName, putType type){
         this.client = (AmazonDynamoDBClient)AccountManager.getCognitoProvider();

@@ -7,30 +7,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.EditText;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.facebook.HttpMethod;
-import com.facebook.Request;
-import com.facebook.Response;
-import com.facebook.Session;
-import com.facebook.model.GraphObject;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.Map;
 
+import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
+import csu.bryanreilly.partypush.UI.UIManager;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 import csu.bryanreilly.partypush.UserData.Friend;
 
 public class FriendPickerActivity extends FragmentActivity {
+    ArrayList<Friend> selectedFriends = new ArrayList<Friend>();
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -42,14 +34,10 @@ public class FriendPickerActivity extends FragmentActivity {
             friendsNames[i] = AccountManager.getFriendsWithApp().get(i).getName();
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                this,
-                android.R.layout.simple_list_item_multiple_choice,
-                friendsNames);
-
         ListView friendsList = (ListView)findViewById(R.id.friendsListView);
         friendsList.setAdapter(new FriendPickerListAdapter());
     }
+
 
     //Custom list adapter for friend picker list
     public class FriendPickerListAdapter extends BaseAdapter {
@@ -75,7 +63,7 @@ public class FriendPickerActivity extends FragmentActivity {
             if(convertView==null)
             {
                 LayoutInflater inflater = (LayoutInflater) FriendPickerActivity.this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                convertView = inflater.inflate(R.layout.list_row_friend_picker, parent,false);
+                convertView = inflater.inflate(R.layout.list_row_friend_picker, parent, false);
             }
 
             Friend friend = friends.get(position);
@@ -84,6 +72,31 @@ public class FriendPickerActivity extends FragmentActivity {
             friendName.setText(friend.getName());
 
             return convertView;
+        }
+    }
+
+    public void addClicked(View view){
+        for(Friend friend: selectedFriends){
+            Log.i("Adding Friend", friend.getName());
+        }
+        TransactionManager.addFriends(selectedFriends);
+        UIManager.returnToMain(this, 2);
+    }
+
+    public void checkClicked(View view){
+        //Find the position in the listview
+        ListView friendsList = (ListView)findViewById(R.id.friendsListView);
+        int position = friendsList.getPositionForView(view);
+
+        if( ((CheckBox)view).isChecked() ){
+            //User checked the entry
+            Friend friend = (Friend)friendsList.getAdapter().getItem(position);
+            selectedFriends.add(friend);
+        }
+        else{
+            //User unchecked the entry
+            Friend friend = (Friend)friendsList.getAdapter().getItem(position);
+            selectedFriends.remove(friend);
         }
     }
 }
