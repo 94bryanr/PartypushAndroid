@@ -24,6 +24,7 @@ public class TransactionManager {
     }
 
     public static void updateFriends(){
-        //Todo: Get this to work
+        //Todo: Get this to work and the friends list will update automatically
+        //Goal: AccountManager.setAddedFriends() <-- update this
     }
 }
