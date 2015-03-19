@@ -8,4 +8,5 @@
     <color name="LightGrey">#EEEEEE</color>
     <color name="White">#FFFFFF</color>
     <color name="Black">#000000</color>
+    <color name="Login_background_color">#ff9de1e4</color>
 </resources>

@@ -34,6 +34,7 @@ public class AccountManager {
         UIManager.returnToMain(callingActivity);
         getFacebookUserInfo(callingSession, callingActivity);
         loggedInFacebook = true;
+        Log.i("log-in","loggingIn---------------------------------------");
     }
 
     public static void logout(Activity callingActivity){
