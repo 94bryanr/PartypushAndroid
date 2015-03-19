@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import csu.bryanreilly.partypush.Network.Transactions.AddFriends;
 import csu.bryanreilly.partypush.Network.Transactions.GetFriendsWithApp;
+import csu.bryanreilly.partypush.Network.Transactions.UpdateFriends;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateUserInfo;
 import csu.bryanreilly.partypush.UserData.Friend;
 
@@ -15,8 +16,8 @@ public class TransactionManager {
         new UpdateUserInfo().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, callingActivity);
     }
 
-    public static void getFriendsWithApp(){
-        GetFriendsWithApp.makeCall();
+    public static void updateFriendsWithApp(){
+        GetFriendsWithApp.run();
     }
 
     public static void addFriends(ArrayList<Friend> friends){
@@ -24,7 +25,6 @@ public class TransactionManager {
     }
 
     public static void updateFriends(){
-        //Todo: Get this to work and the friends list will update automatically
-        //Goal: AccountManager.setAddedFriends() <-- update this
+        UpdateFriends.run();
     }
 }

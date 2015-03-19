@@ -15,7 +15,7 @@ import csu.bryanreilly.partypush.UserData.Friend;
 
 public class GetFriendsWithApp{
 
-    public static void makeCall(){
+    public static void run(){
         final ArrayList<Friend> friends = new ArrayList<Friend>();
 
         /* make the API call */

@@ -11,9 +11,7 @@ import com.facebook.Response;
 import com.facebook.Session;
 import com.facebook.model.GraphUser;
 
-import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Network.TransactionManager;
-import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UI.UIManager;
 
 import java.util.ArrayList;
@@ -42,7 +40,6 @@ public class AccountManager {
         initializeCognito(callingActivity);
         UIManager.returnToMain(callingActivity);
         getFacebookUserInfo(callingSession, callingActivity);
-        TransactionManager.updateFriends();
         loggedInFacebook = true;
     }
 
@@ -83,7 +80,8 @@ public class AccountManager {
                 AccountManager.setId(user.getId());
                 AccountManager.setUsername(user.getUsername());
                 TransactionManager.updateUserInfo(callingActivity);
-                TransactionManager.getFriendsWithApp();
+                TransactionManager.updateFriendsWithApp();
+                TransactionManager.updateFriends();
             }
         });
     }

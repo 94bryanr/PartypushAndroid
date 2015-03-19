@@ -68,5 +68,9 @@ public class MainFriendsFragment extends FacebookFragment {
 
             return convertView;
         }
+
+        public void refresh(){
+
+        }
     }
 }

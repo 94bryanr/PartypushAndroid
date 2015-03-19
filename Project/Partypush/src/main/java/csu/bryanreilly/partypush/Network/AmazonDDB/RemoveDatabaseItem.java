@@ -13,7 +13,6 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
     private boolean checkForDuplicates;
 
     public RemoveDatabaseItem(String tableName, String field, String value, boolean checkForDuplicates){
-        this.client = (AmazonDynamoDBClient)AccountManager.getCognitoProvider();
         this.tableName = tableName;
         this.field = field;
         this.value = value;
