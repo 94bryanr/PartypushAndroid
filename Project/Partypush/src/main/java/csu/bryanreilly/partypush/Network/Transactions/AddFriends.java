@@ -8,14 +8,14 @@ import csu.bryanreilly.partypush.UserData.Friend;
 
 public class AddFriends {
     public static void run(ArrayList<Friend> friends){
-        String toAppend = "";
         for(Friend friend : friends){
-            toAppend += friend.getId() + ",";
+            String toAppend = friend.getId() + ",";
+            AppendDatabaseItem appendDatabaseItem = new AppendDatabaseItem(
+                    Constants.USER_DATABASE,
+                    Constants.USER_DATABASE_FRIENDS,
+                    toAppend,
+                    true);
+            appendDatabaseItem.execute();
         }
-        AppendDatabaseItem appendDatabaseItem = new AppendDatabaseItem(
-                Constants.USER_DATABASE,
-                Constants.USER_DATABASE_FRIENDS,
-                toAppend);
-        appendDatabaseItem.execute();
     }
 }
