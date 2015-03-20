@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import csu.bryanreilly.partypush.UI.Login.LoginActivity;
+import csu.bryanreilly.partypush.UI.Main.Friends.FriendListAdapter;
 import csu.bryanreilly.partypush.UI.Main.MainActivity;
 
 public class UIManager {
@@ -25,5 +26,9 @@ public class UIManager {
         startMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startMainActivity.putExtra("Tab", tab);
         callingActivity.startActivity(startMainActivity);
+    }
+
+    public static void refreshFriendsList(){
+        //TODO: Finish this method
     }
 }

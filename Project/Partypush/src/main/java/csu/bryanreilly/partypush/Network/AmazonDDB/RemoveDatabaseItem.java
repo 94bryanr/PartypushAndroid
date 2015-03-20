@@ -10,14 +10,12 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
     private String field;
     private String value;
     private boolean isComplete;
-    private boolean checkForDuplicates;
 
-    public RemoveDatabaseItem(String tableName, String field, String value, boolean checkForDuplicates){
+    public RemoveDatabaseItem(String tableName, String field, String value){
         this.tableName = tableName;
         this.field = field;
         this.value = value;
         isComplete = false;
-        this.checkForDuplicates = checkForDuplicates;
     }
 
     @Override
@@ -44,6 +42,7 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
         String removedValue = removeValue(current, value);
         Log.i("After Remove", removedValue);
 
+        //TODO: Wont remove the final entry in a list
         PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE);
         itemUpdater.addField(field, removedValue);
         itemUpdater.sendItem();

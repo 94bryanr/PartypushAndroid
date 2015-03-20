@@ -100,6 +100,7 @@ public class AccountManager {
 
     public static void setAddedFriends(ArrayList<Friend> addedFriends) {
         AccountManager.addedFriends = addedFriends;
+        UIManager.refreshFriendsList();
     }
 
     public static ArrayList<Friend> getFriendsWithApp(){

@@ -26,12 +26,9 @@ public class FacebookFragment extends Fragment{
         Log.i("Facebook Fragment", "onSessionStateChange called");
         if (state.isOpened()) {
             AccountManager.login(getActivity(), session);
-            Log.i("FB","onSessionstate IFFRAGMENT------------------------------");
         } else if (state.isClosed()) {
             AccountManager.logout(getActivity());
-            Log.i("FB","onsessionState ELSEFragment---------------------------");
         }
-        Log.i("FB","onSessionstate with no else if---------------------------------------");
     }
 
     @Override

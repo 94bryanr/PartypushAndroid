@@ -1,11 +1,7 @@
 package csu.bryanreilly.partypush.Network.Transactions;
 
 import android.util.Log;
-
-import com.amazonaws.AmazonServiceException;
-
 import java.util.ArrayList;
-
 import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UI.UIManager;

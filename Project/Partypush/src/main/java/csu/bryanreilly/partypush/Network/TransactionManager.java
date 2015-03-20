@@ -5,8 +5,10 @@ import android.os.AsyncTask;
 
 import java.util.ArrayList;
 
+import csu.bryanreilly.partypush.Network.AmazonDDB.RemoveDatabaseItem;
 import csu.bryanreilly.partypush.Network.Transactions.AddFriends;
 import csu.bryanreilly.partypush.Network.Transactions.GetFriendsWithApp;
+import csu.bryanreilly.partypush.Network.Transactions.RemoveFriend;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateFriends;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateUserInfo;
 import csu.bryanreilly.partypush.UserData.Friend;
@@ -26,5 +28,9 @@ public class TransactionManager {
 
     public static void updateFriends(){
         UpdateFriends.run();
+    }
+
+    public static void removeFriend(String id){
+        RemoveFriend.run(id);
     }
 }
