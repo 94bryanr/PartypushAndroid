@@ -20,7 +20,6 @@ import csu.bryanreilly.partypush.UI.Main.Parties.MainPartiesFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.PartyCreateActivity;
 import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
 
-
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
 
     /**
@@ -54,6 +53,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+        // So fragments are not destroyed while navigating on main pager
+        mViewPager.setOffscreenPageLimit(2);
 
         // When swiping between different sections, select the corresponding
         // tab. We can also use ActionBar.Tab#select() to do this if we have
@@ -102,15 +103,17 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         if (id == R.id.action_new) {
             //Checks to see if we are on the correct fragment
             if(mViewPager.getCurrentItem() == 0) {
+                Intent startFriendPickerActivity = new Intent(this, FriendPickerActivity.class);
+                startActivity(startFriendPickerActivity);
+            }
+
+            //Checks to see if we are on the correct fragment
+            else if(mViewPager.getCurrentItem() == 1) {
                 Intent startPartyCreateActivity = new Intent(this, PartyCreateActivity.class);
                 startActivity(startPartyCreateActivity);
             }
 
-            //Checks to see if we are on the correct fragment
-            else if(mViewPager.getCurrentItem() == 2) {
-                Intent startFriendPickerActivity = new Intent(this, FriendPickerActivity.class);
-                startActivity(startFriendPickerActivity);
-            }
+
 
             return true;
         }
@@ -153,11 +156,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
             // startTransaction is called to instantiate the fragment for the given page.
             switch (position) {
                 case 0:
-                    return new MainPartiesFragment();
-                case 1:
-                    return new MainMapFragment();
-                case 2:
                     return new MainFriendsFragment();
+                case 1:
+                    return new MainPartiesFragment();
+                case 2:
+                    return new MainMapFragment();
             }
             return null;
         }
