@@ -2,9 +2,9 @@
 <resources>
 
     <string name="app_name">Partypush</string>
-    <string name="title_section1">Parties</string>
-    <string name="title_section2">Map</string>
-    <string name="title_section3">Friends</string>
+    <string name="title_section1">Friends</string>
+    <string name="title_section2">Parties</string>
+    <string name="title_section3">Map</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_add">Add</string>
     <string name="action_settings">Settings</string>
