@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="friend_dialog">
-        <item>Delete</item>
+        <item>Remove Friend</item>
     </string-array></resources>

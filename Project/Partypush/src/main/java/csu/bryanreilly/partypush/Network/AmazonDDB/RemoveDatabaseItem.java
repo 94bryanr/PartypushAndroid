@@ -29,6 +29,7 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
                 //Wait for sever answer
             }
             current = currentFieldRetriever.getResult().getItem().get(field).getS();
+            Log.i("Removing", value);
             Log.i("Removing From", current);
         }
         catch (NullPointerException e){
@@ -40,9 +41,14 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
 
         //Remove value, then use put to update
         String removedValue = removeValue(current, value);
-        Log.i("After Remove", removedValue);
+        Log.i("Value After Remove", removedValue);
+        // Set remove value to "EMPTY," instead of an empty string
+        // because database will not update the field if the update
+        // value is empty
+        if (removedValue == ""){
+            removedValue = "EMPTY,";
+        }
 
-        //TODO: Wont remove the final entry in a list
         PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE);
         itemUpdater.addField(field, removedValue);
         itemUpdater.sendItem();

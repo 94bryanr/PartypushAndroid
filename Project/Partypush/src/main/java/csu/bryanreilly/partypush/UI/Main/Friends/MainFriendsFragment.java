@@ -1,7 +1,6 @@
 package csu.bryanreilly.partypush.UI.Main.Friends;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,38 +8,38 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
-import csu.bryanreilly.partypush.Network.AmazonDDB.RemoveDatabaseItem;
 import csu.bryanreilly.partypush.Network.TransactionManager;
-import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.FacebookFragment;
-import csu.bryanreilly.partypush.UI.UIManager;
-import csu.bryanreilly.partypush.UserData.AccountManager;
+import csu.bryanreilly.partypush.UI.Main.MainActivity;
 import csu.bryanreilly.partypush.UserData.Friend;
 
-public class MainFriendsFragment extends FacebookFragment {
+public class MainFriendsFragment extends FacebookFragment implements PropertyChangeListener {
+    FriendListAdapter listAdapter;
+    ListView friendsList;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.fragment_friends, container, false);
-
         return rootView;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        ListView friendsList = (ListView)getView().findViewById(R.id.friendList);
+        listAdapter = new FriendListAdapter();
+        friendsList = (ListView)getView().findViewById(R.id.friendList);
         TextView emptyListMessage = (TextView)getView().findViewById(android.R.id.empty);
         friendsList.setEmptyView(emptyListMessage);
-        friendsList.setAdapter(new FriendListAdapter());
+        friendsList.setAdapter(listAdapter);
 
         //Listener to handle list clicks
         AdapterView.OnItemClickListener listener = new AdapterView.OnItemClickListener() {
@@ -52,6 +51,23 @@ public class MainFriendsFragment extends FacebookFragment {
             }
         };
         friendsList.setOnItemClickListener(listener);
+    }
+
+    public void onResume(){
+        super.onResume();
+        refreshFriendsList();
+    }
+
+    public void refreshFriendsList(){
+        listAdapter = new FriendListAdapter();
+        friendsList.setAdapter(listAdapter);
+        Log.i("Friends List", "List Adapter Updated");
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent event) {
+        System.out.println("Changed property: " + event.getPropertyName() + " [old -> "
+                + event.getOldValue() + "] | [new -> " + event.getNewValue() +"]");
     }
 
     private void openFriendDialogBox(final Friend friend){
@@ -71,6 +87,9 @@ public class MainFriendsFragment extends FacebookFragment {
                             Toast.LENGTH_LONG)
                             .show();
                     TransactionManager.removeFriend(friend.getId());
+
+                    //Update friends list
+                    ((MainActivity)getActivity()).updateFriendsList();
                 }
             }
         };

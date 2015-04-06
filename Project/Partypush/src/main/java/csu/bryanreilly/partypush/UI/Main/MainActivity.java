@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import csu.bryanreilly.partypush.R;
@@ -22,7 +23,6 @@ import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -128,6 +128,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
+        if(tab.getPosition() == 2){
+            updateFriendsList();
+        }
     }
 
     @Override
@@ -136,6 +139,28 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        if(tab.getPosition() == 2){
+            updateFriendsList();
+        }
+    }
+
+    public void updateFriendsList(){
+        MainFriendsFragment fragment = (MainFriendsFragment)getFragmentAt(2);
+        if (fragment != null)
+            fragment.refreshFriendsList();
+    }
+
+    public Fragment getFragmentAt(int position){
+        String name = makeFragmentName(mViewPager.getId(), position);
+        Fragment viewPagerFragment = getSupportFragmentManager().findFragmentByTag(name);
+        if(viewPagerFragment != null) {
+            return viewPagerFragment;
+        }
+        return null;
+    }
+
+    private static String makeFragmentName(int viewId, int position) {
+        return "android:switcher:" + viewId + ":" + position;
     }
 
     /**
