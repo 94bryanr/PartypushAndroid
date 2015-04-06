@@ -3,7 +3,6 @@ package csu.bryanreilly.partypush.UI;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-
 import csu.bryanreilly.partypush.UI.Login.LoginActivity;
 import csu.bryanreilly.partypush.UI.Main.MainActivity;
 

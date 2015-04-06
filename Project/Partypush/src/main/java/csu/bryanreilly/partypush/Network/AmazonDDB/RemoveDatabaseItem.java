@@ -10,14 +10,12 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
     private String field;
     private String value;
     private boolean isComplete;
-    private boolean checkForDuplicates;
 
-    public RemoveDatabaseItem(String tableName, String field, String value, boolean checkForDuplicates){
+    public RemoveDatabaseItem(String tableName, String field, String value){
         this.tableName = tableName;
         this.field = field;
         this.value = value;
         isComplete = false;
-        this.checkForDuplicates = checkForDuplicates;
     }
 
     @Override
@@ -31,6 +29,7 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
                 //Wait for sever answer
             }
             current = currentFieldRetriever.getResult().getItem().get(field).getS();
+            Log.i("Removing", value);
             Log.i("Removing From", current);
         }
         catch (NullPointerException e){
@@ -42,7 +41,13 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
 
         //Remove value, then use put to update
         String removedValue = removeValue(current, value);
-        Log.i("After Remove", removedValue);
+        Log.i("Value After Remove", removedValue);
+        // Set remove value to "EMPTY," instead of an empty string
+        // because database will not update the field if the update
+        // value is empty
+        if (removedValue == ""){
+            removedValue = "EMPTY,";
+        }
 
         PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE);
         itemUpdater.addField(field, removedValue);
