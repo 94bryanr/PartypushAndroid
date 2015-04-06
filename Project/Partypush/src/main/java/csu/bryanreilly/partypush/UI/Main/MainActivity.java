@@ -54,7 +54,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         // So fragments are not destroyed while navigating on main pager
-        mViewPager.setOffscreenPageLimit(2);
+        int FragmentOffscreenLimit = 2;
+        mViewPager.setOffscreenPageLimit(FragmentOffscreenLimit);
 
         // When swiping between different sections, select the corresponding
         // tab. We can also use ActionBar.Tab#select() to do this if we have
@@ -80,7 +81,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         //Get intents
         Intent intent = getIntent();
-        int startTab = intent.getIntExtra("Tab", 0);
+        int tabLocationIndex = 0;
+        int startTab = intent.getIntExtra("Tab", tabLocationIndex);
         mViewPager.setCurrentItem(startTab);
     }
 
@@ -102,18 +104,16 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         //Handle button clicks
         if (id == R.id.action_new) {
             //Checks to see if we are on the correct fragment
-            if(mViewPager.getCurrentItem() == 0) {
+            if(mViewPager.getCurrentItem() == FragmentInfo.FriendsFragment) {
                 Intent startFriendPickerActivity = new Intent(this, FriendPickerActivity.class);
                 startActivity(startFriendPickerActivity);
             }
 
             //Checks to see if we are on the correct fragment
-            else if(mViewPager.getCurrentItem() == 1) {
+            else if(mViewPager.getCurrentItem() == FragmentInfo.PartiesFragment) {
                 Intent startPartyCreateActivity = new Intent(this, PartyCreateActivity.class);
                 startActivity(startPartyCreateActivity);
             }
-
-
 
             return true;
         }
@@ -131,7 +131,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         // When the given tab is selected, switch to the corresponding page in
         // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
-        if(tab.getPosition() == 2){
+        if(tab.getPosition() == FragmentInfo.FriendsFragment){
             updateFriendsList();
         }
     }
@@ -142,13 +142,19 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        if(tab.getPosition() == 2){
+        if(tab.getPosition() == FragmentInfo.FriendsFragment){
             updateFriendsList();
         }
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        updateFriendsList();
+    }
+
     public void updateFriendsList(){
-        MainFriendsFragment fragment = (MainFriendsFragment)getFragmentAt(2);
+        MainFriendsFragment fragment = (MainFriendsFragment)getFragmentAt(FragmentInfo.FriendsFragment);
         if (fragment != null)
             fragment.refreshFriendsList();
     }
@@ -162,6 +168,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         return null;
     }
 
+    // Adds the auto-generated part of the fragment tab, for use in getFragmentAt()
     private static String makeFragmentName(int viewId, int position) {
         return "android:switcher:" + viewId + ":" + position;
     }
@@ -180,11 +187,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         public Fragment getItem(int position) {
             // startTransaction is called to instantiate the fragment for the given page.
             switch (position) {
-                case 0:
+                case FragmentInfo.FriendsFragment:
                     return new MainFriendsFragment();
-                case 1:
+                case FragmentInfo.PartiesFragment:
                     return new MainPartiesFragment();
-                case 2:
+                case FragmentInfo.MapFragment:
                     return new MainMapFragment();
             }
             return null;
@@ -193,18 +200,18 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return FragmentInfo.Count;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
             Locale l = Locale.getDefault();
             switch (position) {
-                case 0:
+                case FragmentInfo.FriendsFragment:
                     return getString(R.string.title_section1).toUpperCase(l);
-                case 1:
+                case FragmentInfo.PartiesFragment:
                     return getString(R.string.title_section2).toUpperCase(l);
-                case 2:
+                case FragmentInfo.MapFragment:
                     return getString(R.string.title_section3).toUpperCase(l);
             }
             return null;

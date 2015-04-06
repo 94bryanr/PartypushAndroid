@@ -17,7 +17,8 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/list_horizontal_margin" />
+            android:layout_marginLeft="@dimen/list_horizontal_margin"
+            android:textColor="@color/White" />
 
         <CheckBox
             android:layout_width="wrap_content"
@@ -30,6 +31,7 @@
             android:checked="false"
             android:clickable="true"
             android:enabled="true"
-            android:onClick="checkClicked" />
+            android:onClick="checkClicked"
+            android:textColor="@color/White" />
     </RelativeLayout>
 </LinearLayout>

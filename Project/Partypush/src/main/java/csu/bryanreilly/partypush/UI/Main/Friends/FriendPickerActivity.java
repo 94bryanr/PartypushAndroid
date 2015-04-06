@@ -16,6 +16,7 @@ import java.util.ArrayList;
 
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
+import csu.bryanreilly.partypush.UI.Main.FragmentInfo;
 import csu.bryanreilly.partypush.UI.UIManager;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 import csu.bryanreilly.partypush.UserData.Friend;
@@ -79,7 +80,7 @@ public class FriendPickerActivity extends FragmentActivity {
             Log.i("Adding Friend", friend.getName());
         }
         TransactionManager.addFriends(selectedFriends);
-        UIManager.returnToMain(this, 2);
+        UIManager.returnToMain(this, FragmentInfo.FriendsFragment);
     }
 
     public void checkClicked(View view){
