@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import csu.bryanreilly.partypush.UI.Login.LoginActivity;
+import csu.bryanreilly.partypush.UI.Main.FragmentInfo;
 import csu.bryanreilly.partypush.UI.Main.MainActivity;
 
 public class UIManager {
@@ -15,7 +16,7 @@ public class UIManager {
     }
 
     public static void returnToMain(Activity callingActivity){
-        returnToMain(callingActivity, 0);
+        returnToMain(callingActivity, FragmentInfo.PartiesFragment);
     }
 
     public static void returnToMain(Activity callingActivity, int tab){
