@@ -3,6 +3,8 @@ package csu.bryanreilly.partypush.UI.Main;
 import java.util.Locale;
 
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -12,14 +14,19 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
+
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.Main.Friends.FriendPickerActivity;
 import csu.bryanreilly.partypush.UI.Main.Friends.MainFriendsFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.MainPartiesFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.PartyCreateActivity;
 import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
+import csu.bryanreilly.partypush.UserData.AccountManager;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
     /**
@@ -86,7 +93,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         mViewPager.setCurrentItem(startTab);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -138,6 +144,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        //Need for interface
     }
 
     @Override
@@ -178,7 +185,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      * one of the sections/tabs/pages.
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
