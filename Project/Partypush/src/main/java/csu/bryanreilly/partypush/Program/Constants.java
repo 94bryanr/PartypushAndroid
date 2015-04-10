@@ -11,4 +11,7 @@ public class Constants {
 
     //How long to wait on database transactions before timeout
     public static int DATABASE_TIMEOUT_SECONDS = 10;
+
+    //Map
+    public static int MAP_ZOOM_LEVEL = 12;
 }
