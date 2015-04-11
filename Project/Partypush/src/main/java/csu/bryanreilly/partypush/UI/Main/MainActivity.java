@@ -2,13 +2,7 @@ package csu.bryanreilly.partypush.UI.Main;
 
 import java.util.Locale;
 
-import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
-import android.location.Location;
-import android.location.LocationManager;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -17,19 +11,10 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.CameraPosition;
-import com.google.android.gms.maps.model.LatLng;
 
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.Main.Friends.FriendPickerActivity;
@@ -38,9 +23,8 @@ import csu.bryanreilly.partypush.UI.Main.Map.MainMapFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.MainPartiesFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.PartyCreateActivity;
 import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
-import csu.bryanreilly.partypush.UserData.AccountManager;
 
-public class MainActivity extends ActionBarActivity implements ActionBar.TabListener, OnMapReadyCallback {
+public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -55,6 +39,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
      * The {@link ViewPager} that will host the section contents.
      */
     ViewPager mViewPager;
+
+    // Client for google play services
+    GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,10 +90,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         int tabLocationIndex = 0;
         int startTab = intent.getIntExtra("Tab", tabLocationIndex);
         mViewPager.setCurrentItem(startTab);
-
-        //Get GoogleMap to callback to this activity when it starts
-        SupportMapFragment mapFragment = (SupportMapFragment) mSectionsPagerAdapter.getItem(FragmentInfo.MapFragment);
-        mapFragment.getMapAsync(this);
     }
 
     @Override
@@ -196,11 +179,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         return "android:switcher:" + viewId + ":" + position;
     }
 
-    @Override
-    public void onMapReady(GoogleMap map) {
-        MainMapFragment.setup(map, this);
-    }
-
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -211,7 +189,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         }
 
         // This is here so we do not make a new instance of the map each time we access it
-        SupportMapFragment map = new MainMapFragment().newInstance();
+        public SupportMapFragment map = new MainMapFragment();
 
         @Override
         public Fragment getItem(int position) {

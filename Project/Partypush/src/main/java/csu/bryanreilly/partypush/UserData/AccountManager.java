@@ -29,6 +29,7 @@ public class AccountManager {
     private static ArrayList<Friend> addedFriends;
     private static AmazonDynamoDB amazonDatabaseClient;
     private static boolean loggedInFacebook = false;
+    private static ArrayList<Party> parties;
 
     public static void login(Activity callingActivity, Session callingSession){
         if(loggedInFacebook)
@@ -36,6 +37,7 @@ public class AccountManager {
 
         friendsWithApp = new ArrayList<Friend>();
         addedFriends = new ArrayList<Friend>();
+        parties = new ArrayList<Party>();
         Log.i("AccountManager", "Logging In");
         initializeCognito(callingActivity);
         UIManager.returnToMain(callingActivity);
@@ -96,6 +98,14 @@ public class AccountManager {
 
     public static void setFriendsWithApp(ArrayList<Friend> friends){
         friendsWithApp = friends;
+    }
+
+    public static ArrayList<Party> getParties() {
+        return parties;
+    }
+
+    public static void setParties(ArrayList<Party> parties) {
+        AccountManager.parties = parties;
     }
 
     public static void setAddedFriends(ArrayList<Friend> addedFriends) {
