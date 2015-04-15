@@ -50,7 +50,6 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
     //Google client connection is connected
     public void onConnected(Bundle connectionHint) {
         mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        Log.i("LOCATION", "CONNECTED!");
         Log.i("LOCATION", mCurrentLocation.toString());
         createLocationRequest();
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,mLocationRequest, this);
@@ -70,7 +69,6 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
     @Override
     //Google map is ready
     public void onMapReady(GoogleMap map){
-        Log.i("LOCATION", "MAP READY");
         this.map = map;
     }
 
@@ -79,7 +77,7 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
         {
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
-                    .zoom(14)
+                    .zoom(15)
                     .tilt(50)
                     .build();
             map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -89,7 +87,6 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.i("LOCATION", "Location Updated");
         mCurrentLocation = location;
         updateLocationMarker(location);
     }
@@ -104,7 +101,7 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
         }
         else {
-            Log.i("LOCATION", "MAP NULL");
+
         }
     }
 
@@ -126,12 +123,12 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
     @Override
     //Google client connection was suspended
     public void onConnectionSuspended(int i) {
-        Log.i("LOCATION", "Connection SUSPENDED");
+
     }
 
     @Override
     // Google client connection has failed
     public void onConnectionFailed(ConnectionResult connectionResult) {
-        Log.i("LOCATION", "Connection FAILED");
+
     }
 }

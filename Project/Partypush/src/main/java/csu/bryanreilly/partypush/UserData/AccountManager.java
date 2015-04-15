@@ -110,6 +110,8 @@ public class AccountManager {
 
     public static void setAddedFriends(ArrayList<Friend> addedFriends) {
         AccountManager.addedFriends = addedFriends;
+        // Parties need to be updated after getting friends list
+        TransactionManager.getParties();
     }
 
     public static ArrayList<Friend> getFriendsWithApp(){

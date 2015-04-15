@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import csu.bryanreilly.partypush.Network.Transactions.AddFriends;
 import csu.bryanreilly.partypush.Network.Transactions.GetFriendsWithApp;
+import csu.bryanreilly.partypush.Network.Transactions.GetParties;
 import csu.bryanreilly.partypush.Network.Transactions.RemoveFriend;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateFriends;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateUserInfo;
@@ -33,5 +34,10 @@ public class TransactionManager {
 
     public static void removeFriend(String id){
         RemoveFriend.run(id);
+    }
+
+    public static void getParties(){
+        GetParties parties = new GetParties();
+        parties.execute();
     }
 }

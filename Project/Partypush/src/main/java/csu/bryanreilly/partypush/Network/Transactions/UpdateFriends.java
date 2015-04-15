@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
+import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UI.UIManager;
 import csu.bryanreilly.partypush.UserData.AccountManager;

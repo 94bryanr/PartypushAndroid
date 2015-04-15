@@ -28,6 +28,7 @@ public class GetDatabaseItem implements DatabaseTransaction {
         return result;
     }
 
+    @Override
     public void execute() {
         GetItemRequest getItemRequest = new GetItemRequest()
                 .withTableName(tableName)
