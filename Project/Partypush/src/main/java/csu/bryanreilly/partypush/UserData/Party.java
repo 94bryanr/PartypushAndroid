@@ -4,15 +4,16 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class Party {
     private String name;
+    private String locationDescription;
     private LatLng location;
 
-    public Party(String name, LatLng location){
+    public Party(String name, String locationDescription){
         this.name = name;
-        this. location = location;
+        this.locationDescription = locationDescription;
     }
 
-    public LatLng getLocation() {
-        return location;
+    public String getLocationDescription() {
+        return locationDescription;
     }
 
     public String getName() {

@@ -38,6 +38,6 @@ public class TransactionManager {
 
     public static void getParties(){
         GetParties parties = new GetParties();
-        parties.execute();
+        parties.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 }

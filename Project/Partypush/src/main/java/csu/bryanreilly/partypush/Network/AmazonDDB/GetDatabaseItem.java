@@ -20,7 +20,7 @@ public class GetDatabaseItem implements DatabaseTransaction {
     public GetDatabaseItem(String ID, String tableName){
         this.client = (AmazonDynamoDBClient) AccountManager.getCognitoProvider();
         this.tableName = tableName;
-        key.put("UserID", new AttributeValue().withS(ID));
+        key.put("UserID", new AttributeValue().withS(ID.trim()));
     }
 
     public GetItemResult startTransaction(){
