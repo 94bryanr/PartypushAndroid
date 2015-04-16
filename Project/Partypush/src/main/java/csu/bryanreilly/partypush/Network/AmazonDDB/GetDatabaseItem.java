@@ -16,11 +16,13 @@ public class GetDatabaseItem implements DatabaseTransaction {
     private boolean isComplete = false;
     Map<String, AttributeValue> key = new HashMap<>();
     GetItemResult result;
+    String hashName;
 
-    public GetDatabaseItem(String ID, String tableName){
+    public GetDatabaseItem(String id, String tableName, String hashName){
         this.client = (AmazonDynamoDBClient) AccountManager.getCognitoProvider();
         this.tableName = tableName;
-        key.put("UserID", new AttributeValue().withS(ID.trim()));
+        this.hashName = hashName;
+        key.put(hashName, new AttributeValue().withS(id.trim()));
     }
 
     public GetItemResult startTransaction(){

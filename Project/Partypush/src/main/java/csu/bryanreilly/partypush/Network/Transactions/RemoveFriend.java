@@ -9,7 +9,8 @@ public class RemoveFriend {
         RemoveDatabaseItem removeFriend = new RemoveDatabaseItem(
                 Constants.USER_DATABASE,
                 Constants.USER_DATABASE_FRIENDS,
-                id + ",");
+                id + ",",
+                Constants.USER_DATABASE_ID);
         removeFriend.execute();
         TransactionManager.updateFriends();
     }

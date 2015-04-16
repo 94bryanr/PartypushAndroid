@@ -24,7 +24,7 @@ public class UpdateUserInfo extends AsyncTask<Activity, Void, Activity>{
     private boolean timeout = false;
     @Override
     protected Activity doInBackground(Activity... params) {
-        GetDatabaseItem loginInfo = new GetDatabaseItem(AccountManager.getId(), Constants.USER_DATABASE);
+        GetDatabaseItem loginInfo = new GetDatabaseItem(AccountManager.getId(), Constants.USER_DATABASE, Constants.USER_DATABASE_ID);
         loginInfo.startTransaction();
 
         //Wait for result to return from the database
@@ -56,14 +56,14 @@ public class UpdateUserInfo extends AsyncTask<Activity, Void, Activity>{
         } catch (NullPointerException e){
             //stringResult is null, no user exists
             Log.i("New Login", "Creating Account in Database");
-            PutDatabaseItem addUser = new PutDatabaseItem(Constants.USER_DATABASE, PutDatabaseItem.putType.CREATE);
+            PutDatabaseItem addUser = new PutDatabaseItem(Constants.USER_DATABASE, PutDatabaseItem.putType.CREATE, Constants.USER_DATABASE_ID);
             addUser.addField(Constants.USER_DATABASE_ID, AccountManager.getId());
             addUser.sendItem();
         }
 
         //Update User Info
         Calendar calendar = new GregorianCalendar();
-        PutDatabaseItem updateUser = new PutDatabaseItem(Constants.USER_DATABASE, PutDatabaseItem.putType.UPDATE);
+        PutDatabaseItem updateUser = new PutDatabaseItem(Constants.USER_DATABASE, PutDatabaseItem.putType.UPDATE, Constants.USER_DATABASE_ID);
         updateUser.addField(Constants.USER_DATABASE_NAME, AccountManager.getName());
         String date =
                 Integer.toString(calendar.get(Calendar.MONTH) + 1) + "-" +

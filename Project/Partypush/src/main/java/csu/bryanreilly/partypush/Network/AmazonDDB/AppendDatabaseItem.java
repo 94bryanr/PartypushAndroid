@@ -9,15 +9,17 @@ public class AppendDatabaseItem implements DatabaseTransaction {
     private String tableName;
     private String field;
     private String value;
+    private String keyID;
     private boolean isComplete;
     private boolean checkForDuplicates;
 
-    public AppendDatabaseItem(String tableName, String field, String value, boolean checkForDuplicates){
+    public AppendDatabaseItem(String tableName, String field, String value, boolean checkForDuplicates, String keyID){
         this.tableName = tableName;
         this.field = field;
         this.value = value;
         isComplete = false;
         this.checkForDuplicates = checkForDuplicates;
+        this.keyID = keyID;
     }
 
     @Override
@@ -25,7 +27,7 @@ public class AppendDatabaseItem implements DatabaseTransaction {
         //Get data that already exists in the field
         String current = "";
         try {
-            GetDatabaseItem currentFieldRetriever = new GetDatabaseItem(AccountManager.getId(), tableName);
+            GetDatabaseItem currentFieldRetriever = new GetDatabaseItem(AccountManager.getId(), tableName, keyID);
             currentFieldRetriever.startTransaction();
             while(!currentFieldRetriever.isComplete()){
                 //Wait for sever answer
@@ -44,7 +46,7 @@ public class AppendDatabaseItem implements DatabaseTransaction {
             appendedValue = appendWithoutDuplicate(current, value);
         Log.i("After Append", appendedValue);
 
-        PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE);
+        PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE, keyID);
         itemUpdater.addField(field, appendedValue);
         itemUpdater.sendItem();
     }

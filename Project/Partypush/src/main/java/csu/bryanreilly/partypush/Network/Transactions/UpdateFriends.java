@@ -16,7 +16,7 @@ import csu.bryanreilly.partypush.UserData.Friend;
 
 public class UpdateFriends {
     public static void run(){
-        GetDatabaseItem friends = new GetDatabaseItem(AccountManager.getId(), Constants.USER_DATABASE);
+        GetDatabaseItem friends = new GetDatabaseItem(AccountManager.getId(), Constants.USER_DATABASE, Constants.USER_DATABASE_ID);
         String result = "";
 
         // Get list of friends
@@ -37,7 +37,7 @@ public class UpdateFriends {
         for (String friendID : friendIDList){
             Log.i("Updating Friend", friendID);
             if(friendID != "") {
-                GetDatabaseItem friendInfo = new GetDatabaseItem(friendID, Constants.USER_DATABASE);
+                GetDatabaseItem friendInfo = new GetDatabaseItem(friendID, Constants.USER_DATABASE, Constants.USER_DATABASE_ID);
                 try {
                     friendInfo.startTransaction();
                     while (!friendInfo.isComplete()) {

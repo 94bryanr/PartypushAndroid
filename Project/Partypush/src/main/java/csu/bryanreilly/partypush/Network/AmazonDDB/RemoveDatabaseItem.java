@@ -9,12 +9,14 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
     private String tableName;
     private String field;
     private String value;
+    private String keyID;
     private boolean isComplete;
 
-    public RemoveDatabaseItem(String tableName, String field, String value){
+    public RemoveDatabaseItem(String tableName, String field, String value, String keyID){
         this.tableName = tableName;
         this.field = field;
         this.value = value;
+        this.keyID = keyID;
         isComplete = false;
     }
 
@@ -23,7 +25,7 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
         //Get data that already exists in the field
         String current = "";
         try {
-            GetDatabaseItem currentFieldRetriever = new GetDatabaseItem(AccountManager.getId(), tableName);
+            GetDatabaseItem currentFieldRetriever = new GetDatabaseItem(AccountManager.getId(), tableName, keyID);
             currentFieldRetriever.startTransaction();
             while(!currentFieldRetriever.isComplete()){
                 //Wait for sever answer
@@ -49,7 +51,7 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
             removedValue = "EMPTY,";
         }
 
-        PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE);
+        PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE, keyID);
         itemUpdater.addField(field, removedValue);
         itemUpdater.sendItem();
     }

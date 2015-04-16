@@ -18,18 +18,20 @@ public class PutDatabaseItem implements DatabaseTransaction {
     private Map<String, AttributeValueUpdate> update; // For updating existing items
     private String tableName;
     private putType type;
+    private String id;
 
     public static enum putType{
         CREATE,
         UPDATE
     }
 
-    public PutDatabaseItem(String tableName, putType type){
+    public PutDatabaseItem(String tableName, putType type, String keyID){
         this.client = (AmazonDynamoDBClient)AccountManager.getCognitoProvider();
         this.tableName = tableName;
         item = new HashMap<>();
         update = new HashMap<>();
         this.type = type;
+        this.id = keyID;
     }
 
     public void sendItem(){
@@ -58,7 +60,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
                 break;
             case UPDATE:
                 Map<String, AttributeValue> key = new HashMap<>();
-                key.put(Constants.USER_DATABASE_ID, new AttributeValue().withS(AccountManager.getId()));
+                key.put(id, new AttributeValue().withS(AccountManager.getId()));
                 UpdateItemRequest updateItemRequest = new UpdateItemRequest()
                         .withKey(key)
                         .withTableName(tableName)

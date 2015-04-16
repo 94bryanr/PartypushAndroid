@@ -15,7 +15,8 @@ public class AddFriends {
                     Constants.USER_DATABASE,
                     Constants.USER_DATABASE_FRIENDS,
                     toAppend,
-                    true);
+                    true,
+                    Constants.USER_DATABASE_ID);
             appendDatabaseItem.execute();
         }
         TransactionManager.updateFriends();
