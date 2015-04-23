@@ -16,7 +16,7 @@ public class UIManager {
     }
 
     public static void returnToMain(Activity callingActivity){
-        returnToMain(callingActivity, FragmentInfo.PartiesFragment);
+        returnToMain(callingActivity, FragmentInfo.MapFragment);
     }
 
     public static void returnToMain(Activity callingActivity, int tab){

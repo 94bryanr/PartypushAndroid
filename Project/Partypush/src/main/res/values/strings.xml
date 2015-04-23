@@ -9,6 +9,7 @@
     <string name="action_add">Add</string>
     <string name="action_settings">Settings</string>
     <string name="empty_friends_list">Click + To Add Friends</string>
+    <string name="empty_parties_list">Click + To Add Parties</string>
     <string name="facebook_app_id">1526513900949429</string>
 
 </resources>

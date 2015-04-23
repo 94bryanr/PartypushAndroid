@@ -139,6 +139,9 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         if(tab.getPosition() == FragmentInfo.FriendsFragment){
             updateFriendsList();
         }
+        if(tab.getPosition() == FragmentInfo.PartiesFragment){
+            updatePartiesList();
+        }
     }
 
     @Override
@@ -151,18 +154,28 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         if(tab.getPosition() == FragmentInfo.FriendsFragment){
             updateFriendsList();
         }
+        if(tab.getPosition() == FragmentInfo.PartiesFragment){
+            updatePartiesList();
+        }
     }
 
     @Override
     public void onResume(){
         super.onResume();
         updateFriendsList();
+        updatePartiesList();
     }
 
     public void updateFriendsList(){
         MainFriendsFragment fragment = (MainFriendsFragment)getFragmentAt(FragmentInfo.FriendsFragment);
         if (fragment != null)
             fragment.refreshFriendsList();
+    }
+
+    public void updatePartiesList(){
+        MainPartiesFragment fragment = (MainPartiesFragment)getFragmentAt(FragmentInfo.PartiesFragment);
+        if (fragment != null)
+            fragment.refreshPartiesList();
     }
 
     public Fragment getFragmentAt(int position){
