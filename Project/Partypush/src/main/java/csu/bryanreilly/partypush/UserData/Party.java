@@ -6,8 +6,9 @@ public class Party {
     private String name;
     private String locationDescription;
     private LatLng location;
+    private String id;
 
-    public Party(String name, String locationDescription){
+    public Party(String name, String locationDescription, String id){
         this.name = name;
         this.locationDescription = locationDescription;
     }
@@ -18,5 +19,9 @@ public class Party {
 
     public String getName() {
         return name;
+    }
+
+    public String getId() {
+        return id;
     }
 }

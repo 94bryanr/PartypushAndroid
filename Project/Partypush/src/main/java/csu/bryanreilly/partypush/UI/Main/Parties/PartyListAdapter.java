@@ -13,9 +13,6 @@ import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 import csu.bryanreilly.partypush.UserData.Party;
 
-/**
- * Created by bryanmatsonreilly on 4/22/15.
- */
 public class PartyListAdapter extends BaseAdapter {
     //Custom list adapter for regular party list
     ArrayList<Party> parties = AccountManager.getParties();
@@ -44,8 +41,13 @@ public class PartyListAdapter extends BaseAdapter {
         }
 
         Party party = parties.get(position);
+
         TextView partyText = (TextView)convertView.findViewById(R.id.partyName);
         partyText.setText(party.getName());
+
+        TextView partyLocation = (TextView)convertView.findViewById(R.id.partyLocation);
+        partyLocation.setText(party.getLocationDescription());
+
         return convertView;
     }
 }

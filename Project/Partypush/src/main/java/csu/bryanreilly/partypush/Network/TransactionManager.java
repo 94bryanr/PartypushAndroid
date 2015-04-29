@@ -7,6 +7,7 @@ import android.os.Handler;
 import java.util.ArrayList;
 
 import csu.bryanreilly.partypush.Network.Transactions.AddFriends;
+import csu.bryanreilly.partypush.Network.Transactions.AddParty;
 import csu.bryanreilly.partypush.Network.Transactions.GetFriendsWithApp;
 import csu.bryanreilly.partypush.Network.Transactions.GetParties;
 import csu.bryanreilly.partypush.Network.Transactions.RemoveFriend;
@@ -14,6 +15,7 @@ import csu.bryanreilly.partypush.Network.Transactions.UpdateFriends;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateUserInfo;
 import csu.bryanreilly.partypush.UI.Main.MainActivity;
 import csu.bryanreilly.partypush.UserData.Friend;
+import csu.bryanreilly.partypush.UserData.Party;
 
 public class TransactionManager {
     public static void updateUserInfo(Activity callingActivity){
@@ -26,6 +28,10 @@ public class TransactionManager {
 
     public static void addFriends(ArrayList<Friend> friends){
         AddFriends.run(friends);
+    }
+
+    public static void addParty(Party party){
+        AddParty.run(party);
     }
 
     public static void updateFriends(){
