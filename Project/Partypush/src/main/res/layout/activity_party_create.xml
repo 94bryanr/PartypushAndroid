@@ -9,7 +9,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText"
+        android:id="@+id/editTextDescription"
         android:layout_gravity="center_horizontal"
         android:text="@string/add_friend_description"
         android:textColor="@color/White"
@@ -23,7 +23,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editText2"
+        android:id="@+id/editTextLocation"
         android:text="@string/add_location_description"
         android:layout_weight="0.18"
         android:textColor="@color/White"
@@ -40,7 +40,7 @@
         android:id="@+id/textView"
         android:textColor="@color/White"
         android:textSize="25dp"
-        android:layout_above="@+id/editText"
+        android:layout_above="@+id/editTextDescription"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp" />
 
@@ -64,6 +64,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="49dp"
         android:background="@color/White"
-        android:textColor="@color/app_color" />
+        android:textColor="@color/app_color"
+        android:onClick="createClicked"/>
 
 </RelativeLayout>

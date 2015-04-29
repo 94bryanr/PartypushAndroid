@@ -11,6 +11,7 @@ public class Party {
     public Party(String name, String locationDescription, String id){
         this.name = name;
         this.locationDescription = locationDescription;
+        this.id = id;
     }
 
     public String getLocationDescription() {

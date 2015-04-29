@@ -20,6 +20,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
     private putType type;
     private String id;
 
+    //Create will erase the entry before writing, update will not
     public static enum putType{
         CREATE,
         UPDATE

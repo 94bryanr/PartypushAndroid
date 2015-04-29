@@ -52,7 +52,7 @@ public class GetParties extends AsyncTask<Void, Void, ArrayList<Party>> {
     private ArrayList<Party> getPartyInfo(ArrayList<String> partyIDs){
         ArrayList<Party> parties = new ArrayList<Party>();
         for(String partyID : partyIDs){
-            if (partyID.trim() == "")
+            if (partyID.trim().equals("") || partyID.trim().equals("EMPTY"))
                 continue; // Skip blank ID's
             GetDatabaseItem getParty = new GetDatabaseItem(partyID.trim(), Constants.PARTY_DATABASE, Constants.PARTY_DATABASE_ID);
             getParty.startTransaction();

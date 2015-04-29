@@ -1,5 +1,8 @@
 package csu.bryanreilly.partypush.Network.Transactions;
+import android.util.Log;
+
 import csu.bryanreilly.partypush.Network.AmazonDDB.AppendDatabaseItem;
+import csu.bryanreilly.partypush.Network.AmazonDDB.PutDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UserData.Party;
 
@@ -9,7 +12,7 @@ public class AddParty {
         String toAppend = party.getId() + ",";
         AppendDatabaseItem appendDatabaseItem = new AppendDatabaseItem(
                 Constants.USER_DATABASE,
-                Constants.USER_DATABASE_FRIENDS,
+                Constants.USER_DATABASE_PARTIES,
                 toAppend,
                 true,
                 Constants.USER_DATABASE_ID);
@@ -17,5 +20,11 @@ public class AddParty {
 
         //Add the party info to the party database
         //TODO: Finish this
+        Log.i("PARTIES", "TransAdd: " + party.getId() + " " + party.getName() + " " + party.getLocationDescription());
+        PutDatabaseItem partyItem = new PutDatabaseItem(Constants.PARTY_DATABASE, PutDatabaseItem.putType.CREATE, Constants.PARTY_DATABASE_ID);
+        partyItem.addField(Constants.PARTY_DATABASE_ID, party.getId());
+        partyItem.addField(Constants.PARTY_DATABASE_NAME, party.getName());
+        partyItem.addField(Constants.PARTY_DATABASE_LOCATION, party.getLocationDescription());
+        partyItem.sendItem();
     }
 }
