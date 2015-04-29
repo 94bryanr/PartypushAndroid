@@ -11,5 +11,7 @@
     <string name="empty_friends_list">Click + To Add Friends</string>
     <string name="empty_parties_list">Click + To Add Parties</string>
     <string name="facebook_app_id">1526513900949429</string>
+    <string name="add_friend_description">Description</string>
+    <string name="add_location_description">Location</string>
 
 </resources>
