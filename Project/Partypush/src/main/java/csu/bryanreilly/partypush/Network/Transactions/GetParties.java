@@ -63,7 +63,7 @@ public class GetParties extends AsyncTask<Void, Void, ArrayList<Party>> {
             String partyLocation = getParty.getResult().getItem().get(Constants.PARTY_DATABASE_LOCATION).getS();
             String partyName = getParty.getResult().getItem().get(Constants.PARTY_DATABASE_NAME).getS();
             Log.i("PARTIES", partyName + " " + partyLocation);
-            Party party = new Party(partyName, partyLocation);
+            Party party = new Party(partyName, partyLocation, partyID);
             parties.add(party);
         }
         return parties;
