@@ -4,8 +4,7 @@
               android:layout_height="fill_parent"
               android:orientation="vertical"
     android:background="@color/app_color"
-    android:weightSum="1"
-    android:id="@+id/">
+    android:weightSum="1">
 
     <EditText
         android:layout_width="match_parent"
