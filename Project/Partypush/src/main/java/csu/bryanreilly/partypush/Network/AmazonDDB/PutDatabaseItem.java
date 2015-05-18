@@ -5,7 +5,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue;
 import com.amazonaws.services.dynamodbv2.model.AttributeValueUpdate;
 import com.amazonaws.services.dynamodbv2.model.PutItemRequest;
 import com.amazonaws.services.dynamodbv2.model.UpdateItemRequest;
-import csu.bryanreilly.partypush.Program.Constants;
+
 import csu.bryanreilly.partypush.UserData.AccountManager;
 
 import java.util.HashMap;
@@ -27,7 +27,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
     }
 
     public PutDatabaseItem(String tableName, putType type, String keyID){
-        this.client = (AmazonDynamoDBClient)AccountManager.getCognitoProvider();
+        this.client = (AmazonDynamoDBClient)AccountManager.getDatabaseProvider();
         this.tableName = tableName;
         item = new HashMap<>();
         update = new HashMap<>();
