@@ -20,18 +20,14 @@ public class LoginFragment extends FacebookFragment {
 
         //Allows the fragment, instead of the activity, to handle facebook state changes.
         LoginButton authButton = (LoginButton) rootView.findViewById(R.id.authButton);
-
-
-
         authButton.setFragment(this);
         authButton.setReadPermissions(Arrays.asList("user_friends"));
-    // this is the transition for the logo at the start of the app
-        ImageView log_in = (ImageView) rootView.findViewById(R.id.log_in_header) ;
-        log_in.animate().translationY(50.5f);
-        log_in.animate().setDuration(2000).start();
 
-
-
+        //Animation for the logo at the start of the app
+        ImageView title = (ImageView) rootView.findViewById(R.id.title);
+        title.animate().translationY(50.5f);
+        title.animate().setDuration(2000);
+        title.animate().start();
 
         return rootView;
     }

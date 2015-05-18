@@ -16,7 +16,8 @@ public class UIManager {
     }
 
     public static void returnToMain(Activity callingActivity){
-        returnToMain(callingActivity, FragmentInfo.MapFragment);
+        int tabToOpen = FragmentInfo.MapFragment;
+        returnToMain(callingActivity, tabToOpen);
     }
 
     public static void returnToMain(Activity callingActivity, int tab){

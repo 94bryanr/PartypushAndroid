@@ -19,41 +19,44 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class AccountManager {
-    private static String firstName;
-    private static String lastName;
     private static String name;
     private static String id;
-    private static String username;
-    private static String birthday;
     private static ArrayList<Friend> friendsWithApp;
     private static ArrayList<Friend> addedFriends;
     private static AmazonDynamoDB amazonDatabaseClient;
-    private static boolean loggedInFacebook = false;
+    private static boolean loggedInToFacebook = false;
     private static ArrayList<Party> parties;
 
-    public static void login(Activity callingActivity, Session callingSession){
-        if(loggedInFacebook)
-            return;
+    public static void attemptLogin(Activity callingActivity, Session callingSession){
+        if(!loggedInToFacebook)
+            login(callingActivity, callingSession);
+    }
 
+    private static void login(Activity callingActivity, Session callingSession){
+        initializeAccountData();
+        initializeDatabaseClient(callingActivity);
+        UIManager.returnToMain(callingActivity);
+        updateAccountInfoWithFacebookInfo(callingSession, callingActivity);
+        loggedInToFacebook = true;
+    }
+
+    private static void initializeAccountData(){
         friendsWithApp = new ArrayList<Friend>();
         addedFriends = new ArrayList<Friend>();
         parties = new ArrayList<Party>();
-        Log.i("AccountManager", "Logging In");
-        initializeCognito(callingActivity);
-        UIManager.returnToMain(callingActivity);
-        getFacebookUserInfo(callingSession, callingActivity);
-        loggedInFacebook = true;
     }
 
-    public static void logout(Activity callingActivity){
-        if(!loggedInFacebook)
-            return;
-        Log.i("AccountManager", "Logout");
-        loggedInFacebook = false;
+    public static void attemptLogout(Activity callingActivity){
+        if(!loggedInToFacebook)
+            logout(callingActivity);
+    }
+
+    private static void logout(Activity callingActivity){
+        loggedInToFacebook = false;
         UIManager.returnToLogin(callingActivity);
     }
 
-    private static void initializeCognito(Activity callingActivity){
+    private static void initializeDatabaseClient(Activity callingActivity){
         CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
                 callingActivity,
                 "944513736710",
@@ -70,43 +73,28 @@ public class AccountManager {
         amazonDatabaseClient = new AmazonDynamoDBClient(cognitoProvider);
     }
 
-    private static void getFacebookUserInfo(final Session session, final Activity callingActivity){
+    private static void updateAccountInfoWithFacebookInfo(final Session session, final Activity callingActivity){
         Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
             @Override
             public void onCompleted(GraphUser user, Response response) {
-                Log.i("fb", "fb user: " + user.toString());
-                AccountManager.setFirstName(user.getFirstName());
-                AccountManager.setLastName(user.getLastName());
-                AccountManager.setBirthday(user.getBirthday());
                 AccountManager.setName(user.getName());
                 AccountManager.setId(user.getId());
-                AccountManager.setUsername(user.getUsername());
-                TransactionManager.updateUserInfo(callingActivity);
-                TransactionManager.updateFriendsWithApp();
-                TransactionManager.updateFriends();
+                runLoginDatabaseUpdates(callingActivity);
             }
         });
     }
 
-    public static AmazonDynamoDB getCognitoProvider(){
-        return amazonDatabaseClient;
+    private static void runLoginDatabaseUpdates(Activity callingActivity){
+        TransactionManager.updateUserInfo(callingActivity);
+        TransactionManager.updateFriendsWithApp();
+        TransactionManager.updateFriends();
     }
 
-    public static ArrayList<Friend> getAddedFriends(){
-        return addedFriends;
-    }
+    public static AmazonDynamoDB getCognitoProvider(){return amazonDatabaseClient;}
 
-    public static void setFriendsWithApp(ArrayList<Friend> friends){
-        friendsWithApp = friends;
-    }
+    public static void setParties(ArrayList<Party> parties) {AccountManager.parties = parties;}
 
-    public static ArrayList<Party> getParties() {
-        return parties;
-    }
-
-    public static void setParties(ArrayList<Party> parties) {
-        AccountManager.parties = parties;
-    }
+    public static ArrayList<Party> getParties() {return parties;}
 
     public static void setAddedFriends(ArrayList<Friend> addedFriends) {
         AccountManager.addedFriends = addedFriends;
@@ -114,39 +102,17 @@ public class AccountManager {
         TransactionManager.getParties();
     }
 
-    public static ArrayList<Friend> getFriendsWithApp(){
-        return friendsWithApp;
-    }
+    public static ArrayList<Friend> getAddedFriends(){return addedFriends;}
 
-    public static void setFirstName(String firstName) {
-        AccountManager.firstName = firstName;
-    }
+    public static void setFriendsWithApp(ArrayList<Friend> friends){friendsWithApp = friends;}
 
-    public static void setBirthday(String birthday) {
-        AccountManager.birthday = birthday;
-    }
+    public static ArrayList<Friend> getFriendsWithApp(){return friendsWithApp;}
 
-    public static void setLastName(String lastName) {
-        AccountManager.lastName = lastName;
-    }
+    public static void setName(String name) {AccountManager.name = name;}
 
-    public static void setName(String name) {
-        AccountManager.name = name;
-    }
+    public static String getName() {return name;}
 
-    public static void setId(String id) {
-        AccountManager.id = id;
-    }
+    public static void setId(String id) {AccountManager.id = id;}
 
-    public static void setUsername(String username) {
-        AccountManager.username = username;
-    }
-
-    public static String getName() {
-        return name;
-    }
-
-    public static String getId() {
-        return id;
-    }
+    public static String getId() {return id;}
 }

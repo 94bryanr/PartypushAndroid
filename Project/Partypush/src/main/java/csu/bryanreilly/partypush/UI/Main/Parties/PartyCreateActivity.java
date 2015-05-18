@@ -34,6 +34,6 @@ public class PartyCreateActivity extends FragmentActivity {
         Party party = new Party(description, location, AccountManager.getId());
         Log.i("PARTIES" , "ADDING");
         TransactionManager.addParty(party);
-        //UIManager.returnToMain(this);
+        UIManager.returnToMain(this);
     }
 }
