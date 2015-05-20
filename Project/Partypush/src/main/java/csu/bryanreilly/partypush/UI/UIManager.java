@@ -26,5 +26,6 @@ public class UIManager {
         startMainActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startMainActivity.putExtra("Tab", tab);
         callingActivity.startActivity(startMainActivity);
+        //TODO: Crashes after intent is sent, may be a database transaction
     }
 }

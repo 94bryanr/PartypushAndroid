@@ -2,6 +2,7 @@ package csu.bryanreilly.partypush.UI.Login;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import com.facebook.AppEventsLogger;
+
 import csu.bryanreilly.partypush.R;
 
 public class LoginActivity extends FragmentActivity {

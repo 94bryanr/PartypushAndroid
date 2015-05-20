@@ -23,7 +23,6 @@ public class FacebookFragment extends Fragment{
 
     // Called when the user logs in or out of Facebook
     public void onSessionStateChange(Session session, SessionState state, Exception exception) {
-        Log.i("Facebook Fragment", "onSessionStateChange called");
         if (state.isOpened()) {
             AccountManager.attemptLogin(getActivity(), session);
         } else if (state.isClosed()) {

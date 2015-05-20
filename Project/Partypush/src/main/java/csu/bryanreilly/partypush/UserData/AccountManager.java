@@ -1,7 +1,8 @@
 package csu.bryanreilly.partypush.UserData;
 
 import android.app.Activity;
-import android.content.res.Resources;
+import android.util.Log;
+
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
@@ -14,6 +15,7 @@ import com.facebook.model.GraphUser;
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.UIManager;
+import csu.bryanreilly.partypush.Utilities.StringResourceGetter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,11 +36,11 @@ public class AccountManager {
     }
 
     private static void login(Activity callingActivity, Session callingSession){
+        loggedInToFacebook = true;
         initializeAccountData();
         initializeDatabaseClient(callingActivity);
-        UIManager.returnToMain(callingActivity);
         updateAccountInfoWithFacebookInfo(callingSession, callingActivity);
-        loggedInToFacebook = true;
+        UIManager.returnToMain(callingActivity);
     }
 
     private static void initializeAccountData(){
@@ -48,31 +50,31 @@ public class AccountManager {
     }
 
     private static void initializeDatabaseClient(Activity callingActivity){
+        StringResourceGetter res = new StringResourceGetter(callingActivity);
         CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
                 callingActivity,
-                // Resource objects can only be accessed from an activity or context
-                callingActivity.getString(R.string.amazon_cognito_account_id),
-                callingActivity.getString(R.string.amazon_cognito_identity_pool_id),
-                callingActivity.getString(R.string.amazon_cognito_authenticated_role_arn),
-                callingActivity.getString(R.string.amazon_cognito_authenticated_role_arn),
+                res.get(R.string.amazon_cognito_account_id),
+                res.get(R.string.amazon_cognito_identity_pool_id),
+                res.get(R.string.amazon_cognito_authenticated_role_arn),
+                res.get(R.string.amazon_cognito_authenticated_role_arn),
                 Regions.US_EAST_1
         );
         Map<String, String> logins = new HashMap<>();
-        logins.put(callingActivity.getString(R.string.amazon_cognito_facebook_login_provider_name),
+        logins.put(res.get(R.string.amazon_cognito_facebook_login_provider_name),
                 Session.getActiveSession().getAccessToken());
         cognitoProvider.withLogins(logins);
         amazonDatabaseClient = new AmazonDynamoDBClient(cognitoProvider);
     }
 
     private static void updateAccountInfoWithFacebookInfo(final Session session, final Activity callingActivity){
-        Request.executeMeRequestAsync(session, new Request.GraphUserCallback() {
+        Request.newMeRequest(session, new Request.GraphUserCallback() {
             @Override
             public void onCompleted(GraphUser user, Response response) {
                 AccountManager.setName(user.getName());
                 AccountManager.setId(user.getId());
                 runLoginDatabaseUpdates(callingActivity);
             }
-        });
+        }).executeAsync();
     }
 
     private static void runLoginDatabaseUpdates(Activity callingActivity){
@@ -82,15 +84,13 @@ public class AccountManager {
     }
 
     public static void attemptLogout(Activity callingActivity){
-        if(!loggedInToFacebook)
+        if(loggedInToFacebook)
             logout(callingActivity);
     }
 
     private static void logout(Activity callingActivity){
         loggedInToFacebook = false;
-        Session.getActiveSession().close();
-        amazonDatabaseClient.shutdown();
-        UIManager.returnToLogin(callingActivity);
+        new AccountLogoutService().execute(callingActivity);
     }
 
     public static AmazonDynamoDB getDatabaseProvider(){return amazonDatabaseClient;}

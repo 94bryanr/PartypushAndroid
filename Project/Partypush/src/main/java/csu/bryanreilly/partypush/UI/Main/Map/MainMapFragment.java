@@ -50,9 +50,9 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
     //Google client connection is connected
     public void onConnected(Bundle connectionHint) {
         mCurrentLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        Log.i("LOCATION", mCurrentLocation.toString());
         createLocationRequest();
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,mLocationRequest, this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                mLocationRequest, this);
         setCamera();
     }
 
@@ -68,12 +68,14 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
 
     @Override
     //Google map is ready
-    public void onMapReady(GoogleMap map){
+    public void onMapReady(GoogleMap map) {
         this.map = map;
+        setCamera();
     }
 
     private void setCamera(){
-        if (mCurrentLocation != null)
+        //TODO: Called before map is non-null and crashes
+        if (mCurrentLocation != null && map != null)
         {
             CameraPosition cameraPosition = new CameraPosition.Builder()
                     .target(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
@@ -99,9 +101,6 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
                     .position(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
                     .title("You")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
-        }
-        else {
-
         }
     }
 
