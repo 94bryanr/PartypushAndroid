@@ -60,7 +60,9 @@ public class MainFriendsFragment extends FacebookFragment implements PropertyCha
 
     public void refreshFriendsList(){
         listAdapter = new FriendListAdapter();
-        friendsList.setAdapter(listAdapter);
+        if(friendsList != null) {
+            friendsList.setAdapter(listAdapter);
+        }
         Log.i("Friends List", "List Adapter Updated");
     }
 
