@@ -12,6 +12,7 @@ public class Party {
         this.name = name;
         this.locationDescription = locationDescription;
         this.id = id;
+        this.location = getAbsolutePosition(locationDescription);
     }
 
     public String getLocationDescription() {
@@ -24,5 +25,11 @@ public class Party {
 
     public String getId() {
         return id;
+    }
+
+    public LatLng getLocation() { return location; }
+
+    private LatLng getAbsolutePosition(String locationDescription){
+        return new LatLng(20, 20);
     }
 }

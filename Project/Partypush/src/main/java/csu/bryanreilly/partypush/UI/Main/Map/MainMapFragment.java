@@ -2,7 +2,6 @@ package csu.bryanreilly.partypush.UI.Main.Map;
 
 import android.location.Location;
 import android.os.Bundle;
-import android.util.Log;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -18,13 +17,18 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
+import csu.bryanreilly.partypush.UserData.AccountManager;
+import csu.bryanreilly.partypush.UserData.Party;
+
 public class MainMapFragment extends SupportMapFragment implements LocationListener,
         OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, android.location.LocationListener {
     private Location mCurrentLocation;
     private GoogleApiClient mGoogleApiClient;
     private LocationRequest mLocationRequest;
-    private GoogleMap map;
+    private static GoogleMap map;
     private Marker myLocationMarker;
 
     @Override
@@ -54,6 +58,8 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, this);
         setCamera();
+        //TODO: Doesnt work if parties not retrieved
+        refreshPartyIcons(AccountManager.getParties());
     }
 
     private void createLocationRequest(){
@@ -71,10 +77,11 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
     public void onMapReady(GoogleMap map) {
         this.map = map;
         setCamera();
+        //TODO: Doesnt work if parties not retrieved
+        refreshPartyIcons(AccountManager.getParties());
     }
 
     private void setCamera(){
-        //TODO: Called before map is non-null and crashes
         if (mCurrentLocation != null && map != null)
         {
             CameraPosition cameraPosition = new CameraPosition.Builder()
@@ -95,12 +102,24 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
 
     private void updateLocationMarker(Location location){
         if (map != null) {
-            if (myLocationMarker != null)
+            if (myLocationMarker != null) {
                 myLocationMarker.remove();
+            }
             myLocationMarker = map.addMarker(new MarkerOptions()
                     .position(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
                     .title("You")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+        }
+    }
+
+    public static void refreshPartyIcons(ArrayList<Party> parties){
+        if(map != null) {
+            for (Party party : parties) {
+                map.addMarker(new MarkerOptions()
+                        .position(party.getLocation())
+                        .title(party.getLocationDescription())
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
+            }
         }
     }
 

@@ -14,6 +14,7 @@ import com.facebook.model.GraphUser;
 
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
+import csu.bryanreilly.partypush.UI.Main.Map.MainMapFragment;
 import csu.bryanreilly.partypush.UI.UIManager;
 import csu.bryanreilly.partypush.Utilities.StringResourceGetter;
 
@@ -95,7 +96,9 @@ public class AccountManager {
 
     public static AmazonDynamoDB getDatabaseProvider(){return amazonDatabaseClient;}
 
-    public static void setParties(ArrayList<Party> parties) {AccountManager.parties = parties;}
+    public static void setParties(ArrayList<Party> parties) {
+        AccountManager.parties = parties;
+    }
 
     public static ArrayList<Party> getParties() {return parties;}
 

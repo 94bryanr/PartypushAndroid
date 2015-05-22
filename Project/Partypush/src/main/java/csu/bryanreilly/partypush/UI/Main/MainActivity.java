@@ -121,7 +121,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
                 Intent startPartyCreateActivity = new Intent(this, PartyCreateActivity.class);
                 startActivity(startPartyCreateActivity);
             }
-
             return true;
         }
         if (id == R.id.action_settings) {
