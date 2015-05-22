@@ -14,6 +14,7 @@ import com.facebook.model.GraphUser;
 
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
+import csu.bryanreilly.partypush.UI.Main.MainActivity;
 import csu.bryanreilly.partypush.UI.Main.Map.MainMapFragment;
 import csu.bryanreilly.partypush.UI.UIManager;
 import csu.bryanreilly.partypush.Utilities.StringResourceGetter;

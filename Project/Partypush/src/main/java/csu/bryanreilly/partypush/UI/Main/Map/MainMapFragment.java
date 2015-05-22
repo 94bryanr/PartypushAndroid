@@ -2,6 +2,8 @@ package csu.bryanreilly.partypush.UI.Main.Map;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
+
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
@@ -20,6 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.ArrayList;
 
 import csu.bryanreilly.partypush.UserData.AccountManager;
+import csu.bryanreilly.partypush.UserData.LocationManager;
 import csu.bryanreilly.partypush.UserData.Party;
 
 public class MainMapFragment extends SupportMapFragment implements LocationListener,
@@ -58,7 +61,7 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, this);
         setCamera();
-        //TODO: Doesnt work if parties not retrieved
+        //TODO: Doesn't work if parties not retrieved
         refreshPartyIcons(AccountManager.getParties());
     }
 
@@ -77,7 +80,7 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
     public void onMapReady(GoogleMap map) {
         this.map = map;
         setCamera();
-        //TODO: Doesnt work if parties not retrieved
+        //TODO: Doesn't work if parties not retrieved
         refreshPartyIcons(AccountManager.getParties());
     }
 
@@ -105,16 +108,22 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
             if (myLocationMarker != null) {
                 myLocationMarker.remove();
             }
+            LatLng currentLocation = new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude());
             myLocationMarker = map.addMarker(new MarkerOptions()
-                    .position(new LatLng(mCurrentLocation.getLatitude(), mCurrentLocation.getLongitude()))
+                    .position(currentLocation)
                     .title("You")
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
+            LocationManager.setCurrentLocation(currentLocation);
         }
     }
 
     public static void refreshPartyIcons(ArrayList<Party> parties){
+        //TODO: Never deletes icons
+        Log.i("Map", "Attempting to retrieve Parties");
         if(map != null) {
+            Log.i("Map", "Map not Null");
             for (Party party : parties) {
+                Log.i("Map", "Adding Party " + party.getLocationDescription());
                 map.addMarker(new MarkerOptions()
                         .position(party.getLocation())
                         .title(party.getLocationDescription())

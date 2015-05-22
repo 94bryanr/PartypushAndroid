@@ -1,5 +1,6 @@
 package csu.bryanreilly.partypush.UI.Main;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 import android.content.Intent;
@@ -25,6 +26,8 @@ import csu.bryanreilly.partypush.UI.Main.Parties.MainPartiesFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.PartyCreateActivity;
 import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
 import csu.bryanreilly.partypush.UserData.AccountManager;
+import csu.bryanreilly.partypush.UserData.Party;
+import csu.bryanreilly.partypush.Utilities.ContextGetter;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
     /**
@@ -48,6 +51,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ContextGetter.getInstance().setContext(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         // Set up the action bar.
@@ -165,6 +169,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         super.onResume();
         updateFriendsList();
         updatePartiesList();
+        refreshMapPartiesIcons(AccountManager.getParties());
     }
 
     public void updateFriendsList(){
@@ -177,6 +182,15 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         MainPartiesFragment fragment = (MainPartiesFragment)getFragmentAt(FragmentInfo.PartiesFragment);
         if (fragment != null)
             fragment.refreshPartiesList();
+    }
+
+    public void refreshMapPartiesIcons(ArrayList<Party> parties){
+        Log.i("Map", "Attempting Call from MainActivity");
+        MainMapFragment fragment = (MainMapFragment)getFragmentAt(FragmentInfo.MapFragment);
+        if (fragment != null) {
+            Log.i("Map", "Called from MainActivity");
+            fragment.refreshPartyIcons(parties);
+        }
     }
 
     public Fragment getFragmentAt(int position){
@@ -193,10 +207,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         return "android:switcher:" + viewId + ":" + position;
     }
 
-    /**
-     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
-     * one of the sections/tabs/pages.
-     */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);

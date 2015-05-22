@@ -19,12 +19,13 @@ public class AddParty {
         appendDatabaseItem.execute();
 
         //Add the party info to the party database
-        //TODO: Finish this
         Log.i("PARTIES", "TransAdd: " + party.getId() + " " + party.getName() + " " + party.getLocationDescription());
         PutDatabaseItem partyItem = new PutDatabaseItem(Constants.PARTY_DATABASE, PutDatabaseItem.putType.CREATE, Constants.PARTY_DATABASE_ID);
         partyItem.addField(Constants.PARTY_DATABASE_ID, party.getId());
         partyItem.addField(Constants.PARTY_DATABASE_NAME, party.getName());
         partyItem.addField(Constants.PARTY_DATABASE_LOCATION, party.getLocationDescription());
+        partyItem.addField(Constants.PARTY_DATABASE_LONGITUDE, Double.toString(party.getLocation().longitude));
+        partyItem.addField(Constants.PARTY_DATABASE_LATITUDE, Double.toString(party.getLocation().latitude));
         partyItem.sendItem();
     }
 }

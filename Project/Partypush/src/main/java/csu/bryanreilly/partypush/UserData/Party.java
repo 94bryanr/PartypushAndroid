@@ -8,28 +8,18 @@ public class Party {
     private LatLng location;
     private String id;
 
-    public Party(String name, String locationDescription, String id){
+    public Party(String name, String locationDescription, String id, LatLng location){
         this.name = name;
         this.locationDescription = locationDescription;
         this.id = id;
-        this.location = getAbsolutePosition(locationDescription);
+        this.location = location;
     }
 
-    public String getLocationDescription() {
-        return locationDescription;
-    }
+    public String getLocationDescription() { return locationDescription; }
 
-    public String getName() {
-        return name;
-    }
+    public String getName() { return name; }
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
     public LatLng getLocation() { return location; }
-
-    private LatLng getAbsolutePosition(String locationDescription){
-        return new LatLng(20, 20);
-    }
 }
