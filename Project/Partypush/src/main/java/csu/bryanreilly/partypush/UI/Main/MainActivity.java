@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.SupportMapFragment;
 
+import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.Main.Friends.FriendPickerActivity;
 import csu.bryanreilly.partypush.UI.Main.Friends.MainFriendsFragment;
@@ -179,6 +180,8 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     }
 
     public void updatePartiesList(){
+        //TODO: Get this to work(refresh parties when clicking tab)
+        //TransactionManager.getParties();
         MainPartiesFragment fragment = (MainPartiesFragment)getFragmentAt(FragmentInfo.PartiesFragment);
         if (fragment != null)
             fragment.refreshPartiesList();

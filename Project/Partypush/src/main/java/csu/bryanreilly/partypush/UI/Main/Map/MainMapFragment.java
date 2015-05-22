@@ -43,6 +43,12 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
         buildGoogleApiClient();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshPartyIcons(AccountManager.getParties());
+    }
+
     //Initialize Google Client
     protected synchronized void buildGoogleApiClient() {
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
@@ -118,7 +124,7 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
     }
 
     public static void refreshPartyIcons(ArrayList<Party> parties){
-        //TODO: Never deletes icons
+        //TODO: Never deletes icons, make it do that(maybe)
         Log.i("Map", "Attempting to retrieve Parties");
         if(map != null) {
             Log.i("Map", "Map not Null");
@@ -126,7 +132,7 @@ public class MainMapFragment extends SupportMapFragment implements LocationListe
                 Log.i("Map", "Adding Party " + party.getLocationDescription());
                 map.addMarker(new MarkerOptions()
                         .position(party.getLocation())
-                        .title(party.getLocationDescription())
+                        .title(party.getName())
                         .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
             }
         }
