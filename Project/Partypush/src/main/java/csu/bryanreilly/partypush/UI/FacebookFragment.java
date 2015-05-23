@@ -9,6 +9,7 @@ import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 import csu.bryanreilly.partypush.Utilities.ContextGetter;
+import csu.bryanreilly.partypush.Utilities.SingletonStarter;
 
 public class FacebookFragment extends Fragment{
     //Facebook's UILifecycleHelper must be called upon every lifecycle change
@@ -34,7 +35,7 @@ public class FacebookFragment extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContextGetter.getInstance().setContext(getActivity().getApplicationContext());
+        SingletonStarter.getInstance(getActivity().getApplicationContext());
         status = new UiLifecycleHelper(this.getActivity(), callback);
         status.onCreate(savedInstanceState);
     }

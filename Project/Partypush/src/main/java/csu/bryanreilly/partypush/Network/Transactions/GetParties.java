@@ -63,6 +63,7 @@ public class GetParties extends AsyncTask<Void, Void, ArrayList<Party>> {
             if (partyID.trim().equals("") || partyID.trim().equals("EMPTY"))
                 continue; // Skip blank ID's
             GetDatabaseItem getParty = new GetDatabaseItem(partyID.trim(), Constants.PARTY_DATABASE, Constants.PARTY_DATABASE_ID);
+            Log.i("GDI", "Getting Party Info " + partyID);
             getParty.startTransaction();
             while(!getParty.isComplete()){
                 // Wait for database to get information

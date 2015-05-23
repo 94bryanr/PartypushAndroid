@@ -33,7 +33,8 @@ public class PartyCreateActivity extends FragmentActivity {
             return;
         }
 
-        LocationGeocoder locationGeocoder = new LocationGeocoder(location, LocationManager.getCurrentLocation());
+        LocationGeocoder locationGeocoder = new LocationGeocoder(location,
+                LocationManager.getInstance().getCurrentLocation());
 
         if(locationGeocoder.foundMatch()){
             //TODO: If more than one match show the user the top 5 matches

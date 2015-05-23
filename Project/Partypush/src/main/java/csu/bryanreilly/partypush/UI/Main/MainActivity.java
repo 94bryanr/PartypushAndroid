@@ -29,6 +29,7 @@ import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 import csu.bryanreilly.partypush.UserData.Party;
 import csu.bryanreilly.partypush.Utilities.ContextGetter;
+import csu.bryanreilly.partypush.Utilities.SingletonStarter;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
     /**
@@ -52,7 +53,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContextGetter.getInstance().setContext(getApplicationContext());
+        SingletonStarter.getInstance(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         // Set up the action bar.
@@ -170,7 +171,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         super.onResume();
         updateFriendsList();
         updatePartiesList();
-        refreshMapPartiesIcons(AccountManager.getParties());
     }
 
     public void updateFriendsList(){
@@ -185,15 +185,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         MainPartiesFragment fragment = (MainPartiesFragment)getFragmentAt(FragmentInfo.PartiesFragment);
         if (fragment != null)
             fragment.refreshPartiesList();
-    }
-
-    public void refreshMapPartiesIcons(ArrayList<Party> parties){
-        Log.i("Map", "Attempting Call from MainActivity");
-        MainMapFragment fragment = (MainMapFragment)getFragmentAt(FragmentInfo.MapFragment);
-        if (fragment != null) {
-            Log.i("Map", "Called from MainActivity");
-            fragment.refreshPartyIcons(parties);
-        }
     }
 
     public Fragment getFragmentAt(int position){

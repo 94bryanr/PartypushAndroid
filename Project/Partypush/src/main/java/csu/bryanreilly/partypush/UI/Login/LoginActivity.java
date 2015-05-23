@@ -5,12 +5,13 @@ import com.facebook.AppEventsLogger;
 
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.Utilities.ContextGetter;
+import csu.bryanreilly.partypush.Utilities.SingletonStarter;
 
 public class LoginActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        ContextGetter.getInstance().setContext(getApplicationContext());
+        SingletonStarter.getInstance(getApplicationContext());
         setContentView(R.layout.activity_login);
     }
 

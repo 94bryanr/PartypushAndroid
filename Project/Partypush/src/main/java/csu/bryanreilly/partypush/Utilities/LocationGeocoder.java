@@ -23,7 +23,7 @@ public class LocationGeocoder {
             e.printStackTrace();
         }
 
-        LatLng currentLocation = LocationManager.getCurrentLocation();
+        LatLng currentLocation = LocationManager.getInstance().getCurrentLocation();
         int addressSearchSpace = 4;
 
         if(currentLocation != null){
