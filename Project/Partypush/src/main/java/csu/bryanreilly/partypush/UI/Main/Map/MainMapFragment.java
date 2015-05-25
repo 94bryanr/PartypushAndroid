@@ -75,7 +75,7 @@ public class MainMapFragment extends SupportMapFragment implements OnMapReadyCal
         for (Party party : AccountManager.getParties()) {
             map.addMarker(new MarkerOptions()
                     .position(party.getLocation())
-                    .title(party.getName())
+                    .title(party.getDescription())
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE)));
         }
     }

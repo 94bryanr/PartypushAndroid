@@ -6,7 +6,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_row_height"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="@color/list_background_color">
 
         <TextView
             android:layout_width="wrap_content"
@@ -14,11 +15,17 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Name"
             android:id="@+id/partyName"
-            android:layout_centerVertical="true"
+            android:textColor="@color/White"
+            android:layout_alignParentTop="true"
+            android:scrollHorizontally="true"
+            android:textSize="@dimen/list_text_size"
+            android:singleLine="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/list_horizontal_margin"
-            android:textColor="@color/White" />
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="@dimen/list_text_horizontal_padding"
+            android:layout_marginRight="@dimen/list_text_horizontal_padding" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,11 +33,16 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Location"
             android:id="@+id/partyLocation"
-            android:layout_marginLeft="@dimen/list_horizontal_margin"
             android:textColor="@color/White"
+            android:layout_alignParentBottom="true"
+            android:scrollHorizontally="true"
+            android:textSize="@dimen/list_text_size"
+            android:singleLine="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/list_horizontal_margin" />
+            android:layout_marginLeft="@dimen/list_text_horizontal_padding"
+            android:layout_marginRight="@dimen/list_text_horizontal_padding" />
     </RelativeLayout>
 </LinearLayout>

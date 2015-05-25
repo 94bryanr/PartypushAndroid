@@ -43,7 +43,7 @@ public class PartyListAdapter extends BaseAdapter {
         Party party = parties.get(position);
 
         TextView partyText = (TextView)convertView.findViewById(R.id.partyName);
-        partyText.setText(party.getName());
+        partyText.setText(party.getDescription());
 
         TextView partyLocation = (TextView)convertView.findViewById(R.id.partyLocation);
         partyLocation.setText(party.getLocationDescription());

@@ -3,13 +3,13 @@ package csu.bryanreilly.partypush.UserData;
 import com.google.android.gms.maps.model.LatLng;
 
 public class Party {
-    private String name;
+    private String description;
     private String locationDescription;
     private LatLng location;
     private String id;
 
-    public Party(String name, String locationDescription, String id, LatLng location){
-        this.name = name;
+    public Party(String description, String locationDescription, String id, LatLng location){
+        this.description = description;
         this.locationDescription = locationDescription;
         this.id = id;
         this.location = location;
@@ -17,7 +17,7 @@ public class Party {
 
     public String getLocationDescription() { return locationDescription; }
 
-    public String getName() { return name; }
+    public String getDescription() { return description; }
 
     public String getId() { return id; }
 

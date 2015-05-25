@@ -6,7 +6,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/list_row_height"
-        android:layout_gravity="center_horizontal">
+        android:layout_gravity="center_horizontal"
+        android:background="@color/list_background_color">
 
         <TextView
             android:layout_width="wrap_content"
@@ -18,6 +19,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_marginLeft="@dimen/list_horizontal_margin"
-            android:textColor="@color/White" />
+            android:textColor="@color/White"
+            android:textSize="@dimen/list_text_size" />
     </RelativeLayout>
 </LinearLayout>

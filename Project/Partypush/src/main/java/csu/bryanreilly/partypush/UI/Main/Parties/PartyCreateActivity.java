@@ -29,17 +29,22 @@ public class PartyCreateActivity extends FragmentActivity {
         String description = descriptionBox.getText().toString().trim();
         String location = locationBox.getText().toString().trim();
 
-        if (entriesLongEnough(description, location) && locationIsValid(location)){
+        if (entriesInRange(description, location) && locationIsValid(location)){
             List<Address> addresses = locationGeocoder.getMatchedAddresses();
-            addBestLocation(addresses, description, location);
+            addBestLocation(addresses, location, description);
         }
     }
 
-    private boolean entriesLongEnough(String description, String location){
-        int minimumTextLength = 5;
+    private boolean entriesInRange(String description, String location){
+        int minimumTextLength = 4;
+        int maximumTextLength = 60;
 
         if(description.length() < minimumTextLength || location.length() < minimumTextLength){
             showError("Entries must be at least " + minimumTextLength + " characters in length.");
+            return false;
+        }
+        if(description.length() > maximumTextLength || location.length() > maximumTextLength){
+            showError("Entries must be shorter than " + maximumTextLength + " characters in length.");
             return false;
         }
         return true;
