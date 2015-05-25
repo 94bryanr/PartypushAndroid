@@ -10,7 +10,7 @@ import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 import csu.bryanreilly.partypush.UserData.Friend;
-import csu.bryanreilly.partypush.UserData.Party;
+import csu.bryanreilly.partypush.UserData.Party.Party;
 
 public class GetParties extends AsyncTask<Void, Void, ArrayList<Party>> {
     @Override

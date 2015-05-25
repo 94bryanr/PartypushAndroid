@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.Party;
+import csu.bryanreilly.partypush.UserData.Party.Party;
 
 public class PartyListAdapter extends BaseAdapter {
     //Custom list adapter for regular party list

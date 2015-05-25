@@ -2,7 +2,6 @@ package csu.bryanreilly.partypush.Network;
 
 import android.app.Activity;
 import android.os.AsyncTask;
-import android.os.Handler;
 
 import java.util.ArrayList;
 
@@ -13,9 +12,8 @@ import csu.bryanreilly.partypush.Network.Transactions.GetParties;
 import csu.bryanreilly.partypush.Network.Transactions.RemoveFriend;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateFriends;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateUserInfo;
-import csu.bryanreilly.partypush.UI.Main.MainActivity;
 import csu.bryanreilly.partypush.UserData.Friend;
-import csu.bryanreilly.partypush.UserData.Party;
+import csu.bryanreilly.partypush.UserData.Party.Party;
 
 public class TransactionManager {
     public static void updateUserInfo(Activity callingActivity){

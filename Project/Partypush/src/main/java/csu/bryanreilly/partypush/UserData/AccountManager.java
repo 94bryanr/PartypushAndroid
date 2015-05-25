@@ -1,7 +1,6 @@
 package csu.bryanreilly.partypush.UserData;
 
 import android.app.Activity;
-import android.util.Log;
 
 import com.amazonaws.auth.CognitoCachingCredentialsProvider;
 import com.amazonaws.regions.Regions;
@@ -14,9 +13,10 @@ import com.facebook.model.GraphUser;
 
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
-import csu.bryanreilly.partypush.UI.Main.MainActivity;
-import csu.bryanreilly.partypush.UI.Main.Map.MainMapFragment;
 import csu.bryanreilly.partypush.UI.UIManager;
+import csu.bryanreilly.partypush.UserData.Party.Party;
+import csu.bryanreilly.partypush.UserData.Party.PartyCallback;
+import csu.bryanreilly.partypush.UserData.Party.PartyObserver;
 import csu.bryanreilly.partypush.Utilities.StringResourceGetter;
 
 import java.util.ArrayList;
@@ -99,6 +99,7 @@ public class AccountManager {
 
     public static void setParties(ArrayList<Party> parties) {
         AccountManager.parties = parties;
+        PartyObserver.notifyPartiesChanged();
     }
 
     public static ArrayList<Party> getParties() {return parties;}

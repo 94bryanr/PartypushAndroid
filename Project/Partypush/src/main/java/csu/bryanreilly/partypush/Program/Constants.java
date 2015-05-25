@@ -20,5 +20,5 @@ public class Constants {
     public static int DATABASE_TIMEOUT_SECONDS = 10;
 
     //Map
-    public static int MAP_ZOOM_LEVEL = 12;
+    public static int MAP_ZOOM_LEVEL = 13;
 }

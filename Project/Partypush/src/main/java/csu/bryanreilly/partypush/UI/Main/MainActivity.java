@@ -1,6 +1,5 @@
 package csu.bryanreilly.partypush.UI.Main;
 
-import java.util.ArrayList;
 import java.util.Locale;
 
 import android.content.Intent;
@@ -12,7 +11,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -22,13 +20,11 @@ import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.Main.Friends.FriendPickerActivity;
 import csu.bryanreilly.partypush.UI.Main.Friends.MainFriendsFragment;
+import csu.bryanreilly.partypush.UI.Main.MainTabCallback.TabObserver;
 import csu.bryanreilly.partypush.UI.Main.Map.MainMapFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.MainPartiesFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.PartyCreateActivity;
 import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
-import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.Party;
-import csu.bryanreilly.partypush.Utilities.ContextGetter;
 import csu.bryanreilly.partypush.Utilities.SingletonStarter;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
@@ -109,21 +105,16 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //Handle button clicks
         if (id == R.id.action_new) {
-            //Checks to see if we are on the correct fragment
             if(mViewPager.getCurrentItem() == FragmentInfo.FriendsFragment) {
                 Intent startFriendPickerActivity = new Intent(this, FriendPickerActivity.class);
                 startActivity(startFriendPickerActivity);
             }
 
-            //Checks to see if we are on the correct fragment
-            else if(mViewPager.getCurrentItem() == FragmentInfo.PartiesFragment) {
+            else if(mViewPager.getCurrentItem() == FragmentInfo.PartiesFragment ||
+                    mViewPager.getCurrentItem() == FragmentInfo.MapFragment) {
                 Intent startPartyCreateActivity = new Intent(this, PartyCreateActivity.class);
                 startActivity(startPartyCreateActivity);
             }
@@ -140,14 +131,14 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, switch to the corresponding page in
-        // the ViewPager.
+        TabObserver.notifyTabSelected(tab.getPosition());
+
         mViewPager.setCurrentItem(tab.getPosition());
         if(tab.getPosition() == FragmentInfo.FriendsFragment){
             updateFriendsList();
         }
         if(tab.getPosition() == FragmentInfo.PartiesFragment){
-            updatePartiesList();
+            TransactionManager.getParties();
         }
     }
 
@@ -158,11 +149,14 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
+        TabObserver.notifyTabReselected(tab.getPosition());
+
         if(tab.getPosition() == FragmentInfo.FriendsFragment){
             updateFriendsList();
         }
-        if(tab.getPosition() == FragmentInfo.PartiesFragment){
-            updatePartiesList();
+        if(tab.getPosition() == FragmentInfo.PartiesFragment ||
+                tab.getPosition() == FragmentInfo.MapFragment){
+            TransactionManager.getParties();
         }
     }
 
@@ -170,21 +164,12 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     public void onResume(){
         super.onResume();
         updateFriendsList();
-        updatePartiesList();
     }
 
     public void updateFriendsList(){
         MainFriendsFragment fragment = (MainFriendsFragment)getFragmentAt(FragmentInfo.FriendsFragment);
         if (fragment != null)
             fragment.refreshFriendsList();
-    }
-
-    public void updatePartiesList(){
-        //TODO: Get this to work(refresh parties when clicking tab)
-        //TransactionManager.getParties();
-        MainPartiesFragment fragment = (MainPartiesFragment)getFragmentAt(FragmentInfo.PartiesFragment);
-        if (fragment != null)
-            fragment.refreshPartiesList();
     }
 
     public Fragment getFragmentAt(int position){
@@ -200,6 +185,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     private static String makeFragmentName(int viewId, int position) {
         return "android:switcher:" + viewId + ":" + position;
     }
+
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         public SectionsPagerAdapter(FragmentManager fm) {

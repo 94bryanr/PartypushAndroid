@@ -2,7 +2,6 @@ package csu.bryanreilly.partypush.Utilities;
 
 import android.location.Address;
 import android.location.Geocoder;
-import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;
 
@@ -10,7 +9,7 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import csu.bryanreilly.partypush.UserData.LocationManager;
+import csu.bryanreilly.partypush.UserData.Location.LocationManager;
 
 public class LocationGeocoder {
     Geocoder geocoder;

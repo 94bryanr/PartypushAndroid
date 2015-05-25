@@ -1,4 +1,4 @@
-package csu.bryanreilly.partypush.UserData;
+package csu.bryanreilly.partypush.UserData.Location;
 
 import android.content.Context;
 import android.location.Location;
@@ -14,7 +14,7 @@ import com.google.android.gms.maps.model.LatLng;
 import csu.bryanreilly.partypush.Utilities.ContextGetter;
 
 public class LocationManager implements LocationListener, GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener, android.location.LocationListener {
+        GoogleApiClient.OnConnectionFailedListener, android.location.LocationListener{
     private static LocationManager locationManager;
     private Location mCurrentLocation;
     private GoogleApiClient mGoogleApiClient;
@@ -60,6 +60,7 @@ public class LocationManager implements LocationListener, GoogleApiClient.Connec
         createLocationRequest();
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
                 mLocationRequest, this);
+        LocationObserver.notifyLocationConnected();
     }
 
     private void createLocationRequest(){
@@ -80,8 +81,7 @@ public class LocationManager implements LocationListener, GoogleApiClient.Connec
     @Override
     public void onLocationChanged(Location location) {
         mCurrentLocation = location;
-        //TODO: Update map marker
-        //TODO: Also update map when location is first found
+        LocationObserver.notifyChangedLocation(location);
     }
 
     @Override

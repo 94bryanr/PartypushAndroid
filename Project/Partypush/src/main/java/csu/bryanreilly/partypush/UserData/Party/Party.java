@@ -1,4 +1,4 @@
-package csu.bryanreilly.partypush.UserData;
+package csu.bryanreilly.partypush.UserData.Party;
 
 import com.google.android.gms.maps.model.LatLng;
 

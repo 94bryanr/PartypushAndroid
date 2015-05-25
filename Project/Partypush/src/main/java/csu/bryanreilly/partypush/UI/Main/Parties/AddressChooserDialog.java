@@ -14,7 +14,7 @@ import java.util.List;
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.UI.UIManager;
 import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.Party;
+import csu.bryanreilly.partypush.UserData.Party.Party;
 
 public class AddressChooserDialog extends DialogFragment {
     public static String ADDRESS_LIST_TAG = "Addresses";
@@ -62,6 +62,7 @@ public class AddressChooserDialog extends DialogFragment {
 
     private void addParty(Party party){
         TransactionManager.addParty(party);
+        TransactionManager.getParties();
         UIManager.returnToMain(getActivity());
     }
 }

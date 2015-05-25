@@ -2,7 +2,7 @@ package csu.bryanreilly.partypush.Utilities;
 
 import android.content.Context;
 
-import csu.bryanreilly.partypush.UserData.LocationManager;
+import csu.bryanreilly.partypush.UserData.Location.LocationManager;
 
 public class SingletonStarter {
 

@@ -4,7 +4,7 @@ import android.util.Log;
 import csu.bryanreilly.partypush.Network.AmazonDDB.AppendDatabaseItem;
 import csu.bryanreilly.partypush.Network.AmazonDDB.PutDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
-import csu.bryanreilly.partypush.UserData.Party;
+import csu.bryanreilly.partypush.UserData.Party.Party;
 
 public class AddParty {
     public static void run(Party party) {
