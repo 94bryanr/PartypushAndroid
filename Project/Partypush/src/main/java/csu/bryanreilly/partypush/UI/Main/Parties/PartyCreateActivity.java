@@ -1,52 +1,76 @@
 package csu.bryanreilly.partypush.UI.Main.Parties;
 
+import android.location.Address;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
-import csu.bryanreilly.partypush.Network.TransactionManager;
+import java.util.List;
+
 import csu.bryanreilly.partypush.R;
-import csu.bryanreilly.partypush.UI.UIManager;
-import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.LocationManager;
-import csu.bryanreilly.partypush.UserData.Party;
+import csu.bryanreilly.partypush.Utilities.ErrorDialog;
 import csu.bryanreilly.partypush.Utilities.LocationGeocoder;
 
 public class PartyCreateActivity extends FragmentActivity {
+    EditText descriptionBox;
+    EditText locationBox;
+    LocationGeocoder locationGeocoder;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_party_create);
+        descriptionBox = (EditText)findViewById(R.id.editTextDescription);
+        locationBox = (EditText)findViewById(R.id.editTextLocation);
     }
 
     public void createClicked(View view){
-        EditText descriptionBox = (EditText)findViewById(R.id.editTextDescription);
-        EditText locationBox = (EditText)findViewById(R.id.editTextLocation);
-
         String description = descriptionBox.getText().toString().trim();
         String location = locationBox.getText().toString().trim();
 
-        if(description.equals("") || location.equals("")){
-            //Do nothing if the user entered no strings
-            return;
+        if (entriesLongEnough(description, location) && locationIsValid(location)){
+            List<Address> addresses = locationGeocoder.getMatchedAddresses();
+            addBestLocation(addresses, description, location);
         }
+    }
 
-        LocationGeocoder locationGeocoder = new LocationGeocoder(location,
-                LocationManager.getInstance().getCurrentLocation());
+    private boolean entriesLongEnough(String description, String location){
+        int minimumTextLength = 5;
 
-        if(locationGeocoder.foundMatch()){
-            //TODO: If more than one match show the user the top 5 matches
-            Party party = new Party(description, location,
-                    AccountManager.getId(), locationGeocoder.getMatch());
-            TransactionManager.addParty(party);
-            UIManager.returnToMain(this);
+        if(description.length() < minimumTextLength || location.length() < minimumTextLength){
+            showError("Entries must be at least " + minimumTextLength + " characters in length.");
+            return false;
         }
-        else{
-            //No match found
-            locationBox.setText("invalid");
-            //TODO: What happens when no match is found?
+        return true;
+    }
+
+    private boolean locationIsValid(String location){
+        locationGeocoder = new LocationGeocoder(location);
+
+        if(!locationGeocoder.foundMatch()) {
+            showError("Invalid location. Try including State, City, and Street Address.");
+            return false;
         }
+        return true;
+    }
+
+    private void addBestLocation(List<Address> addresses, String location, String description){
+        // Show user top locations
+        AddressChooserDialog chooserDialog = new AddressChooserDialog();
+        Bundle args = new Bundle();
+        args.putParcelable(chooserDialog.ADDRESS_LIST_TAG, new ParceableAddressList(addresses));
+        args.putString(chooserDialog.LOCATION_TAG, location);
+        args.putString(chooserDialog.DESCRIPTION_TAG, description);
+        chooserDialog.setArguments(args);
+        chooserDialog.show(getFragmentManager(), "addressChooserDialog");
+    }
+
+    private void showError(String errorMessage){
+        ErrorDialog errorDialog = new ErrorDialog();
+        Bundle args = new Bundle();
+        args.putString(ErrorDialog.ERROR_MESSAGE_KEY, errorMessage);
+        errorDialog.setArguments(args);
+        errorDialog.show(getFragmentManager(), "invalidPartyDialog");
     }
 }

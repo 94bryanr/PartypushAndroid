@@ -11,8 +11,10 @@
     <string name="empty_friends_list">Click + To Add Friends</string>
     <string name="empty_parties_list">Click + To Add Parties</string>
     <string name="facebook_app_id">1526513900949429</string>
-    <string name="add_friend_description">Description</string>
-    <string name="add_location_description">Location</string>
+    <string name="add_party_description_hint">What kind of get together is this?</string>
+    <string name="add_party_failed_description_hint">Invalid Location, Try Again</string>
+    <string name="add_party_location_hint">Where are we going?</string>
+    <string name="default_error_message_button">Got It!</string>
     <string name="amazon_cognito_account_id">944513736710</string>
     <string name="amazon_cognito_identity_pool_id">us-east-1:bb025c43-3e0a-443c-8af0-b4304394a441</string>
     <string name="amazon_cognito_unauthenticated_role_arn">YOUR UNAUTHENTICATED ARN HERE</string>
