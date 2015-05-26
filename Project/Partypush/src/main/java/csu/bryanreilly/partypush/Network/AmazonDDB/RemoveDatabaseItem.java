@@ -10,6 +10,7 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
     private String field;
     private String value;
     private String keyID;
+    private String userID;
     private boolean isComplete;
 
     public RemoveDatabaseItem(String tableName, String field, String value, String keyID){
@@ -17,6 +18,15 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
         this.field = field;
         this.value = value;
         this.keyID = keyID;
+        this.userID = AccountManager.getId();
+        isComplete = false;
+    }
+    public RemoveDatabaseItem(String tableName, String field, String value, String keyID, String userID){
+        this.tableName = tableName;
+        this.field = field;
+        this.value = value;
+        this.keyID = keyID;
+        this.userID = userID;
         isComplete = false;
     }
 
@@ -25,7 +35,7 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
         //Get data that already exists in the field
         String current = "";
         try {
-            GetDatabaseItem currentFieldRetriever = new GetDatabaseItem(AccountManager.getId(), tableName, keyID);
+            GetDatabaseItem currentFieldRetriever = new GetDatabaseItem(userID, tableName, keyID);
             currentFieldRetriever.startTransaction();
             while(!currentFieldRetriever.isComplete()){
                 //Wait for sever answer
