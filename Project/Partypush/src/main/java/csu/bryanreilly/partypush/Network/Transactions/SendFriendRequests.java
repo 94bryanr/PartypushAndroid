@@ -1,5 +1,7 @@
 package csu.bryanreilly.partypush.Network.Transactions;
 
+import android.util.Log;
+
 import java.util.ArrayList;
 
 import csu.bryanreilly.partypush.Network.AmazonDDB.AppendDatabaseItem;
@@ -11,7 +13,12 @@ import csu.bryanreilly.partypush.UserData.Friend;
 public class SendFriendRequests {
     public static void run(ArrayList<Friend> friends){
         for(Friend friend : friends){
-            // Append all friends to users list
+            if (alreadyAdded(friend)) {
+                Log.i("TransactionManager", "Friend Added Already!");
+                continue;
+            }
+
+            // Append all friend to users list
             String toAppend = friend.getId() + "_S,";
             AppendDatabaseItem appendUserDatabaseItem = new AppendDatabaseItem(
                     Constants.USER_DATABASE,
@@ -21,7 +28,7 @@ public class SendFriendRequests {
                     Constants.USER_DATABASE_ID);
             appendUserDatabaseItem.execute();
 
-            // Append user to all friends lists
+            // Append user to friends lists
             toAppend = AccountManager.getId() + "_R,";
             AppendDatabaseItem appendFriendDatabaseItem = new AppendDatabaseItem(
                     Constants.USER_DATABASE,
@@ -32,6 +39,16 @@ public class SendFriendRequests {
                     friend.getId());
             appendFriendDatabaseItem.execute();
         }
+
         TransactionManager.updateFriends();
+    }
+
+    private static boolean alreadyAdded(Friend friend) {
+        for (Friend previousFriend : AccountManager.getAddedFriends()) {
+            if (friend.getId() == previousFriend.getId()) {
+                return false;
+            }
+        }
+        return true;
     }
 }
