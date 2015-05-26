@@ -9,8 +9,8 @@ public class SingletonStarter {
     private static SingletonStarter singletonStarter;
 
     private SingletonStarter(Context context){
-        LocationManager.getInstance();
         ContextGetter.getInstance().setContext(context);
+        LocationManager.getInstance();
     }
 
     public static SingletonStarter getInstance(Context context){

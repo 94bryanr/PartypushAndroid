@@ -10,21 +10,25 @@ public class AppendDatabaseItem implements DatabaseTransaction {
     private String field;
     private String value;
     private String keyID;
-    private String userID = AccountManager.getId();
+    private String userID;
     private boolean isComplete;
     private boolean checkForDuplicates;
 
-    public AppendDatabaseItem(String tableName, String field, String value, boolean checkForDuplicates, String keyID){
+    public AppendDatabaseItem(String tableName, String field, String value,
+                              boolean checkForDuplicates, String keyID){
+        Log.i("TransactionManager", "Appending Database Item Constructor");
         this.tableName = tableName;
         this.field = field;
         this.value = value;
         isComplete = false;
         this.checkForDuplicates = checkForDuplicates;
         this.keyID = keyID;
+        this.userID = AccountManager.getId();
     }
 
     public AppendDatabaseItem(String tableName, String field, String value,
                               boolean checkForDuplicates, String keyID, String userID){
+        Log.i("TransactionManager", "Appending Database Item Constructor");
         this.tableName = tableName;
         this.field = field;
         this.value = value;
@@ -40,11 +44,13 @@ public class AppendDatabaseItem implements DatabaseTransaction {
         String current = "";
         try {
             GetDatabaseItem currentFieldRetriever = new GetDatabaseItem(userID, tableName, keyID);
+            Log.i("TransactionManager", "Appending Database Item");
             currentFieldRetriever.startTransaction();
             while(!currentFieldRetriever.isComplete()){
                 //Wait for sever answer
             }
             current = currentFieldRetriever.getResult().getItem().get(field).getS();
+            Log.i("TransactionManager", "Append Current Field: " + current);
         }
         catch (NullPointerException e){
             //Field did not exist, it will be created
@@ -59,6 +65,7 @@ public class AppendDatabaseItem implements DatabaseTransaction {
                 PutDatabaseItem.putType.UPDATE, keyID, userID);
         itemUpdater.addField(field, appendedValue);
         itemUpdater.sendItem();
+        setComplete();
     }
 
     @Override

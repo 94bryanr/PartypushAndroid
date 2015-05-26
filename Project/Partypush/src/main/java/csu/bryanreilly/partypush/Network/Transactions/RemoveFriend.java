@@ -34,7 +34,6 @@ public class RemoveFriend {
                 toRemove + ",",
                 Constants.USER_DATABASE_ID,
                 id);
-        Log.i("TransactionManager, Removing: " + id + " From: " + toRemove);
         removeFriend.execute();
     }
 }

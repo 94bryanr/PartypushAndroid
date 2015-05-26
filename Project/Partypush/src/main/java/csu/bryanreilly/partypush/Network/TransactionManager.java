@@ -6,6 +6,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import csu.bryanreilly.partypush.Network.Transactions.AcceptFriendRequest;
 import csu.bryanreilly.partypush.Network.Transactions.SendFriendRequests;
 import csu.bryanreilly.partypush.Network.Transactions.AddParty;
 import csu.bryanreilly.partypush.Network.Transactions.GetFacebookFriendsWithApp;
@@ -48,6 +49,7 @@ public class TransactionManager {
 
     public static void acceptFriendRequest(Friend friend){
         Log.i("TransactionManager", "Accept Request " + friend.getName());
+        AcceptFriendRequest request = new AcceptFriendRequest(friend);
     }
 
     public static void declineFriendRequest(Friend friend){

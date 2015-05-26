@@ -11,7 +11,6 @@ public class LoginActivity extends FragmentActivity {
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        SingletonStarter.getInstance(getApplicationContext());
         setContentView(R.layout.activity_login);
     }
 

@@ -14,7 +14,7 @@ public class SendFriendRequests {
     public static void run(ArrayList<Friend> friends){
         for(Friend friend : friends){
             if (alreadyAdded(friend)) {
-                Log.i("TransactionManager", "Friend Added Already!");
+                Log.i("TransactionManager", "Friend " + friend.getName() + " Added Already!");
                 continue;
             }
 
@@ -46,9 +46,9 @@ public class SendFriendRequests {
     private static boolean alreadyAdded(Friend friend) {
         for (Friend previousFriend : AccountManager.getAddedFriends()) {
             if (friend.getId() == previousFriend.getId()) {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }

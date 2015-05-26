@@ -1,11 +1,9 @@
 package csu.bryanreilly.partypush.Network.AmazonDDB;
 
 import android.util.Log;
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 
 public class RemoveDatabaseItem implements DatabaseTransaction {
-    private AmazonDynamoDBClient client;
     private String tableName;
     private String field;
     private String value;
@@ -21,9 +19,11 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
         this.userID = AccountManager.getId();
         isComplete = false;
     }
+
     public RemoveDatabaseItem(String tableName, String field, String value, String keyID, String userID){
         this.tableName = tableName;
         this.field = field;
+        Log.i("TransactionManager", "Constructor Value To Remove: " + value);
         this.value = value;
         this.keyID = keyID;
         this.userID = userID;
@@ -41,19 +41,19 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
                 //Wait for sever answer
             }
             current = currentFieldRetriever.getResult().getItem().get(field).getS();
-            Log.i("Removing", value);
-            Log.i("Removing From", current);
+            Log.i("TransactionManager", "Removing: " + value);
+            Log.i("TransactionManager", "Removing From: " + current);
         }
         catch (NullPointerException e){
             //Field did not exist, it will be created
-            Log.i("Database Remove", "Field did not exist, stopping");
+            Log.i("TransactionManager", "Field did not exist, stopping");
             setComplete();
             return;
         }
 
         //Remove value, then use put to update
         String removedValue = removeValue(current, value);
-        Log.i("Value After Remove", removedValue);
+        Log.i("TransactionManager", "Value After Remove: " + removedValue);
         // Set remove value to "EMPTY," instead of an empty string
         // because database will not update the field if the update
         // value is empty
@@ -61,9 +61,10 @@ public class RemoveDatabaseItem implements DatabaseTransaction {
             removedValue = "EMPTY,";
         }
 
-        PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE, keyID);
+        PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE, keyID, userID);
         itemUpdater.addField(field, removedValue);
         itemUpdater.sendItem();
+        setComplete();
     }
 
     private String removeValue(String baseString, String toRemove){
