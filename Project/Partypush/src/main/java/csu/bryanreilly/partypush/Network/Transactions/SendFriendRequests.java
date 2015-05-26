@@ -18,7 +18,7 @@ public class SendFriendRequests {
                 continue;
             }
 
-            // Append all friend to users list
+            // Append friend to users list
             String toAppend = friend.getId() + "_S,";
             AppendDatabaseItem appendUserDatabaseItem = new AppendDatabaseItem(
                     Constants.USER_DATABASE,
