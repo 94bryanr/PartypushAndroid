@@ -2,6 +2,7 @@ package csu.bryanreilly.partypush.UI.Main.Map;
 
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -17,6 +18,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
+import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 import csu.bryanreilly.partypush.UserData.Location.LocationCallback;
@@ -53,6 +55,7 @@ public class MainMapFragment extends SupportMapFragment implements OnMapReadyCal
     public void onMapReady(GoogleMap map) {
         this.map = map;
         map.getUiSettings().setRotateGesturesEnabled(false);
+        TransactionManager.getParties();
 
         centerCamera();
         updateLocationMarker(LocationManager.getInstance().getCurrentLocation());
@@ -90,11 +93,14 @@ public class MainMapFragment extends SupportMapFragment implements OnMapReadyCal
     public void refreshPartyIcons(){
         if(map == null)
             return;
+        Log.i("TransactionManager", "Party Icons: Updating Party Icons");
         // Remove old markers to avoid duplicates
         for(Marker marker: partyMarkers){
             marker.remove();
         }
+        Log.i("TransactionManager", "Party Icons: Old Icons Removed");
         for (Party party : AccountManager.getParties()) {
+            Log.i("TransactionManager", "Party Icons: Adding Party");
             Marker marker = map.addMarker(new MarkerOptions()
                     .position(party.getLocation())
                     .title(party.getDescription())

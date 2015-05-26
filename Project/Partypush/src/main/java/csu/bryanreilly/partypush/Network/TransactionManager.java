@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
 
 import csu.bryanreilly.partypush.Network.Transactions.AcceptFriendRequest;
 import csu.bryanreilly.partypush.Network.Transactions.SendFriendRequests;
@@ -14,7 +15,7 @@ import csu.bryanreilly.partypush.Network.Transactions.GetParties;
 import csu.bryanreilly.partypush.Network.Transactions.RemoveFriend;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateFriends;
 import csu.bryanreilly.partypush.Network.Transactions.UpdateUserInfo;
-import csu.bryanreilly.partypush.UserData.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.Friend;
 import csu.bryanreilly.partypush.UserData.Party.Party;
 
 public class TransactionManager {
@@ -35,6 +36,7 @@ public class TransactionManager {
     }
 
     public static void updateFriends(){
+        // TODO: Run this in a new thread
         UpdateFriends.run();
     }
 

@@ -3,12 +3,10 @@ package csu.bryanreilly.partypush.UI;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.UiLifecycleHelper;
 import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.Utilities.ContextGetter;
 import csu.bryanreilly.partypush.Utilities.SingletonStarter;
 
 public class FacebookFragment extends Fragment{

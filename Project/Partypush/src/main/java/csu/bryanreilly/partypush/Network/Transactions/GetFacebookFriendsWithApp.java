@@ -1,7 +1,5 @@
 package csu.bryanreilly.partypush.Network.Transactions;
 
-import android.util.Log;
-
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -13,7 +11,7 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.Friend;
 
 public class GetFacebookFriendsWithApp {
 

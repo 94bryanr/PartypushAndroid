@@ -23,12 +23,15 @@ public class LoginFragment extends FacebookFragment {
         authButton.setFragment(this);
         authButton.setReadPermissions(Arrays.asList("user_friends"));
 
-        //Animation for the logo at the start of the app
+        animateLogo(rootView);
+
+        return rootView;
+    }
+
+    private void animateLogo(View rootView){
         ImageView title = (ImageView) rootView.findViewById(R.id.title);
         title.animate().translationY(50.5f);
         title.animate().setDuration(2000);
         title.animate().start();
-
-        return rootView;
     }
 }

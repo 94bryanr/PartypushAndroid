@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.Friend;
 import csu.bryanreilly.partypush.Utilities.ContextGetter;
 
 //Custom list adapter for regular friend list

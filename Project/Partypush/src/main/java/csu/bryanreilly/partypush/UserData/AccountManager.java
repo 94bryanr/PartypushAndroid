@@ -14,6 +14,8 @@ import com.facebook.model.GraphUser;
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.UIManager;
+import csu.bryanreilly.partypush.UserData.Friend.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.FriendObserver;
 import csu.bryanreilly.partypush.UserData.Party.Party;
 import csu.bryanreilly.partypush.UserData.Party.PartyObserver;
 import csu.bryanreilly.partypush.Utilities.ResourceGetter;
@@ -41,6 +43,7 @@ public class AccountManager {
         initializeAccountData();
         initializeDatabaseClient(callingActivity);
         updateAccountInfoWithFacebookInfo(callingSession, callingActivity);
+        TransactionManager.updateFriends();
         UIManager.returnToMain(callingActivity);
     }
 
@@ -105,8 +108,7 @@ public class AccountManager {
 
     public static void setAddedFriends(ArrayList<Friend> addedFriends) {
         AccountManager.addedFriends = addedFriends;
-        // Parties need to be updated after updating friends list
-        TransactionManager.getParties();
+        FriendObserver.notifyFriendsChanged();
     }
 
     public static ArrayList<Friend> getAddedFriends(){return addedFriends;}

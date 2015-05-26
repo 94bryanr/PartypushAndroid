@@ -22,6 +22,7 @@ public class GetDatabaseItem implements DatabaseTransaction {
         this.client = (AmazonDynamoDBClient) AccountManager.getDatabaseProvider();
         this.tableName = tableName;
         this.hashName = hashName;
+        Log.i("TransactionManager", "ID: " + id + " TableName: " + tableName + " HashName: " + hashName);
         key.put(hashName, new AttributeValue().withS(id.trim()));
     }
 

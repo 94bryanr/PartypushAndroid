@@ -19,7 +19,7 @@ import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.Main.FragmentInfo;
 import csu.bryanreilly.partypush.UI.UIManager;
 import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.Friend;
 
 public class FriendPickerActivity extends FragmentActivity {
     ArrayList<Friend> selectedFriends = new ArrayList<Friend>();

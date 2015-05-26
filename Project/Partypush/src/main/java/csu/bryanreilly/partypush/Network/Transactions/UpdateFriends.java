@@ -7,41 +7,44 @@ import java.util.ArrayList;
 import csu.bryanreilly.partypush.Network.AmazonDDB.GetDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.Friend;
 
 public class UpdateFriends {
     public static void run(){
-        GetDatabaseItem friends = new GetDatabaseItem(AccountManager.getId(),
-                Constants.USER_DATABASE, Constants.USER_DATABASE_ID);
-        String result = "";
+        if(nullData())
+            return;
 
-        // Get list of friends
+        GetDatabaseItem getFriends = new GetDatabaseItem(AccountManager.getId(),
+                Constants.USER_DATABASE, Constants.USER_DATABASE_ID);
+
+        String result = getFriendList(getFriends);
+        String[] friendIDList = result.split(",");
+
+        ArrayList<Friend> friendsList = getFriendsList(friendIDList);
+        AccountManager.setAddedFriends(friendsList);
+    }
+
+    private static boolean nullData(){
+        return AccountManager.getId() == null;
+    }
+
+    private static String getFriendList(GetDatabaseItem getFriends){
+        String result = "";
         try {
-            friends.startTransaction();
-            while (!friends.isComplete()) {
+            getFriends.startTransaction();
+            while (!getFriends.isComplete()) {
                 //Wait
             }
-            result = friends.getResult().getItem().get(Constants.USER_DATABASE_FRIENDS).getS();
+            result = getFriends.getResult().getItem().get(Constants.USER_DATABASE_FRIENDS).getS();
             Log.i("TransactionManager", result);
         }
         catch (NullPointerException e){
             // No Friends
         }
-        String[] friendIDList = result.split(",");
-
-        ArrayList<Friend> friendsList = getFriendObjects(friendIDList);
-        AccountManager.setAddedFriends(friendsList);
+        return result;
     }
 
-    private static String removeFriendType(String friend){
-        String friendNoType = friend;
-        if(friend.endsWith("_S") || friend.endsWith("_R")){
-            friendNoType = friend.substring(0, friend.length()-2);
-        }
-        return friendNoType;
-    }
-
-    private static ArrayList<Friend> getFriendObjects(String[] friendIDList){
+    private static ArrayList<Friend> getFriendsList(String[] friendIDList){
         //Get info for each friend
         ArrayList<Friend> friendsList = new ArrayList<Friend>();
         for (String friendID : friendIDList){
@@ -63,5 +66,13 @@ public class UpdateFriends {
             }
         }
         return friendsList;
+    }
+
+    private static String removeFriendType(String friend){
+        String friendNoType = friend;
+        if(friend.endsWith("_S") || friend.endsWith("_R")){
+            friendNoType = friend.substring(0, friend.length()-2);
+        }
+        return friendNoType;
     }
 }

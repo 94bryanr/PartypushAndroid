@@ -36,6 +36,7 @@ public class PartyCreateActivity extends FragmentActivity {
     }
 
     private boolean entriesInRange(String description, String location){
+        // TODO: Will cause errors in locations next to equator, and vertical dividing line
         int minimumTextLength = 4;
         int maximumTextLength = 60;
 

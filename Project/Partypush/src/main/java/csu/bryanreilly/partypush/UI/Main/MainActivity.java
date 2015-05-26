@@ -13,14 +13,12 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.Main.Friends.FriendPickerActivity;
 import csu.bryanreilly.partypush.UI.Main.Friends.MainFriendsFragment;
-import csu.bryanreilly.partypush.UI.Main.MainTabCallback.TabObserver;
 import csu.bryanreilly.partypush.UI.Main.Map.MainMapFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.MainPartiesFragment;
 import csu.bryanreilly.partypush.UI.Main.Parties.PartyCreateActivity;
@@ -28,23 +26,8 @@ import csu.bryanreilly.partypush.UI.Settings.SettingsActivity;
 import csu.bryanreilly.partypush.Utilities.SingletonStarter;
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
-    /**
-     * The {@link android.support.v4.view.PagerAdapter} that will provide
-     * fragments for each of the sections. We use a
-     * {@link FragmentPagerAdapter} derivative, which will keep every
-     * loaded fragment in memory. If this becomes too memory intensive, it
-     * may be best to switch to a
-     * {@link android.support.v4.app.FragmentStatePagerAdapter}.
-     */
     SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     ViewPager mViewPager;
-
-    // Client for google play services
-    GoogleApiClient mGoogleApiClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,14 +114,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        TabObserver.notifyTabSelected(tab.getPosition());
-
         mViewPager.setCurrentItem(tab.getPosition());
         if(tab.getPosition() == FragmentInfo.FriendsFragment){
-            updateFriendsList();
-        }
-        if(tab.getPosition() == FragmentInfo.PartiesFragment){
-            TransactionManager.getParties();
+            // TODO: Make this run in a new thread so it isn't so slow
+            TransactionManager.updateFriends();
         }
     }
 
@@ -149,43 +128,11 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     @Override
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        TabObserver.notifyTabReselected(tab.getPosition());
-
-        if(tab.getPosition() == FragmentInfo.FriendsFragment){
-            updateFriendsList();
-        }
         if(tab.getPosition() == FragmentInfo.PartiesFragment ||
                 tab.getPosition() == FragmentInfo.MapFragment){
             TransactionManager.getParties();
         }
     }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        updateFriendsList();
-    }
-
-    public void updateFriendsList(){
-        MainFriendsFragment fragment = (MainFriendsFragment)getFragmentAt(FragmentInfo.FriendsFragment);
-        if (fragment != null)
-            fragment.refreshFriendsList();
-    }
-
-    public Fragment getFragmentAt(int position){
-        String name = makeFragmentName(mViewPager.getId(), position);
-        Fragment viewPagerFragment = getSupportFragmentManager().findFragmentByTag(name);
-        if(viewPagerFragment != null) {
-            return viewPagerFragment;
-        }
-        return null;
-    }
-
-    // Adds the auto-generated part of the fragment tab, for use in getFragmentAt()
-    private static String makeFragmentName(int viewId, int position) {
-        return "android:switcher:" + viewId + ":" + position;
-    }
-
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
         public SectionsPagerAdapter(FragmentManager fm) {
@@ -211,7 +158,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return FragmentInfo.Count;
         }
 

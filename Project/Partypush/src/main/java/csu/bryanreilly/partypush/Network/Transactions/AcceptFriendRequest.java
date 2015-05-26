@@ -4,7 +4,7 @@ import csu.bryanreilly.partypush.Network.AmazonDDB.AppendDatabaseItem;
 import csu.bryanreilly.partypush.Network.AmazonDDB.RemoveDatabaseItem;
 import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.Friend;
 
 public class AcceptFriendRequest {
     public AcceptFriendRequest(Friend friend){

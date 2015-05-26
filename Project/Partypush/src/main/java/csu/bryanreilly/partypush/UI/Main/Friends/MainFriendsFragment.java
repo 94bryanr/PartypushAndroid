@@ -18,12 +18,20 @@ import java.beans.PropertyChangeListener;
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.FacebookFragment;
-import csu.bryanreilly.partypush.UI.Main.MainActivity;
-import csu.bryanreilly.partypush.UserData.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.FriendCallback;
+import csu.bryanreilly.partypush.UserData.Friend.FriendObserver;
 
-public class MainFriendsFragment extends FacebookFragment implements PropertyChangeListener {
+public class MainFriendsFragment extends FacebookFragment implements PropertyChangeListener,
+        FriendCallback {
     FriendListAdapter listAdapter;
     ListView friendsList;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        FriendObserver.addCallback(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -63,7 +71,6 @@ public class MainFriendsFragment extends FacebookFragment implements PropertyCha
         if(friendsList != null) {
             friendsList.setAdapter(listAdapter);
         }
-        Log.i("Friends List", "List Adapter Updated");
     }
 
     @Override
@@ -73,15 +80,11 @@ public class MainFriendsFragment extends FacebookFragment implements PropertyCha
     }
 
     private void openFriendDialogBox(final Friend friend){
-        // 1. Instantiate an AlertDialog.Builder with its constructor
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
-        // 2. Chain together various setter methods to set the dialog characteristics
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener(){
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if(which == 0){
-                    //Delete was pressed
+                if(which == 0){  //Delete was pressed
                     Log.i("Deleted Friend", friend.getName());
                     Toast.makeText(
                             MainFriendsFragment.this.getActivity(),
@@ -89,9 +92,7 @@ public class MainFriendsFragment extends FacebookFragment implements PropertyCha
                             Toast.LENGTH_LONG)
                             .show();
                     TransactionManager.removeFriend(friend.getId());
-
-                    //Update friends list
-                    ((MainActivity)getActivity()).updateFriendsList();
+                    TransactionManager.updateFriends();
                 }
             }
         };
@@ -102,5 +103,11 @@ public class MainFriendsFragment extends FacebookFragment implements PropertyCha
         // 3. Get the AlertDialog from create()
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    @Override
+    public void friendsUpdated() {
+        Log.i("TransactionManager", "FriendsUpdated Callback");
+        refreshFriendsList();
     }
 }

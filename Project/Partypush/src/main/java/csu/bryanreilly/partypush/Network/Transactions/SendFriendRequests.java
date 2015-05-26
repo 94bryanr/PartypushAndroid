@@ -8,7 +8,7 @@ import csu.bryanreilly.partypush.Network.AmazonDDB.AppendDatabaseItem;
 import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UserData.AccountManager;
-import csu.bryanreilly.partypush.UserData.Friend;
+import csu.bryanreilly.partypush.UserData.Friend.Friend;
 
 public class SendFriendRequests {
     public static void run(ArrayList<Friend> friends){

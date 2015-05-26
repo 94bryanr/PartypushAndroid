@@ -1,4 +1,4 @@
-package csu.bryanreilly.partypush.UserData;
+package csu.bryanreilly.partypush.UserData.Friend;
 
 import android.util.Log;
 
