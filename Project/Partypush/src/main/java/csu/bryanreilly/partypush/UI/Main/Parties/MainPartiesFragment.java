@@ -3,21 +3,26 @@ package csu.bryanreilly.partypush.UI.Main.Parties;
 //Katie is awesome
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.FacebookFragment;
-import csu.bryanreilly.partypush.UI.Main.Friends.FriendListAdapter;
+import csu.bryanreilly.partypush.UserData.Party.PartyCallback;
+import csu.bryanreilly.partypush.UserData.Party.PartyObserver;
 
-public class MainPartiesFragment extends FacebookFragment {
+public class MainPartiesFragment extends FacebookFragment implements PartyCallback{
     PartyListAdapter listAdapter;
     ListView partyList;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        PartyObserver.addCallback(this);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,6 +50,10 @@ public class MainPartiesFragment extends FacebookFragment {
     public void refreshPartiesList(){
         listAdapter = new PartyListAdapter();
         partyList.setAdapter(listAdapter);
-        Log.i("Friends List", "List Adapter Updated");
+    }
+
+    @Override
+    public void partiesChanged() {
+        refreshPartiesList();
     }
 }

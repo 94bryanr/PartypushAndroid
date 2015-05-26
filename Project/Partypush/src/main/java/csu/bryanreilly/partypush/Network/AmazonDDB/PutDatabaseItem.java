@@ -19,6 +19,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
     private String tableName;
     private putType type;
     private String id;
+    private String userID = AccountManager.getId();
 
     //Create will erase the entry before writing, update will not
     public static enum putType{
@@ -33,6 +34,16 @@ public class PutDatabaseItem implements DatabaseTransaction {
         update = new HashMap<>();
         this.type = type;
         this.id = keyID;
+    }
+
+    public PutDatabaseItem(String tableName, putType type, String keyID, String userID){
+        this.client = (AmazonDynamoDBClient)AccountManager.getDatabaseProvider();
+        this.tableName = tableName;
+        item = new HashMap<>();
+        update = new HashMap<>();
+        this.type = type;
+        this.id = keyID;
+        this.userID = userID;
     }
 
     public void sendItem(){
@@ -61,7 +72,7 @@ public class PutDatabaseItem implements DatabaseTransaction {
                 break;
             case UPDATE:
                 Map<String, AttributeValue> key = new HashMap<>();
-                key.put(id, new AttributeValue().withS(AccountManager.getId()));
+                key.put(id, new AttributeValue().withS(userID));
                 UpdateItemRequest updateItemRequest = new UpdateItemRequest()
                         .withKey(key)
                         .withTableName(tableName)

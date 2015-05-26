@@ -79,7 +79,7 @@ public class FriendPickerActivity extends FragmentActivity {
         for(Friend friend: selectedFriends){
             Log.i("Adding Friend", friend.getName());
         }
-        TransactionManager.addFriends(selectedFriends);
+        TransactionManager.sendFriendRequests(selectedFriends);
         UIManager.returnToMain(this, FragmentInfo.FriendsFragment);
     }
 

@@ -2,13 +2,13 @@ package csu.bryanreilly.partypush.Utilities;
 
 import android.app.Activity;
 
-public class StringResourceGetter {
+public class ResourceGetter {
     private Activity getterActivity;
-    public StringResourceGetter(Activity activity){
+    public ResourceGetter(Activity activity){
         getterActivity = activity;
     }
 
-    public String get(int id){
+    public String getString(int id){
         return getterActivity.getString(id);
     }
 }

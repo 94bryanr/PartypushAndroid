@@ -69,8 +69,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="49dp"
-        android:background="@color/White"
-        android:textColor="@color/app_color"
+        android:textColor="@color/default_button_text"
         android:onClick="createClicked"
         android:paddingLeft="5dp"
         android:paddingRight="5dp" />

@@ -21,9 +21,9 @@ public class ErrorDialog extends DialogFragment {
         catch(NullPointerException e){
             errorMessage = "DEV ERROR! Set Error Message Using setArguments()!";
         }
-        StringResourceGetter res = new StringResourceGetter(getActivity());
+        ResourceGetter res = new ResourceGetter(getActivity());
         builder.setMessage(errorMessage)
-                .setPositiveButton(res.get(R.string.default_error_message_button), new DialogInterface.OnClickListener() {
+                .setPositiveButton(res.getString(R.string.default_error_message_button), new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // Do nothing, clicking the button will dismiss the dialog
                     }

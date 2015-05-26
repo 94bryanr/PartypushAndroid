@@ -88,6 +88,8 @@ public class MainMapFragment extends SupportMapFragment implements OnMapReadyCal
     }
 
     public void refreshPartyIcons(){
+        if(map == null)
+            return;
         // Remove old markers to avoid duplicates
         for(Marker marker: partyMarkers){
             marker.remove();

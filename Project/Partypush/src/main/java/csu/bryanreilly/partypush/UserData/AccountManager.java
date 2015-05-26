@@ -15,9 +15,8 @@ import csu.bryanreilly.partypush.Network.TransactionManager;
 import csu.bryanreilly.partypush.R;
 import csu.bryanreilly.partypush.UI.UIManager;
 import csu.bryanreilly.partypush.UserData.Party.Party;
-import csu.bryanreilly.partypush.UserData.Party.PartyCallback;
 import csu.bryanreilly.partypush.UserData.Party.PartyObserver;
-import csu.bryanreilly.partypush.Utilities.StringResourceGetter;
+import csu.bryanreilly.partypush.Utilities.ResourceGetter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,17 +51,17 @@ public class AccountManager {
     }
 
     private static void initializeDatabaseClient(Activity callingActivity){
-        StringResourceGetter res = new StringResourceGetter(callingActivity);
+        ResourceGetter res = new ResourceGetter(callingActivity);
         CognitoCachingCredentialsProvider cognitoProvider = new CognitoCachingCredentialsProvider(
                 callingActivity,
-                res.get(R.string.amazon_cognito_account_id),
-                res.get(R.string.amazon_cognito_identity_pool_id),
-                res.get(R.string.amazon_cognito_authenticated_role_arn),
-                res.get(R.string.amazon_cognito_authenticated_role_arn),
+                res.getString(R.string.amazon_cognito_account_id),
+                res.getString(R.string.amazon_cognito_identity_pool_id),
+                res.getString(R.string.amazon_cognito_authenticated_role_arn),
+                res.getString(R.string.amazon_cognito_authenticated_role_arn),
                 Regions.US_EAST_1
         );
         Map<String, String> logins = new HashMap<>();
-        logins.put(res.get(R.string.amazon_cognito_facebook_login_provider_name),
+        logins.put(res.getString(R.string.amazon_cognito_facebook_login_provider_name),
                 Session.getActiveSession().getAccessToken());
         cognitoProvider.withLogins(logins);
         amazonDatabaseClient = new AmazonDynamoDBClient(cognitoProvider);

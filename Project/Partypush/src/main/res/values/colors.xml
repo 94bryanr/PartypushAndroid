@@ -12,5 +12,9 @@
     <color name="app_color">#ff61b0ff</color>
     <color name="text_hint_color">#acffffff</color>
     <color name="list_background_color">#12000000</color>
+    <color name="yellow_text">#ffece55f</color>
+    <color name="green_text">#ffceffbf</color>
+    <color name="red_text">#ffffe1e3</color>
+    <color name="default_button_text">#ffffffff</color>
 
 </resources>

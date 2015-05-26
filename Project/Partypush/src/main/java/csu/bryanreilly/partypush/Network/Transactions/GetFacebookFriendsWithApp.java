@@ -1,5 +1,7 @@
 package csu.bryanreilly.partypush.Network.Transactions;
 
+import android.util.Log;
+
 import com.facebook.HttpMethod;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -13,12 +15,11 @@ import java.util.ArrayList;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 import csu.bryanreilly.partypush.UserData.Friend;
 
-public class GetFriendsWithApp{
+public class GetFacebookFriendsWithApp {
 
     public static void run(){
         final ArrayList<Friend> friends = new ArrayList<Friend>();
 
-        /* make the API call */
         new Request(
                 Session.getActiveSession(),
                 "/me/friends",
@@ -30,9 +31,10 @@ public class GetFriendsWithApp{
                         try {
                             JSONArray friendArray = response.getGraphObject().getInnerJSONObject().getJSONArray("data");
                             for (int friendIndex = 0; friendIndex < friendArray.length(); friendIndex++){
-                                Friend currentFriend = new Friend(
-                                        friendArray.getJSONObject(friendIndex).getString("name"),
-                                        friendArray.getJSONObject(friendIndex).getString("id"));
+                                String name = friendArray.getJSONObject(friendIndex).getString("name");
+                                String fullID = friendArray.getJSONObject(friendIndex).getString("id");
+
+                                Friend currentFriend = new Friend(name, fullID);
                                 friends.add(currentFriend);
 
                             }

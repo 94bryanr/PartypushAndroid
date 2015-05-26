@@ -66,7 +66,7 @@ public class GetParties extends AsyncTask<Void, Void, ArrayList<Party>> {
             Log.i("GDI", "Getting Party Info " + partyID);
             getParty.startTransaction();
             while(!getParty.isComplete()){
-                // Wait for database to get information
+                // Wait for database to getString information
             }
 
             String partyLocation = getParty.getResult().getItem().get(Constants.PARTY_DATABASE_LOCATION).getS();

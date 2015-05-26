@@ -10,6 +10,7 @@ public class AppendDatabaseItem implements DatabaseTransaction {
     private String field;
     private String value;
     private String keyID;
+    private String userID = AccountManager.getId();
     private boolean isComplete;
     private boolean checkForDuplicates;
 
@@ -22,31 +23,40 @@ public class AppendDatabaseItem implements DatabaseTransaction {
         this.keyID = keyID;
     }
 
+    public AppendDatabaseItem(String tableName, String field, String value,
+                              boolean checkForDuplicates, String keyID, String userID){
+        this.tableName = tableName;
+        this.field = field;
+        this.value = value;
+        isComplete = false;
+        this.checkForDuplicates = checkForDuplicates;
+        this.keyID = keyID;
+        this.userID = userID;
+    }
+
     @Override
     public void execute() {
         //Get data that already exists in the field
         String current = "";
         try {
-            GetDatabaseItem currentFieldRetriever = new GetDatabaseItem(AccountManager.getId(), tableName, keyID);
+            GetDatabaseItem currentFieldRetriever = new GetDatabaseItem(userID, tableName, keyID);
             currentFieldRetriever.startTransaction();
             while(!currentFieldRetriever.isComplete()){
                 //Wait for sever answer
             }
             current = currentFieldRetriever.getResult().getItem().get(field).getS();
-            Log.i("Appending To", current);
         }
         catch (NullPointerException e){
             //Field did not exist, it will be created
-            Log.i("Append", "Field did not exist, creating field.");
         }
 
         //Add value, then use put to update
         String appendedValue = current + value;
         if(checkForDuplicates)
             appendedValue = appendWithoutDuplicate(current, value);
-        Log.i("After Append", appendedValue);
 
-        PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName, PutDatabaseItem.putType.UPDATE, keyID);
+        PutDatabaseItem itemUpdater = new PutDatabaseItem(tableName,
+                PutDatabaseItem.putType.UPDATE, keyID, userID);
         itemUpdater.addField(field, appendedValue);
         itemUpdater.sendItem();
     }

@@ -18,8 +18,42 @@
             android:layout_centerVertical="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="@dimen/list_horizontal_margin"
+            android:layout_marginLeft="@dimen/list_text_horizontal_padding"
             android:textColor="@color/White"
             android:textSize="@dimen/list_text_size" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Status"
+            android:id="@+id/statusTextView"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/list_text_horizontal_padding"
+            android:textSize="@dimen/list_text_size"
+            android:textColor="@color/White" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/accept_button"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/decline_button"
+            android:text="Accept"
+            android:textColor="@color/green_text" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Decline"
+            android:id="@+id/decline_button"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/statusTextView"
+            android:layout_toStartOf="@+id/statusTextView"
+            android:textColor="@color/red_text" />
     </RelativeLayout>
 </LinearLayout>
