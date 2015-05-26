@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.google.android.gms.maps.SupportMapFragment;
@@ -115,10 +116,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
         mViewPager.setCurrentItem(tab.getPosition());
-        if(tab.getPosition() == FragmentInfo.FriendsFragment){
-            // TODO: Make this run in a new thread so it isn't so slow
-            TransactionManager.updateFriends();
-        }
     }
 
     @Override
@@ -131,6 +128,10 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         if(tab.getPosition() == FragmentInfo.PartiesFragment ||
                 tab.getPosition() == FragmentInfo.MapFragment){
             TransactionManager.getParties();
+        }
+        if(tab.getPosition() == FragmentInfo.FriendsFragment){
+            Log.i("TransactionManager", "Friends Tab Reselected");
+            TransactionManager.updateFriends();
         }
     }
 

@@ -36,8 +36,8 @@ public class TransactionManager {
     }
 
     public static void updateFriends(){
-        // TODO: Run this in a new thread
-        UpdateFriends.run();
+        Log.i("TransactionManager", "Executing Update Friends");
+        new UpdateFriends().executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
     }
 
     public static void removeFriend(String id){

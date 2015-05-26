@@ -1,5 +1,7 @@
 package csu.bryanreilly.partypush.Network.Transactions;
 
+import android.os.AsyncTask;
+import android.os.CountDownTimer;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -9,10 +11,12 @@ import csu.bryanreilly.partypush.Program.Constants;
 import csu.bryanreilly.partypush.UserData.AccountManager;
 import csu.bryanreilly.partypush.UserData.Friend.Friend;
 
-public class UpdateFriends {
-    public static void run(){
+public class UpdateFriends extends AsyncTask<Void, Void, ArrayList<Friend>> {
+    public static ArrayList<Friend> run(){
+        Log.i("TransactionManager", "Running Update Friends");
         if(nullData())
-            return;
+            return null;
+        Log.i("TransactionManager", "Passed Boolean Tests");
 
         GetDatabaseItem getFriends = new GetDatabaseItem(AccountManager.getId(),
                 Constants.USER_DATABASE, Constants.USER_DATABASE_ID);
@@ -21,7 +25,7 @@ public class UpdateFriends {
         String[] friendIDList = result.split(",");
 
         ArrayList<Friend> friendsList = getFriendsList(friendIDList);
-        AccountManager.setAddedFriends(friendsList);
+        return friendsList;
     }
 
     private static boolean nullData(){
@@ -74,5 +78,18 @@ public class UpdateFriends {
             friendNoType = friend.substring(0, friend.length()-2);
         }
         return friendNoType;
+    }
+
+    @Override
+    protected ArrayList<Friend> doInBackground(Void... params) {
+        Log.i("TransactionManager", "Running Do In Background");
+        return run();
+    }
+
+    @Override
+    protected void onPostExecute(ArrayList<Friend> friendsList) {
+        super.onPostExecute(friendsList);
+        Log.i("TransactionManager", "Setting New Friends List");
+        AccountManager.setAddedFriends(friendsList);
     }
 }

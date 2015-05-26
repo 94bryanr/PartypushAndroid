@@ -107,13 +107,18 @@ public class AccountManager {
     public static ArrayList<Party> getParties() {return parties;}
 
     public static void setAddedFriends(ArrayList<Friend> addedFriends) {
-        AccountManager.addedFriends = addedFriends;
-        FriendObserver.notifyFriendsChanged();
+        if (addedFriends != null) {
+            AccountManager.addedFriends = addedFriends;
+            FriendObserver.notifyFriendsChanged();
+        }
     }
 
     public static ArrayList<Friend> getAddedFriends(){return addedFriends;}
 
-    public static void setFriendsWithApp(ArrayList<Friend> friends){friendsWithApp = friends;}
+    public static void setFriendsWithApp(ArrayList<Friend> friends){
+        if(friends != null)
+            friendsWithApp = friends;
+    }
 
     public static ArrayList<Friend> getFriendsWithApp(){return friendsWithApp;}
 
