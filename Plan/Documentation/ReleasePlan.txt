@@ -1,0 +1,6 @@
+Download All SDK Updates Using Update Manager
+Replace AmazonDB Debug Libraries With Real Libraries
+Get a GoogleMaps Release Key
+Set Facebook Developer Portal to Release Mode
+Generate APK
+Submit

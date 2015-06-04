@@ -21,5 +21,4 @@
     <string name="amazon_cognito_authenticated_role_arn">arn:aws:iam::944513736710:role/Cognito_PartypushAuth_DefaultRole</string>
     <string name="amazon_cognito_facebook_login_provider_name">graph.facebook.com</string>
 
-
 </resources>

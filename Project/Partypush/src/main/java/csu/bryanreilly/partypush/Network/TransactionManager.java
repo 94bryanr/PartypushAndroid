@@ -5,7 +5,6 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
 
 import csu.bryanreilly.partypush.Network.Transactions.AcceptFriendRequest;
 import csu.bryanreilly.partypush.Network.Transactions.SendFriendRequests;
